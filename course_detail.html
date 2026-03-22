@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Advanced Software Architecture — Skill School Elite</title>
+<meta name="description" content="Master enterprise-grade software architecture patterns, distributed systems, and scalable design principles with industry experts."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy":      "#1A1A37",
+          "navy-deep": "#0f0f24",
+          "orange":    "#FF7E31",
+          "secondary": "#5c5b7c",
+          "primary":   "#9e4200",
+          "primary-container": "#ff7e31",
+          "surface":   "#fcf9f8",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low":    "#f6f3f2",
+          "surface-container":        "#f0eded",
+          "surface-container-high":   "#eae7e7",
+          "outline-variant":          "#dfc0b2",
+          "on-surface":               "#1b1c1c",
+        },
+      },
+    },
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle; display: inline-block; line-height: 1;
+  }
+  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+  .kinetic-gradient { background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%); }
+  .navy-gradient    { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
+
+  /* Animations */
+  .soft-reveal {
+    opacity: 0; transform: translateY(24px);
+    animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes softReveal { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.06s; }
+  .delay-2 { animation-delay: 0.14s; }
+  .delay-3 { animation-delay: 0.22s; }
+  .delay-4 { animation-delay: 0.30s; }
+  .delay-5 { animation-delay: 0.38s; }
+  .delay-6 { animation-delay: 0.46s; }
+
+  /* Accordion */
+  .accordion-header { cursor: pointer; user-select: none; }
+  .accordion-body   { display: none; }
+  .accordion-item.open .accordion-body  { display: block; }
+  .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+  .accordion-chevron { transition: transform 280ms cubic-bezier(0.16,1,0.3,1); }
+
+  /* Sticky sidebar */
+  .sticky-sidebar { position: sticky; top: 100px; }
+
+  /* CTA hover */
+  .cta-btn {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 16px 40px -6px rgba(158,66,0,0.38); }
+  .cta-btn:active { transform: scale(0.97); }
+
+  /* Star rating */
+  .star-filled { color: #FBBF24; }
+  .star-empty  { color: #d1d5db; }
+
+  /* Learn item */
+  .learn-item { display: flex; align-items: flex-start; gap: 10px; }
+  .learn-check {
+    width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%;
+    background: #fff4eb; display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  /* Module row */
+  .module-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+  .module-row + .module-row { border-top: 1px solid rgba(223,192,178,0.2); }
+
+  /* Breadcrumb */
+  .breadcrumb a { text-decoration: none; color: #5c5b7c; }
+  .breadcrumb a:hover { color: #FF7E31; }
+  .breadcrumb span { color: #9ca3af; margin: 0 6px; }
+
+  /* Feature list row */
+  .feature-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0eded; font-size: 0.8rem; color: #374151; }
+  .feature-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body class="bg-surface-container-low">
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-12">
+      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
+      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+        <a class="text-orange-600 font-bold border-b-2 border-orange-500" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-6">
+      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO SECTION ═══ -->
+<section class="navy-gradient text-white pt-32 pb-20 px-6 relative overflow-hidden">
+  <!-- decorative -->
+  <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/8 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute -bottom-20 -left-10 w-80 h-80 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+  <div class="absolute inset-0 opacity-[0.04] pointer-events-none" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:30px 30px;"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb text-xs mb-6 flex items-center opacity-60">
+      <a href="index.html">Home</a><span>›</span>
+      <a href="courses_skill_school_elite.html">Courses</a><span>›</span>
+      <span class="text-white">Advanced Software Architecture</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Left: course info -->
+      <div class="lg:col-span-2 soft-reveal delay-1 space-y-6">
+        <div>
+          <span class="inline-block text-[10px] font-bold uppercase tracking-[0.15em] bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full mb-4">Development · Advanced</span>
+          <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-[1.05] mb-4">Advanced Software<br/>Architecture</h1>
+          <p class="text-white/75 text-lg leading-relaxed max-w-2xl">
+            Design systems that scale to millions. Master microservices, event-driven architecture, CQRS, domain-driven design, and cloud-native deployment patterns used at elite engineering organizations.
+          </p>
+        </div>
+
+        <!-- Rating & Meta row -->
+        <div class="flex flex-wrap items-center gap-6">
+          <div class="flex items-center gap-2">
+            <div class="flex">
+              <span class="material-symbols-outlined star-filled text-[18px]" style="font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined star-filled text-[18px]" style="font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined star-filled text-[18px]" style="font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined star-filled text-[18px]" style="font-variation-settings:'FILL' 1">star</span>
+              <span class="material-symbols-outlined star-filled text-[18px]" style="font-variation-settings:'FILL' 1">star_half</span>
+            </div>
+            <span class="text-orange-300 font-black text-sm">4.8</span>
+            <span class="text-white/50 text-xs">(3,241 ratings)</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-white/60 text-xs">
+            <span class="material-symbols-outlined text-[15px]">people</span>
+            <span>12,480 students enrolled</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-white/60 text-xs">
+            <span class="material-symbols-outlined text-[15px]">schedule</span>
+            <span>48 hours total · 24 modules</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-white/60 text-xs">
+            <span class="material-symbols-outlined text-[15px]">language</span>
+            <span>English · Subtitles available</span>
+          </div>
+        </div>
+
+        <!-- Instructor -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full kinetic-gradient flex items-center justify-center font-black text-white text-sm flex-shrink-0">DR</div>
+          <div>
+            <p class="text-xs text-white/50 uppercase tracking-widest font-semibold">Instructor</p>
+            <p class="text-sm font-bold text-white">Dr. Richard Vance</p>
+          </div>
+          <div class="hidden md:flex items-center gap-1.5 ml-4 text-white/50 text-xs">
+            <span class="material-symbols-outlined text-[14px]">verified</span>
+            <span>Ex-Google · Staff Engineer</span>
+          </div>
+        </div>
+
+        <!-- Mobile hero CTA -->
+        <div class="flex flex-wrap gap-4 lg:hidden">
+          <a href="course_player.html" class="cta-btn kinetic-gradient text-white px-8 py-4 rounded-xl text-sm font-black uppercase tracking-widest shadow-xl flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+            Enroll Now — Start Course
+          </a>
+          <div class="flex items-center gap-2 text-white/50 text-sm">
+            <span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+            <span>Certificate included</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right hero placeholder (desktop sidebar appears below) -->
+      <div class="hidden lg:block"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MAIN 2-COLUMN LAYOUT ═══ -->
+<div class="max-w-6xl mx-auto px-6 py-12">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+
+    <!-- ═══ LEFT COLUMN ═══ -->
+    <div class="lg:col-span-2 space-y-10">
+
+      <!-- What You'll Learn -->
+      <section class="soft-reveal delay-2 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <h2 class="text-xl font-black tracking-tight text-slate-900 mb-1">What You'll Learn</h2>
+        <div class="h-1 w-8 bg-orange-500 rounded-full mb-6"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Design scalable microservices with clear bounded contexts</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Implement CQRS and Event Sourcing from scratch</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Apply Domain-Driven Design to complex business domains</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Architect cloud-native systems on AWS, GCP &amp; Azure</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Design distributed caching, message queues &amp; data lakes</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Build resilient systems with circuit breakers &amp; bulkheads</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Conduct architecture reviews and lead design decisions</p>
+          </div>
+          <div class="learn-item">
+            <div class="learn-check"><span class="material-symbols-outlined text-orange-500 text-[14px]" style="font-variation-settings:'FILL' 1">check</span></div>
+            <p class="text-sm text-slate-700 leading-relaxed">Understand CAP theorem and distributed consensus protocols</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Course Description -->
+      <section class="soft-reveal delay-3 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <h2 class="text-xl font-black tracking-tight text-slate-900 mb-1">Course Description</h2>
+        <div class="h-1 w-8 bg-orange-500 rounded-full mb-6"></div>
+        <div class="space-y-4 text-sm text-slate-600 leading-[1.75]">
+          <p>This is not a beginner's guide to coding — this is an <strong class="text-slate-800">architect's playbook</strong>. Built for senior developers and engineering leads who need to design systems that serve millions of concurrent users without breaking under pressure.</p>
+          <p>We start from first principles: why does software complexity compound? How do you draw the right lines between services? When should you embrace eventual consistency, and when does it destroy your product? Through 24 deep-dive modules, you will answer these questions empirically — with code, real post-mortems, and architectural diagrams from production-grade systems.</p>
+          <p>Every module follows the <em>Analyze → Decide → Build → Harden</em> cadence. You will not merely watch theory — you will architect a multi-tenant SaaS platform from whiteboard to kubernetes deployment over the duration of the course.</p>
+          <p>By the end, you will be capable of leading architecture reviews, writing ADRs (Architecture Decision Records), and making the high-stakes design calls that define a company's engineering trajectory.</p>
+        </div>
+        <!-- Requirements chip row -->
+        <div class="mt-6 pt-6 border-t border-slate-50">
+          <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-3">Prerequisites</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">3+ years backend dev</span>
+            <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">REST API fluency</span>
+            <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">Basic SQL &amp; NoSQL</span>
+            <span class="bg-slate-100 text-slate-600 text-xs font-semibold px-3 py-1 rounded-full">Git &amp; CI/CD basics</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Curriculum Accordion -->
+      <section class="soft-reveal delay-4 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)]" id="curriculum">
+        <div class="flex justify-between items-start mb-1">
+          <h2 class="text-xl font-black tracking-tight text-slate-900">Curriculum Overview</h2>
+          <span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">24 modules · 48h</span>
+        </div>
+        <div class="h-1 w-8 bg-orange-500 rounded-full mb-6"></div>
+
+        <!-- accordion items -->
+        <div class="space-y-3" id="accordion-root">
+
+          <!-- Module 1 -->
+          <div class="accordion-item open border border-slate-100 rounded-xl overflow-hidden">
+            <div class="accordion-header flex justify-between items-center bg-slate-50 px-5 py-4 hover:bg-orange-50 transition-colors" onclick="toggleAccordion(this)">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full navy-gradient flex items-center justify-center text-white text-[11px] font-black flex-shrink-0">1</div>
+                <div>
+                  <p class="text-sm font-bold text-slate-900">Foundations of Modern Architecture</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">4 lessons · 2h 15m</p>
+                </div>
+              </div>
+              <span class="accordion-chevron material-symbols-outlined text-slate-400 text-[20px]">expand_more</span>
+            </div>
+            <div class="accordion-body px-5 py-4 bg-white space-y-1">
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">1.1 — Why Architecture Matters: The Hidden Cost of Complexity</span>
+                <span class="text-[10px] font-semibold text-slate-400">28 min</span>
+                <span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">Preview</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">1.2 — Monolith vs. Distributed: Choosing Your Battlefield</span>
+                <span class="text-[10px] font-semibold text-slate-400">34 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">1.3 — Architectural Fitness Functions</span>
+                <span class="text-[10px] font-semibold text-slate-400">22 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">quiz</span>
+                <span class="text-sm text-slate-700 flex-1">Module 1 Assessment</span>
+                <span class="text-[10px] font-semibold text-slate-400">15 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 2 -->
+          <div class="accordion-item border border-slate-100 rounded-xl overflow-hidden">
+            <div class="accordion-header flex justify-between items-center bg-slate-50 px-5 py-4 hover:bg-orange-50 transition-colors" onclick="toggleAccordion(this)">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full navy-gradient flex items-center justify-center text-white text-[11px] font-black flex-shrink-0">2</div>
+                <div>
+                  <p class="text-sm font-bold text-slate-900">Domain-Driven Design in Practice</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">5 lessons · 3h 40m</p>
+                </div>
+              </div>
+              <span class="accordion-chevron material-symbols-outlined text-slate-400 text-[20px]">expand_more</span>
+            </div>
+            <div class="accordion-body px-5 py-4 bg-white space-y-1">
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">2.1 — Ubiquitous Language and Bounded Contexts</span>
+                <span class="text-[10px] font-semibold text-slate-400">45 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">2.2 — Aggregates, Entities &amp; Value Objects</span>
+                <span class="text-[10px] font-semibold text-slate-400">52 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">2.3 — Context Mapping &amp; Integration Patterns</span>
+                <span class="text-[10px] font-semibold text-slate-400">38 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">code</span>
+                <span class="text-sm text-slate-700 flex-1">Workshop: Model an E-Commerce Domain</span>
+                <span class="text-[10px] font-semibold text-slate-400">60 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="accordion-item border border-slate-100 rounded-xl overflow-hidden">
+            <div class="accordion-header flex justify-between items-center bg-slate-50 px-5 py-4 hover:bg-orange-50 transition-colors" onclick="toggleAccordion(this)">
+              <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-full navy-gradient flex items-center justify-center text-white text-[11px] font-black flex-shrink-0">3</div>
+                <div>
+                  <p class="text-sm font-bold text-slate-900">Event-Driven Architecture &amp; CQRS</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">6 lessons · 4h 10m</p>
+                </div>
+              </div>
+              <span class="accordion-chevron material-symbols-outlined text-slate-400 text-[20px]">expand_more</span>
+            </div>
+            <div class="accordion-body px-5 py-4 bg-white space-y-1">
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">3.1 — Event Sourcing from First Principles</span>
+                <span class="text-[10px] font-semibold text-slate-400">42 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">3.2 — CQRS: Separating Read &amp; Write Models</span>
+                <span class="text-[10px] font-semibold text-slate-400">55 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">3.3 — Kafka, RabbitMQ &amp; Message Bus Design</span>
+                <span class="text-[10px] font-semibold text-slate-400">48 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">play_circle</span>
+                <span class="text-sm text-slate-700 flex-1">3.4 — Saga Pattern for Distributed Transactions</span>
+                <span class="text-[10px] font-semibold text-slate-400">50 min</span>
+              </div>
+              <div class="module-row">
+                <span class="material-symbols-outlined text-[16px] text-slate-400">code</span>
+                <span class="text-sm text-slate-700 flex-1">Lab: Build an Event Store in Node.js</span>
+                <span class="text-[10px] font-semibold text-slate-400">75 min</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collapsed preview of remaining modules -->
+          <div class="bg-surface-container-low rounded-xl px-5 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-slate-400 text-[20px]">more_horiz</span>
+              <p class="text-sm text-slate-600">21 more modules — Distributed Systems, Cloud-Native, Security, Capstone Project...</p>
+            </div>
+            <a href="course_player.html" class="text-orange-600 font-bold text-xs uppercase tracking-widest flex items-center gap-1 hover:underline underline-offset-4">
+              Unlock All <span class="material-symbols-outlined text-[14px]">lock_open</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Instructor Bio -->
+      <section class="soft-reveal delay-5 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <h2 class="text-xl font-black tracking-tight text-slate-900 mb-1">Your Instructor</h2>
+        <div class="h-1 w-8 bg-orange-500 rounded-full mb-6"></div>
+        <div class="flex gap-6 items-start">
+          <div class="flex-shrink-0">
+            <div class="w-20 h-20 rounded-2xl navy-gradient flex items-center justify-center text-white font-black text-2xl shadow-lg">DR</div>
+            <div class="mt-3 flex flex-col gap-1.5 items-center">
+              <div class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-amber-400 text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                <span class="text-[11px] font-bold text-slate-700">4.9 Rating</span>
+              </div>
+              <p class="text-[10px] text-slate-500">48,200 students</p>
+              <p class="text-[10px] text-slate-500">12 courses</p>
+            </div>
+          </div>
+          <div class="space-y-3 flex-1">
+            <div>
+              <h3 class="text-base font-black text-slate-900">Dr. Richard Vance</h3>
+              <p class="text-xs font-semibold text-orange-600 mt-0.5">Principal Architect · Ex-Google · Speaker at QCon &amp; AWS re:Invent</p>
+            </div>
+            <p class="text-sm text-slate-600 leading-[1.7]">
+              Dr. Vance spent 11 years at Google as a Staff Software Engineer and Principal Architect, leading the redesign of critical infrastructure serving over 2 billion users. He holds a Ph.D. in Distributed Computing from CMU and has authored two books on scalable system design that have sold over 85,000 copies worldwide.
+            </p>
+            <p class="text-sm text-slate-600 leading-[1.7]">
+              He now teaches full-time at Skill School Elite and advises Series B &amp; C startups on engineering scale. His teaching philosophy: <em>"The best way to understand a system is to break it on purpose — in a safe environment."</em>
+            </p>
+            <div class="flex gap-3 pt-2">
+              <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Google Alumnus</span>
+              <span class="bg-orange-50 text-orange-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Ph.D CMU</span>
+              <span class="bg-navy/10 text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">2× Author</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Student Reviews Preview -->
+      <section class="soft-reveal delay-6 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+        <div class="flex justify-between items-start mb-1">
+          <h2 class="text-xl font-black tracking-tight text-slate-900">Student Reviews</h2>
+          <div class="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+            <span class="material-symbols-outlined text-amber-400 text-[16px]" style="font-variation-settings:'FILL' 1">star</span>
+            4.8 · 3,241 reviews
+          </div>
+        </div>
+        <div class="h-1 w-8 bg-orange-500 rounded-full mb-6"></div>
+        <div class="space-y-6">
+
+          <div class="flex gap-4">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-indigo-500 to-purple-700 flex items-center justify-center text-white text-xs font-black flex-shrink-0">JM</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <p class="text-sm font-bold text-slate-900">James M.</p>
+                <div class="flex">
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                </div>
+                <span class="text-[10px] text-slate-400">2 weeks ago</span>
+              </div>
+              <p class="text-sm text-slate-600 leading-[1.6]">The DDD section alone was worth the price. Dr. Vance explains bounded contexts with an clarity I've never seen before in any online course — or book.</p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-black flex-shrink-0">SP</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <p class="text-sm font-bold text-slate-900">Sophia P.</p>
+                <div class="flex">
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star</span>
+                  <span class="material-symbols-outlined star-filled text-[14px]" style="font-variation-settings:'FILL' 1">star_half</span>
+                </div>
+                <span class="text-[10px] text-slate-400">1 month ago</span>
+              </div>
+              <p class="text-sm text-slate-600 leading-[1.6]">I got promoted to Principal Engineer partly because of what I learned here. The Kafka + CQRS section is phenomenally practical. Went from theory to prod in one sprint.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /left col -->
+
+    <!-- ═══ RIGHT COLUMN — STICKY SIDEBAR ═══ -->
+    <div class="sticky-sidebar soft-reveal delay-2">
+      <div class="bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.10)] overflow-hidden border border-slate-100">
+
+        <!-- Thumbnail / video preview -->
+        <div class="relative h-48 navy-gradient overflow-hidden">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4"
+            class="w-full h-full object-cover opacity-60"
+            alt="Course preview thumbnail"
+          />
+          <!-- Play overlay -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white/50 hover:bg-white/30 transition-colors cursor-pointer">
+              <span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings:'FILL' 1">play_arrow</span>
+            </div>
+          </div>
+          <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center">
+            <span class="bg-black/60 text-white text-[10px] font-bold px-2 py-1 rounded-md">▶ Preview — 4:32</span>
+            <span class="kinetic-gradient text-white text-[10px] font-bold px-2 py-1 rounded-md">FREE PREVIEW</span>
+          </div>
+        </div>
+
+        <!-- Price & CTA -->
+        <div class="p-6 space-y-5">
+          <!-- Price -->
+          <div>
+            <div class="flex items-baseline gap-3">
+              <span class="text-3xl font-black text-slate-900">$199</span>
+              <span class="text-slate-400 line-through text-sm">$549</span>
+              <span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">64% OFF</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">
+              <span class="material-symbols-outlined text-[13px] text-orange-500">timer</span>
+              <strong class="text-orange-600">2 days</strong> left at this price!
+            </p>
+            <p class="text-[10px] text-slate-400 mt-0.5 italic">Free for Enterprise &amp; Pro plan members</p>
+          </div>
+
+          <!-- Main CTA -->
+          <a href="course_player.html" class="cta-btn kinetic-gradient text-white w-full py-4 rounded-xl text-sm font-black uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 block text-center">
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">rocket_launch</span>
+            Start Course Now
+          </a>
+
+          <button class="w-full py-3 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:border-orange-300 hover:text-orange-600 transition-colors flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+            Add to Wishlist
+          </button>
+
+          <p class="text-[10px] text-center text-slate-400">30-Day Money-Back Guarantee · No questions asked</p>
+
+          <!-- Feature list -->
+          <div class="pt-4 border-t border-slate-50">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">This course includes</p>
+            <div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">ondemand_video</span>
+                <span>48 hours of on-demand HD video</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">article</span>
+                <span>34 downloadable resources &amp; diagrams</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">code</span>
+                <span>8 hands-on architecture labs</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">all_inclusive</span>
+                <span>Lifetime access &amp; free updates</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">phone_iphone</span>
+                <span>Mobile &amp; TV access</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">workspace_premium</span>
+                <span>Certificate of Completion</span>
+              </div>
+              <div class="feature-row">
+                <span class="material-symbols-outlined text-orange-500 text-[18px]">verified</span>
+                <span>LinkedIn-verifiable credential</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Share row -->
+          <div class="flex justify-center gap-4 pt-2 border-t border-slate-50">
+            <button class="text-xs text-slate-500 hover:text-orange-500 flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">share</span> Share
+            </button>
+            <button class="text-xs text-slate-500 hover:text-orange-500 flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">card_giftcard</span> Gift
+            </button>
+            <button class="text-xs text-slate-500 hover:text-orange-500 flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">group</span> Teams
+            </button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /right col -->
+
+  </div><!-- /grid -->
+</div><!-- /max-w -->
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="bg-slate-50 border-t border-slate-200 py-12 px-8 mt-12">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="md:col-span-2 space-y-3">
+      <span class="text-xl font-bold text-slate-900 block">Skill School Elite</span>
+      <p class="text-xs text-slate-500 leading-6 max-w-sm">The digital atelier for those who seek mastery. Editorial excellence in education.</p>
+      <p class="text-xs text-slate-400">© 2025 Skill School Elite. All rights reserved.</p>
+    </div>
+    <div class="space-y-4">
+      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Platform</h5>
+      <ul class="space-y-2 text-xs text-slate-500">
+        <li><a href="#" class="hover:text-orange-500 transition-colors">About Us</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Careers</a></li>
+      </ul>
+    </div>
+    <div class="space-y-4">
+      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Legal</h5>
+      <ul class="space-y-2 text-xs text-slate-500">
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleAccordion(header) {
+    const item = header.closest('.accordion-item');
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

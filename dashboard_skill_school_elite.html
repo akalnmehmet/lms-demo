@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill School Elite - Learner Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "secondary": "#5c5b7c",
+                "on-surface-variant": "#584238",
+                "error": "#ba1a1a",
+                "primary": "#9e4200",
+                "on-secondary-container": "#5c5c7d",
+                "tertiary": "#6049c5",
+                "surface-container-highest": "#e5e2e1",
+                "surface-container-high": "#eae7e7",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary-fixed-variant": "#444463",
+                "tertiary-fixed-dim": "#cabeff",
+                "primary-fixed": "#ffdbcb",
+                "primary-container": "#ff7e31",
+                "on-background": "#1b1c1c",
+                "background": "#fcf9f8",
+                "on-primary-fixed-variant": "#793100",
+                "inverse-primary": "#ffb691",
+                "secondary-fixed-dim": "#c5c3e9",
+                "on-error-container": "#93000a",
+                "surface-tint": "#9e4200",
+                "on-tertiary": "#ffffff",
+                "inverse-surface": "#303030",
+                "on-primary-container": "#632700",
+                "on-surface": "#1b1c1c",
+                "secondary-fixed": "#e2dfff",
+                "secondary-container": "#d8d6fd",
+                "outline-variant": "#dfc0b2",
+                "on-primary-fixed": "#341100",
+                "on-secondary-fixed": "#181835",
+                "on-secondary": "#ffffff",
+                "on-tertiary-container": "#3a1a9f",
+                "on-error": "#ffffff",
+                "surface-variant": "#e5e2e1",
+                "outline": "#8b7266",
+                "surface-container-low": "#f6f3f2",
+                "error-container": "#ffdad6",
+                "surface-dim": "#dcd9d9",
+                "on-primary": "#ffffff",
+                "surface-container": "#f0eded",
+                "surface": "#fcf9f8",
+                "inverse-on-surface": "#f3f0ef",
+                "primary-fixed-dim": "#ffb691",
+                "on-tertiary-fixed": "#1c0062",
+                "tertiary-container": "#a694ff",
+                "on-tertiary-fixed-variant": "#482dac",
+                "surface-bright": "#fcf9f8",
+                "tertiary-fixed": "#e6deff"
+              },
+              fontFamily: {
+                "headline": ["Inter"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+        }
+        .premium-shadow {
+            box-shadow: 0 40px 60px -15px rgba(92, 91, 124, 0.06);
+        }
+        .soft-reveal {
+            animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes softReveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Skill School Elite</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-['Inter'] tracking-tight text-sm font-bold border-b-2 border-orange-600 text-orange-600 dark:text-orange-500 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+<a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+</div>
+</div>
+</nav>
+<div class="flex min-h-screen pt-20">
+<!-- SideNavBar -->
+<aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 bg-slate-50 dark:bg-slate-950 p-6 gap-6 z-40 border-r border-slate-200/50 dark:border-slate-800/50">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">A</div>
+<div>
+<p class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Skill School Elite</p>
+<p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-orange-600 dark:text-orange-400 rounded-lg shadow-sm font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="dashboard_skill_school_elite.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="learner_my_courses.html">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>My Courses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span>Achievements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="account_skill_school_elite.html">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-4">
+<button class="bg-on-secondary-fixed text-white p-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
+                    Upgrade to Pro
+                </button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span>Help</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-xs font-semibold uppercase tracking-widest hover:text-orange-500 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 p-8 md:p-12 overflow-y-auto">
+<div class="max-w-6xl mx-auto space-y-12">
+<!-- Hero Section: Welcome -->
+<section class="soft-reveal relative overflow-hidden rounded-2xl bg-[#1A1A37] text-white p-8 md:p-12 premium-shadow flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="relative z-10 flex-1 space-y-6">
+<div class="space-y-2">
+<span class="label-sm uppercase tracking-[0.2em] text-primary-container font-bold text-xs">Student Portal</span>
+<h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none">Welcome Back, Alex!</h1>
+<p class="text-secondary-fixed-dim max-w-md text-lg font-light leading-relaxed">Your journey toward architectural mastery continues. You're doing better than 84% of your peers this week.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 items-center">
+<button class="bg-gradient-to-r from-primary to-primary-container text-white px-8 py-4 rounded-lg font-bold uppercase tracking-widest text-sm hover:translate-y-[-4px] transition-all shadow-xl">
+                                Resume Next Lesson
+                            </button>
+<div class="flex items-center gap-3 text-secondary-fixed-dim">
+<span class="material-symbols-outlined">schedule</span>
+<span class="text-sm font-medium">Next Live: Tomorrow, 10 AM</span>
+</div>
+</div>
+</div>
+<div class="relative z-10 w-full md:w-64 flex flex-col items-center gap-4">
+<div class="relative w-40 h-40">
+<!-- SVG Progress Arc -->
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-slate-800" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary-container" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="158.4" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-black">64%</span>
+<span class="text-[10px] uppercase tracking-widest font-bold opacity-60">Complete</span>
+</div>
+</div>
+<p class="text-center text-sm font-medium text-slate-400">Overall Progress</p>
+</div>
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+<div class="absolute inset-0 bg-gradient-to-l from-primary-container to-transparent"></div>
+</div>
+</section>
+<!-- KPI Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="auto_stories">auto_stories</span>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">+2 this month</span>
+</div>
+<h3 class="text-3xl font-black text-on-surface">12</h3>
+<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Enrolled Courses</p>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="verified">verified</span>
+<span class="text-xs font-bold text-primary bg-primary-fixed px-2 py-1 rounded">Level 4 Elite</span>
+</div>
+<h3 class="text-3xl font-black text-on-surface">08</h3>
+<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Completed</p>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="notification_important">notification_important</span>
+<span class="text-xs font-bold text-error bg-error-container px-2 py-1 rounded">Action Needed</span>
+</div>
+<h3 class="text-3xl font-black text-on-surface">04</h3>
+<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Upcoming Deadlines</p>
+</div>
+</section>
+<!-- Active Courses Section -->
+<section class="space-y-8">
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<h2 class="text-2xl font-black tracking-tight text-on-surface">Active Courses</h2>
+<div class="h-1 w-12 bg-primary-container rounded-full"></div>
+</div>
+<a class="text-sm font-bold text-primary uppercase tracking-widest hover:underline underline-offset-8 transition-all" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<!-- Course Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Cyberpunk high tech workspace with orange lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Advanced</div>
+</div>
+<div class="p-8 space-y-6 flex-1 flex flex-col">
+<div class="space-y-2">
+<h4 class="text-xl font-bold text-on-surface leading-tight">Mastering Neural Networks &amp; Deep Learning</h4>
+<p class="text-sm text-secondary line-clamp-2">Explore the architecture of modern AI and build your first transformer model from scratch.</p>
+</div>
+<div class="mt-auto space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+<span class="text-secondary">Progress</span>
+<span class="text-primary">78%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[78%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="play_circle">play_circle</span>
+<span class="text-xs font-semibold text-secondary">Module 4 of 12</span>
+</div>
+<button class="text-primary font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Continue</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist design workspace with sketchbook and pens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKG_av0mECtEAFFouclqEzi1PYslLOkXdrxq5p6g6SE5iBQn0Owta2AJWLiPmK-tGAkgCu0cUn9qNeAhHUH2AKs4TOipqoagjEQgE0bYDJ6jEmzPFW0w0qAtpCqNnVQY3mjZX7OSLlpkxY3QIUyMaI2dSFwHOMxz_ErzmupoeNkoZYavzYOmt_hpERK26QpcXmSsLP86P9mkACCYCrSyHzFLDK9-i-dJ4yNt1TnY6vYdToi2sKYq9t2afqSr0SHozOAUfscpa0SgA"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Intermediate</div>
+</div>
+<div class="p-8 space-y-6 flex-1 flex flex-col">
+<div class="space-y-2">
+<h4 class="text-xl font-bold text-on-surface leading-tight">The Art of Editorial UI/UX Design</h4>
+<p class="text-sm text-secondary line-clamp-2">Transform functional layouts into premium digital experiences using advanced typography and space.</p>
+</div>
+<div class="mt-auto space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
+<span class="text-secondary">Progress</span>
+<span class="text-primary">42%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[42%]"></div>
+</div>
+</div>
+<div class="flex justify-between items-center pt-2 border-t border-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="play_circle">play_circle</span>
+<span class="text-xs font-semibold text-secondary">Module 6 of 15</span>
+</div>
+<button class="text-primary font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Continue</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-20 py-12 px-8 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-screen-2xl mx-auto">
+<div class="col-span-1 md:col-span-2 space-y-4">
+<span class="text-xl font-bold text-slate-900 dark:text-white">Skill School Elite</span>
+<p class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 max-w-sm">© 2024 Skill School Elite. Editorial Excellence in Education. Elevating the digital learning landscape through intentional design and expert curation.</p>
+</div>
+<div class="space-y-4">
+<h5 class="text-xs font-black uppercase tracking-widest text-slate-900">Platform</h5>
+<ul class="space-y-2">
+<li><a class="font-['Inter'] text-xs text-slate-500 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">About Us</a></li>
+<li><a class="font-['Inter'] text-xs text-slate-500 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Careers</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h5 class="text-xs font-black uppercase tracking-widest text-slate-900">Legal</h5>
+<ul class="space-y-2">
+<li><a class="font-['Inter'] text-xs text-slate-500 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Terms of Service</a></li>
+<li><a class="font-['Inter'] text-xs text-slate-500 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

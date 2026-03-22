@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill School Elite - Courses Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#5c5b7c",
+              "on-surface-variant": "#584238",
+              "error": "#ba1a1a",
+              "primary": "#9e4200",
+              "on-secondary-container": "#5c5c7d",
+              "tertiary": "#6049c5",
+              "surface-container-highest": "#e5e2e1",
+              "surface-container-high": "#eae7e7",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#444463",
+              "tertiary-fixed-dim": "#cabeff",
+              "primary-fixed": "#ffdbcb",
+              "primary-container": "#ff7e31",
+              "on-background": "#1b1c1c",
+              "background": "#fcf9f8",
+              "on-primary-fixed-variant": "#793100",
+              "inverse-primary": "#ffb691",
+              "secondary-fixed-dim": "#c5c3e9",
+              "on-error-container": "#93000a",
+              "surface-tint": "#9e4200",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#303030",
+              "on-primary-container": "#632700",
+              "on-surface": "#1b1c1c",
+              "secondary-fixed": "#e2dfff",
+              "secondary-container": "#d8d6fd",
+              "outline-variant": "#dfc0b2",
+              "on-primary-fixed": "#341100",
+              "on-secondary-fixed": "#181835",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#3a1a9f",
+              "on-error": "#ffffff",
+              "surface-variant": "#e5e2e1",
+              "outline": "#8b7266",
+              "surface-container-low": "#f6f3f2",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              "on-primary": "#ffffff",
+              "surface-container": "#f0eded",
+              "surface": "#fcf9f8",
+              "inverse-on-surface": "#f3f0ef",
+              "primary-fixed-dim": "#ffb691",
+              "on-tertiary-fixed": "#1c0062",
+              "tertiary-container": "#a694ff",
+              "on-tertiary-fixed-variant": "#482dac",
+              "surface-bright": "#fcf9f8",
+              "tertiary-fixed": "#e6deff"
+            },
+            fontFamily: {
+              "headline": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .kinetic-gradient {
+        background: linear-gradient(135deg, #9e4200 0%, #ff7e31 100%);
+      }
+      .glass-nav {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .soft-reveal {
+        animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none transition-all duration-200">
+<div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Skill School Elite</span>
+<div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="index.html">Home</a>
+<a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="courses_skill_school_elite.html">Courses</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="learner_dashboard.html">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="contact_skill_school_elite.html">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search courses..." type="text"/>
+</div>
+<button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+<a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-12 soft-reveal">
+<h1 class="text-5xl md:text-7xl font-black tracking-tighter text-on-surface mb-4 leading-none">
+                Master the <span class="text-primary-container">Next Level</span>.
+            </h1>
+<p class="text-lg text-secondary max-w-2xl leading-relaxed">
+                Curated excellence for modern professionals. Explore our selection of high-impact courses designed by industry leaders.
+            </p>
+</header>
+<!-- Search & Filter Bar (Tonal Depth Principle) -->
+<section class="mb-12 sticky top-24 z-40 soft-reveal" style="animation-delay: 0.1s;">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center justify-between">
+<!-- Filters -->
+<div class="flex flex-wrap gap-3">
+<button class="bg-primary-container text-white px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all shadow-sm">All Courses</button>
+<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Development</button>
+<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Design</button>
+<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Business</button>
+<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Marketing</button>
+</div>
+<!-- Search Input -->
+<div class="w-full md:w-80 group">
+<div class="relative flex items-center bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant/15 group-focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined px-3 text-secondary group-focus-within:text-primary">search</span>
+<input class="w-full py-3 bg-transparent border-none focus:ring-0 text-sm" placeholder="Filter by keywords..." type="text"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Course Grid (Asymmetric & Elite Cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Card 1 -->
+<a href="course_detail.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.2s; text-decoration: none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Laptop with code on screen and coffee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$199</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Full-Stack Mastery: Architecture &amp; Logic</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Level up from coder to architect. Master the patterns that define world-class applications.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">24 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+    View Details
+    <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<!-- Card 2 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.25s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist design workspace with modern tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQ6vth737NZ8FnBpLxa4hFg4TZ5IwJVjLJED5grty7j34W33n8JS8ONotrobBpFUzlHY_ZbIX4GbEuaolTJ3w2Yyq-6qDok8ICgUK7QZYtakdmwF-q23dN056XQXfMO1XB6wzpTuYnK32FEDl84s9AgJUDBnK55ZsDw9wdjU8w8r2M4MP5nJC-7hMqQdlISAmHcNapN-kHgHpUbmcN3h10tY8YleoQBVUp1Z0pzvUFNNYCSbJGEytEjkSCnTVXDbUVxjudAGYCTc"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary-fixed px-2 py-1 rounded">Design</span>
+<span class="text-primary-container font-black text-lg">$149</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">The Digital Atelier: UX Fundamentals</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Learn the emotional psychology behind high-converting interfaces and premium experiences.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">18 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 3 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.3s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Financial charts and analytics on a screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuKrbHERTKfv8wK0aBO4b2PD2ZPjl7y3SH_Fk-3LXCq5ZZ8rS1SenZojxB0hybIvvQkRNJKQcFbRafDtiRfZvCAVdVDqXziKRNEmJtZwcykpqDsDGYbPgIU6QmvMDHm5CzTyG4OCipIvzlT3Nemh_rxoWfL_gMjgZWa6-TigIDe8Tyvdkk0AtDBsPkdCXOBzRPdQ_8pcvoMosMSP6nRwZA4CDmz08VomTJkFQWJJRCzA6ItxUvyfKMKfPp3qsYm7a-1f2kUHiOot8"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
+<span class="text-primary-container font-black text-lg">$299</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Strategic Scale: Venture Growth</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Transition from founder to CEO. Understanding the economics of rapid market expansion.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">32 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 4 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.35s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Social media marketing conceptual scene" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8o5SrR6K8k01KE_dIRV5xHtCa-5iOdGXYujVtazh0zznDjioRkQb_MAw3vT5xNpqehpJkIaT8QP8-DR5gFwpbSf_uVXiEUDX95qqYpvgYuOQpAZ1fsWwKotFe4WLiH9MKO5SksBzShbdGMO1nyP1HFFgkhF8IYFQb9UnuiO4xm23cSKVeKUEfYeOex2MGuy7Q8x7VS-ligKrzniu-6OuWOBgFWfonkHoUkVhs1nQhl7P2GvcPmAlInUG-px_ncdkWFGToCx3-XiE"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
+<span class="text-primary-container font-black text-lg">$129</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Growth Hacking: The Viral Engine</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Data-driven strategies for exponential user acquisition without massive budgets.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">12 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Duplicate Cards for Grid (12 total requested) -->
+<!-- Card 5 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.1s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Clean programming setup with dual monitors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkfIY-vbdTQrGE9rnuW-0cbraWtgdAYapF9U392DWE-CUvTkGmKx8gNaLQ2d-U844hzrjYCRd9HvLytXdENnki_njf5w-ao0RxFcOlD135jVIoim2ZFKqfE5qmCWWtJfvVpvPe93TOV1rxu3h-rDYjWuBLPjYp1r95fqXSOUScFcJbLEvGbqS-EFkBzEfHXJHCyYfGg7jaYjjsXjYd_3H-p_OqSDL78-QhrlGqmuiikVJ_vKBl_zWaIpD1KvSVF6q3-9ay2LhFeK8"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$199</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Advanced React &amp; TypeScript</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Building type-safe, scalable web applications for enterprise-grade performance.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">28 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 6 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.15s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Cyberpunk style tech gadgets background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsaEIo7ES974nng_HYBgt17qLfDxwoqF67zzDppDsiV4MLw6awQyLymGk64i4mD6wu8Scli644hHhEIh0bKGGnnF5ayMZ3wGg7c33KzqUm-xGYorD6lCOiNxJvUaWoYNSzVH4va6peTNsKDpoVKja_e0HlLLkBFNk4PnhIQgFbUEzI8fAYlSMh6WYbBUMB8iDpTtioNEnhyLXpHJcVu-X8Y-NbrL2AuOGV042zosETSlmL4j7rAYnR-3Wksq89PwjGPw5bY9LEkHo"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$249</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Backend Systems &amp; Distributed Databases</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Understanding high-availability architectures and global data consistency.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">36 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 7 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.2s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist abstract design with geometric shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMvmwGOYbp9pN7ZXoG1psuIxIWGu5iejJUjsLup8mykUzLjatpVrw5mNfjZzcOwzX3L9PuBF0DszNU47HQWAnJNF8pVkDqnA0o2nVIg3Rx94Et0WusnaX8JFdtNtyMP1Yjnk3rE_S_roThkFXla5oYV4e5yF5AsYFZUlGl56U8Z6nXPza6JjcuPBR4kAnNTVjhrzLFFpza6AUCRplN_M4jg_tcf7sf3P_vS5KidXB81GSKKxdxh7vc6iDzWJV6q9kMOMlrq_k5lxA"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary-fixed px-2 py-1 rounded">Design</span>
+<span class="text-primary-container font-black text-lg">$179</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Visual Storytelling &amp; Brand Systems</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Creating cohesive brand identities that resonate across all digital touchpoints.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">22 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 8 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.25s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Data visualization on a large screen dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCbmpzsZEdrgEB6Q7tWqwsyutDBWqVrhnUqhsmbV0ncUkGZYqN1eAFNnt9bowHnvRwtJtaQaMm4gZlUdmryz07vrmav6NpMCJBp_GWLCbgtOMYjeCN0suGvqDsYBHp9ZOEqGcYgwVsBWV8gRTBPX0Xinf9TRtLkar0OLUUQa10OrymdvW1GMnAd5ReLY47VURyEbvqdTaEBbNcSFzln82CodhbzC8haC88HKcbKzWbi-Adok3GyU_HQ-sT6sqM-ZHD7674WCP9dQg"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
+<span class="text-primary-container font-black text-lg">$349</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Big Data for Executives</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Decision-making in the era of AI. Turning raw data into strategic advantage.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">20 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 9 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.3s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Productive workspace with design plans" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwrBVgSdMvwcRjw2TU73o5YIuLwAZg7wbzpdo12zcncStFkWuHinYHu1JnrbaNc1MFcPpIkz8i5Nu9eF7vZM4QngXiIIR8IQMeP5cLu0t4Ks2-Jju6VBp1woMhNbRyFzxYZFXMYKXk8YwGVUoJByx-pYUtVx5HSBuHb6ubN3-xlWXomB3W9L4LKxUAgl3fo1d-TscUTyortkqSN_5I8F3b1y-mZWEOrTLzM2zOhgVUIOH-liHUL40VOWtJJom-yUi7bRoYX_BXvo8"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
+<span class="text-primary-container font-black text-lg">$159</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Content Strategy &amp; Narrative Design</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">How to craft stories that capture attention in a distracted digital world.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">15 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 10 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.35s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Team working together on a software project" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARHOr9NghhrzxJ3L8m3ahokPGoobqOzVG_dWY5mVs_L7K_aXgdP2EWxLqY5cJwaikGlbUNWBFraIZGLX2ZxTY0zuARZHIPVUzb3-9jVIOtZDgsRO6cQ3wOvEzJLzaEqdmGJvQtQf8au-P-dtMHgbD74sHgOqIE_o6E_g_Jq_RsosZEESDijJGQjSMfpS7hAF1fjAsa4lxkffmX4g9VPdMvxJ1Hupt6cmIzTMwmfAlYCqMar1u1yvBkdgpbLvRu57SoWLZKWd-bkko"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$199</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Agile Engineering &amp; DevOps Flow</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Optimization of the delivery pipeline from local commit to global production.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">30 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 11 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.4s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Students collaborating in a modern studio space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnaJXd55sl6InJwN87wqVJeYeMw_jG0-gVlvihjYLocLyDMOkBLJMK1taLn9nYsxfKOWoSCmH9TKFcXhWXey19f4Bn0DnasZt6-w7MwWvzexFxU-PufMfFH-Oca4Z5C2Oi4h_MnWcE4IuVB7LZV_qcnFYrr_j2G3W4r3YDdwplTe-DSOEYpS9a2TCRu7xED_EQWWmbPd4m5DgatU-9i5F_v1MgNNgTZDQBsUYt-CkS5VSJI5KTR5pwN_rY7ARp-hDxkm7Tu5or3FA"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
+<span class="text-primary-container font-black text-lg">$279</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">The Art of Negotiation &amp; Influence</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Psychology-based methods for closing deals and leading teams with authority.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">21 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<!-- Card 12 -->
+<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.45s;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Person writing notes in a clean minimal notebook" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPPsueUKg1hiwoVx5B3dcLOPPWxE3onbOs7qZ3N_nCFCM3J-l2ODRi9zLgm1Huzuwh6qq4cg2NlCoLo6_xS9lLGKh7Ah0ksbpp8Kg79J3R2ENlT8rH-l-IyICs8RR2ypqHePbajH4RPuZsIhuhJX4vOgN40F21MXufZ-KOIBwB5JfS8tCv61D-SfaFr0G6vodKyUPzHZeSH4-7Pa_nBwbJkLEQZ4Uaa4QnHsBHGmN7QHVXP0SV1uhvOMgsRwWgmJ2XT2Rxn3T8qU8"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
+<span class="text-primary-container font-black text-lg">$139</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Email Engineering: Retention &amp; ROI</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Building automated sequences that turn subscribers into lifelong customers.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">16 Lessons</span>
+<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
+                            View Details 
+                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-24 bg-on-surface text-surface py-20 px-12 rounded-2xl relative overflow-hidden soft-reveal">
+<div class="relative z-10 max-w-3xl">
+<h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-6">Ready to lead the industry?</h2>
+<p class="text-lg text-surface-container-highest/70 mb-10 leading-relaxed">Join 50,000+ elite students mastering the crafts of the future. Unlimited access to all courses starting at $49/mo.</p>
+<div class="flex flex-wrap gap-4">
+<button class="kinetic-gradient text-white px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm shadow-xl hover:scale-105 active:scale-95 transition-all">Start Your Journey</button>
+<button class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm hover:bg-white/20 transition-all">View Pricing</button>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute top-[-50%] right-[-10%] w-[600px] h-[600px] bg-primary-container opacity-20 blur-[120px] rounded-full"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-screen-2xl mx-auto">
+<div class="col-span-1 md:col-span-1">
+<span class="text-xl font-bold text-slate-900 dark:text-white block mb-6">Skill School Elite</span>
+<p class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400">© 2024 Skill School Elite. Editorial Excellence in Education.</p>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Platform</h4>
+<ul class="space-y-4 font-['Inter'] text-xs text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Explore</h4>
+<ul class="space-y-4 font-['Inter'] text-xs text-slate-500 dark:text-slate-400">
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Development</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Design</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Business</a></li>
+<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Marketing</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Social</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">language</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">campaign</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">hub</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

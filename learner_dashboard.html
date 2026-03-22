@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill School Elite — Learner Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy":      "#1A1A37",
+          "navy-deep": "#0f0f24",
+          "orange":    "#FF7E31",
+          "orange-dim":"#ff6600",
+          "secondary": "#5c5b7c",
+          "primary":   "#9e4200",
+          "primary-container": "#ff7e31",
+          "surface":   "#fcf9f8",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low":    "#f6f3f2",
+          "surface-container":        "#f0eded",
+          "surface-container-high":   "#eae7e7",
+          "surface-variant":          "#e5e2e1",
+          "outline-variant":          "#dfc0b2",
+          "on-surface":               "#1b1c1c",
+          "secondary-fixed-dim":      "#c5c3e9",
+          "error":                    "#ba1a1a",
+        },
+        fontFamily: {
+          "headline": ["Inter"],
+          "body":     ["Inter"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg":      "8px",
+          "xl":      "12px",
+          "2xl":     "16px",
+          "full":    "9999px",
+        },
+      },
+    },
+  }
+</script>
+<style>
+  /* ─── Base ─── */
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+
+  /* ─── Material icons ─── */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+  }
+
+  /* ─── Glassmorphic nav ─── */
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ─── Staggered soft-reveal animation ─── */
+  .soft-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes softReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.05s; }
+  .delay-2 { animation-delay: 0.12s; }
+  .delay-3 { animation-delay: 0.20s; }
+  .delay-4 { animation-delay: 0.28s; }
+  .delay-5 { animation-delay: 0.36s; }
+  .delay-6 { animation-delay: 0.44s; }
+  .delay-7 { animation-delay: 0.52s; }
+  .delay-8 { animation-delay: 0.60s; }
+
+  /* ─── Kinetic gradient ─── */
+  .kinetic-gradient {
+    background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
+  }
+  .navy-gradient {
+    background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
+  }
+
+  /* ─── Course card hover ─── */
+  .course-card {
+    transition: transform 260ms ease-out, box-shadow 260ms ease-out;
+    position: relative;
+  }
+  .course-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    opacity: 0;
+    border-radius: 0 0 8px 8px;
+    transition: opacity 200ms ease;
+  }
+  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(92,91,124,0.14); }
+  .course-card:hover::after { opacity: 1; }
+
+  /* ─── Progress bar ─── */
+  .progress-bar-bg { background: #e5e2e1; border-radius: 99px; height: 6px; }
+  .progress-bar-fill {
+    height: 6px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    transition: width 1s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ─── Donut SVG rings ─── */
+  .donut-ring { transition: stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+  /* ─── Sidebar nav item ─── */
+  .side-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-radius: 8px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #5c5b7c;
+    transition: background 200ms, color 200ms, padding-left 260ms;
+    cursor: pointer; text-decoration: none;
+  }
+  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+  .side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+
+  /* ─── Badge card ─── */
+  .badge-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .badge-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(92,91,124,0.1); }
+
+  /* ─── Certificate card ─── */
+  .cert-card {
+    background: #fff;
+    border-radius: 12px;
+    border-left: 4px solid #FF7E31;
+    padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .cert-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(92,91,124,0.1); }
+
+  /* ─── Stat card ─── */
+  .stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border-bottom: 2px solid transparent;
+    transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+  }
+  .stat-card:hover { border-bottom-color: #FF7E31; transform: translateY(-4px); box-shadow: 0 12px 28px rgba(92,91,124,0.1); }
+
+  /* ─── Live badge pulse ─── */
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #dcfce7; color: #166534;
+    font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 2px 8px; border-radius: 99px;
+  }
+  .live-dot {
+    width: 6px; height: 6px; background: #16a34a; border-radius: 50%;
+    animation: pulse 1.4s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ─── Announcement item ─── */
+  .announce-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(223,192,178,0.15);
+  }
+  .announce-item:last-child { border-bottom: none; }
+
+  /* ─── Scrollbar for sidebar on small screens ─── */
+  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
+</style>
+</head>
+<body class="bg-surface-container-low">
+
+<!-- ═══════════════════════════ TOP NAV BAR ═══════════════════════════ -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+    <!-- Logo + Links -->
+    <div class="flex items-center gap-12">
+      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
+      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 font-['Inter'] tracking-tight text-sm" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+      </div>
+    </div>
+    <!-- Right Actions -->
+    <div class="flex items-center gap-6">
+      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ PAGE SHELL ═══════════════════════════ -->
+<div class="flex min-h-screen pt-20">
+
+  <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
+    <!-- User avatar -->
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+      </div>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link active" href="learner_dashboard.html">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>
+        Overview
+      </a>
+      <a class="side-link" href="learner_my_courses.html">
+        <span class="material-symbols-outlined text-[20px]">school</span>
+        My Courses
+      </a>
+      <a class="side-link" href="#">
+        <span class="material-symbols-outlined text-[20px]">military_tech</span>
+        Achievements
+      </a>
+      <a class="side-link" href="account_skill_school_elite.html">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        Settings
+      </a>
+    </nav>
+
+    <!-- Upgrade card -->
+    <div class="mt-auto">
+      <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-orange-800 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-orange-700/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <button class="w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+      </div>
+      <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main class="flex-1 md:ml-72 p-6 md:p-10 overflow-y-auto">
+    <div class="max-w-6xl mx-auto space-y-10">
+
+      <!-- ── WELCOME BANNER ── -->
+      <section class="soft-reveal delay-1 relative overflow-hidden rounded-2xl navy-gradient text-white p-8 md:p-12 shadow-[0_20px_60px_-12px_rgba(26,26,55,0.35)]">
+        <!-- Decorative blobs -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-8 w-64 h-64 bg-purple-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+        <!-- Grid pattern overlay -->
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image:radial-gradient(circle, #fff 1px, transparent 1px);background-size:28px 28px;"></div>
+
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+          <div class="space-y-5">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-300">Student Portal</span>
+              <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-none mt-1">Welcome Back, Alex!</h1>
+            </div>
+            <p class="text-secondary-fixed-dim text-base leading-relaxed max-w-md opacity-80">
+              Your journey toward mastery continues. You're performing better than <strong class="text-orange-300">84%</strong> of peers this week.
+            </p>
+            <div class="flex flex-wrap items-center gap-4">
+              <a href="courses_skill_school_elite.html" class="inline-flex items-center gap-2 kinetic-gradient px-7 py-3.5 rounded-lg text-sm font-bold uppercase tracking-widest shadow-lg hover:translate-y-[-3px] active:scale-95 transition-all duration-200">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+                Resume Next Lesson
+              </a>
+              <div class="flex items-center gap-2 text-white/60 text-sm">
+                <span class="material-symbols-outlined text-[18px]">schedule</span>
+                <span>Next Live: <strong class="text-white/80">Tomorrow, 10 AM</strong></span>
+              </div>
+            </div>
+            <!-- Active course chip -->
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10">
+              <span class="material-symbols-outlined text-orange-300 text-[16px]">play_lesson</span>
+              <span class="text-xs font-semibold text-white/80">Continuing: <span class="text-white font-bold">Full-Stack Mastery — Module 3</span></span>
+            </div>
+          </div>
+          <!-- Overall progress donut -->
+          <div class="flex flex-col items-center gap-3 flex-shrink-0">
+            <div class="relative w-36 h-36">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#FF7E31" stroke-width="10"
+                        stroke-dasharray="314" stroke-dashoffset="113"
+                        stroke-linecap="round" class="donut-ring"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="text-3xl font-black">64%</span>
+                <span class="text-[10px] uppercase tracking-widest font-bold opacity-60">Complete</span>
+              </div>
+            </div>
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-60">Overall Progress</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── KPI STATS ROW ── -->
+      <section class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="stat-card">
+          <div class="flex justify-between items-start mb-3">
+            <span class="material-symbols-outlined text-3xl text-slate-400">auto_stories</span>
+            <span class="text-[10px] font-bold bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full">+2 this month</span>
+          </div>
+          <div class="text-4xl font-black text-slate-900 tracking-tighter">12</div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-1">Enrolled Courses</div>
+        </div>
+        <div class="stat-card">
+          <div class="flex justify-between items-start mb-3">
+            <span class="material-symbols-outlined text-3xl text-slate-400">verified</span>
+            <span class="text-[10px] font-bold bg-orange-50 text-orange-700 px-2.5 py-1 rounded-full">Level 4 Elite</span>
+          </div>
+          <div class="text-4xl font-black text-slate-900 tracking-tighter">08</div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-1">Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="flex justify-between items-start mb-3">
+            <span class="material-symbols-outlined text-3xl text-slate-400">notification_important</span>
+            <span class="text-[10px] font-bold bg-red-50 text-red-700 px-2.5 py-1 rounded-full">Action Needed</span>
+          </div>
+          <div class="text-4xl font-black text-slate-900 tracking-tighter">04</div>
+          <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-1">Upcoming Deadlines</div>
+        </div>
+      </section>
+
+      <!-- ── MY COURSES ── -->
+      <section class="soft-reveal delay-3 space-y-6">
+        <div class="flex justify-between items-end">
+          <div>
+            <h2 class="text-2xl font-black tracking-tight text-slate-900">My Courses</h2>
+            <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+          </div>
+          <a href="courses_skill_school_elite.html" class="text-xs font-bold uppercase tracking-widest text-orange-600 hover:underline underline-offset-4 transition-all">View All</a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+
+          <!-- Card 1 — Machine Learning Bootcamp 65% -->
+          <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo"
+                   alt="Machine Learning"/>
+              <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900 leading-tight">Machine Learning Bootcamp</h3>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Neural nets, transformers, and production ML deployments.</p>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">65%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div>
+              </div>
+              <div class="flex justify-between items-center pt-1 border-t border-slate-50">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Module 7 of 12</span>
+                </div>
+                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 — UI/UX Advanced Design 20% -->
+          <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKG_av0mECtEAFFouclqEzi1PYslLOkXdrxq5p6g6SE5iBQn0Owta2AJWLiPmK-tGAkgCu0cUn9qNeAhHUH2AKs4TOipqoagjEQgE0bYDJ6jEmzPFW0w0qAtpCqNnVQY3mjZX7OSLlpkxY3QIUyMaI2dSFwHOMxz_ErzmupoeNkoZYavzYOmt_hpERK26QpcXmSsLP86P9mkACCYCrSyHzFLDK9-i-dJ4yNt1TnY6vYdToi2sKYq9t2afqSr0SHozOAUfscpa0SgA"
+                   alt="UI/UX Design"/>
+              <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900 leading-tight">UI/UX Advanced Design</h3>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Editorial approaches to premium digital experience design.</p>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">20%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:20%"></div></div>
+              </div>
+              <div class="flex justify-between items-center pt-1 border-t border-slate-50">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Module 3 of 15</span>
+                </div>
+                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 — Full-Stack Architecture 78% -->
+          <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJgAMnXnVDLZtiYG7RLZK3gV4ak2sAAaILiuqJj4zvgTA-SC809PM9M8VuQwbOSgWJa2fvQUezxvEI3r5KTluJ4vCQgCrjepcpbiQ_F1xHeEciPs0U0Os_ZHMhLddKRgcxdy7pfPLSFXga1Xm-tweUArGfdGNjiR6fy04mCTe_U8RaTTBadqFSrRn91clqPn_LvQdz9NvuWGRAtHqSs1aNTMamwPXE9GmIvdNx1jhCR0Yl0ggGAOEMMIk_D13TayL3O22uX6E9s0"
+                   alt="Full Stack"/>
+              <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900 leading-tight">Full-Stack Architecture</h3>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Master distributed systems, APIs, and scalable deployments.</p>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">78%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:78%"></div></div>
+              </div>
+              <div class="flex justify-between items-center pt-1 border-t border-slate-50">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Module 9 of 14</span>
+                </div>
+                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4 — Strategic Business Management 40% -->
+          <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQgujRW79L40vULax98e5F7LHG3mvkGp5qSnBqIyOPUbY9cJubl8Lx8fw1XWQYX0WGbinOJQs-mYui0KiAS0oViGEOeyxSqilsE4WA_ZOr0QbWLlRIoniNQkSTDGMUo0r2duKy5eGMNVg4V7bCn1V456gc7u-GtzKmm5KfcRMzOa3xc9d73B6n2IlqFFDWU6kVwOU1jEhF2lzIzZ8CL4jdwKclyeecW9MycFEcprubLn-Lo0oq42WEQo2FKBXSgy9C34EnLJSMf7M"
+                   alt="Business"/>
+              <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <h3 class="text-sm font-bold text-slate-900 leading-tight">Strategic Business Management</h3>
+              <p class="text-[11px] text-slate-500 line-clamp-2">Executive-level frameworks for scaling and decision-making.</p>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">40%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
+              </div>
+              <div class="flex justify-between items-center pt-1 border-t border-slate-50">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
+                  <span class="text-[10px] text-slate-400 font-semibold">Module 4 of 10</span>
+                </div>
+                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── MIDDLE ROW: Progress Overview + Upcoming & Announcements ── -->
+      <div class="soft-reveal delay-4 grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+
+        <!-- Progress Overview (spans 2/3) -->
+        <div class="xl:col-span-2 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
+          <div>
+            <h2 class="text-xl font-black tracking-tight text-slate-900">Progress Overview</h2>
+            <div class="h-1 w-8 bg-orange-500 rounded-full mt-1.5"></div>
+          </div>
+          <div class="grid grid-cols-3 gap-6">
+
+            <!-- Donut 1 — Overall 64% -->
+            <div class="flex flex-col items-center gap-3">
+              <div class="relative w-28 h-28">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#f0eded" stroke-width="9"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#FF7E31" stroke-width="9"
+                          stroke-dasharray="251.2" stroke-dashoffset="90.4"
+                          stroke-linecap="round" class="donut-ring"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="text-xl font-black text-slate-900">64%</span>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-[11px] font-bold uppercase tracking-widest text-slate-700">Overall</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">All 12 courses</p>
+              </div>
+            </div>
+
+            <!-- Donut 2 — This Week 45% -->
+            <div class="flex flex-col items-center gap-3">
+              <div class="relative w-28 h-28">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#f0eded" stroke-width="9"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#9e4200" stroke-width="9"
+                          stroke-dasharray="251.2" stroke-dashoffset="138.2"
+                          stroke-linecap="round" class="donut-ring"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="text-xl font-black text-slate-900">45%</span>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-[11px] font-bold uppercase tracking-widest text-slate-700">This Week</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">Weekly goal</p>
+              </div>
+            </div>
+
+            <!-- Donut 3 — Certifications 80% -->
+            <div class="flex flex-col items-center gap-3">
+              <div class="relative w-28 h-28">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#f0eded" stroke-width="9"/>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#1A1A37" stroke-width="9"
+                          stroke-dasharray="251.2" stroke-dashoffset="50.2"
+                          stroke-linecap="round" class="donut-ring"/>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="text-xl font-black text-slate-900">80%</span>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-[11px] font-bold uppercase tracking-widest text-slate-700">Certifications</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">8 of 10 earned</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Learning streak -->
+          <div class="bg-surface-container-low rounded-xl p-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+                <span class="material-symbols-outlined text-orange-600 text-[20px]" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">14-Day Learning Streak 🔥</p>
+                <p class="text-[11px] text-slate-500">Keep it up — you're on a roll!</p>
+              </div>
+            </div>
+            <div class="flex gap-1.5">
+              <!-- mini day bubbles -->
+              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">M</div>
+              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
+              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">W</div>
+              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
+              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">F</div>
+              <div class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 text-[9px] font-black">S</div>
+              <div class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 text-[9px] font-black">S</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming & Announcements (1/3) -->
+        <div class="bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
+          <div>
+            <h2 class="text-xl font-black tracking-tight text-slate-900">Upcoming</h2>
+            <div class="h-1 w-8 bg-orange-500 rounded-full mt-1.5"></div>
+          </div>
+
+          <!-- Deadlines -->
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-orange-600 mb-3 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">warning</span>
+              Deadlines
+            </p>
+            <div class="space-y-0">
+              <div class="announce-item">
+                <p class="text-xs font-bold text-slate-800">ML Bootcamp — Project 3</p>
+                <p class="text-[10px] text-orange-600 font-semibold mt-0.5 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[12px]">event</span> Due Tomorrow, 11:59 PM
+                </p>
+              </div>
+              <div class="announce-item">
+                <p class="text-xs font-bold text-slate-800">UI/UX Design Quiz</p>
+                <p class="text-[10px] text-orange-500 font-semibold mt-0.5 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[12px]">event</span> Due in 3 days
+                </p>
+              </div>
+              <div class="announce-item">
+                <p class="text-xs font-bold text-slate-800">Business Case Study</p>
+                <p class="text-[10px] text-slate-500 font-semibold mt-0.5 flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[12px]">event</span> Due in 5 days
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Sessions -->
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-600 mb-3 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">live_tv</span>
+              Live Sessions
+            </p>
+            <div class="space-y-0">
+              <div class="announce-item flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold text-slate-800">ML Office Hours</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Today — 3:00 PM PST</p>
+                </div>
+                <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+              </div>
+              <div class="announce-item flex items-center justify-between">
+                <div>
+                  <p class="text-xs font-bold text-slate-800">UX Deep Dive Q&amp;A</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Tomorrow — 10:00 AM PST</p>
+                </div>
+                <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">SOON</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Announcements -->
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-[#1A1A37] mb-3 flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">campaign</span>
+              Announcements
+            </p>
+            <div class="space-y-0">
+              <div class="announce-item">
+                <p class="text-xs font-bold text-slate-800">New: Advanced Python Module</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">Added to ML Bootcamp — Week 8</p>
+              </div>
+              <div class="announce-item">
+                <p class="text-xs font-bold text-slate-800">Certificate Update</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">New verifiable credential format live</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ACHIEVEMENT BADGES ── -->
+      <section class="soft-reveal delay-5 space-y-6">
+        <div class="flex justify-between items-end">
+          <div>
+            <h2 class="text-2xl font-black tracking-tight text-slate-900">Achievement Badges</h2>
+            <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+          </div>
+          <a href="#" class="text-xs font-bold uppercase tracking-widest text-orange-600 hover:underline underline-offset-4">View All</a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
+
+          <div class="badge-card">
+            <div class="w-16 h-16 mx-auto rounded-full navy-gradient flex items-center justify-center mb-4 shadow-lg">
+              <span class="material-symbols-outlined text-3xl text-orange-300" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+            </div>
+            <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Elite Scholar</p>
+            <p class="text-[10px] text-slate-500 mt-1">Completed 8 courses</p>
+            <div class="mt-3 inline-block bg-orange-50 text-orange-600 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Earned</div>
+          </div>
+
+          <div class="badge-card">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 shadow-lg">
+              <span class="material-symbols-outlined text-3xl text-white" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+            </div>
+            <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Streak Master</p>
+            <p class="text-[10px] text-slate-500 mt-1">14-day learning streak</p>
+            <div class="mt-3 inline-block bg-emerald-50 text-emerald-600 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Earned</div>
+          </div>
+
+          <div class="badge-card">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-4 shadow-lg">
+              <span class="material-symbols-outlined text-3xl text-white" style="font-variation-settings:'FILL' 1">code</span>
+            </div>
+            <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Code Architect</p>
+            <p class="text-[10px] text-slate-500 mt-1">Top 10% in Full-Stack</p>
+            <div class="mt-3 inline-block bg-purple-50 text-purple-600 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Earned</div>
+          </div>
+
+          <div class="badge-card opacity-60">
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-200 flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-3xl text-slate-400">lock</span>
+            </div>
+            <p class="text-xs font-black text-slate-700 uppercase tracking-tight">Grandmaster</p>
+            <p class="text-[10px] text-slate-400 mt-1">Complete all 12 courses</p>
+            <div class="mt-3">
+              <div class="progress-bar-bg mx-auto max-w-[80px]"><div class="progress-bar-fill" style="width:67%"></div></div>
+              <p class="text-[9px] text-slate-400 mt-1">8 / 12 done</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── MY CERTIFICATES ── -->
+      <section class="soft-reveal delay-6 space-y-6">
+        <div>
+          <h2 class="text-2xl font-black tracking-tight text-slate-900">My Certificates</h2>
+          <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+        </div>
+        <div class="space-y-4">
+
+          <div class="cert-card">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">Ethical Hacking Fundamentals</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Completed Jan 14, 2025 · Instructor: Silas Grey</p>
+                <div class="flex items-center gap-1.5 mt-1.5">
+                  <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Verified · LinkedIn Ready</span>
+                </div>
+              </div>
+            </div>
+            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Download
+            </button>
+          </div>
+
+          <div class="cert-card">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">Advanced UI Design Mastery</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Completed Feb 28, 2025 · Instructor: Sarah Jenkins</p>
+                <div class="flex items-center gap-1.5 mt-1.5">
+                  <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Verified · LinkedIn Ready</span>
+                </div>
+              </div>
+            </div>
+            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Download
+            </button>
+          </div>
+
+          <div class="cert-card">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-900">Digital Presence &amp; Branding</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Completed Mar 10, 2025 · Instructor: Julian Vane</p>
+                <div class="flex items-center gap-1.5 mt-1.5">
+                  <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                  <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Verified · LinkedIn Ready</span>
+                </div>
+              </div>
+            </div>
+            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+              <span class="material-symbols-outlined text-[16px]">download</span>
+              Download
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /max-w-6xl -->
+  </main><!-- /main -->
+</div><!-- /flex shell -->
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="md:ml-72 bg-slate-50 border-t border-slate-200 py-12 px-8">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="md:col-span-2 space-y-3">
+      <span class="text-xl font-bold text-slate-900 block">Skill School Elite</span>
+      <p class="text-xs text-slate-500 leading-6 max-w-sm">The digital atelier for those who seek mastery. Editorial excellence in education.</p>
+      <p class="text-xs text-slate-400">© 2025 Skill School Elite. All rights reserved.</p>
+    </div>
+    <div class="space-y-4">
+      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Platform</h5>
+      <ul class="space-y-2 text-xs text-slate-500">
+        <li><a href="#" class="hover:text-orange-500 transition-colors">About Us</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Careers</a></li>
+      </ul>
+    </div>
+    <div class="space-y-4">
+      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Legal</h5>
+      <ul class="space-y-2 text-xs text-slate-500">
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Terms of Service</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition-colors">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

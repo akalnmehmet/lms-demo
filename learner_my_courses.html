@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Learning — Skill School Elite</title>
+<meta name="description" content="Track and continue your enrolled courses on Skill School Elite."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy":      "#1A1A37",
+          "navy-deep": "#0f0f24",
+          "orange":    "#FF7E31",
+          "secondary": "#5c5b7c",
+          "primary":   "#9e4200",
+          "primary-container": "#ff7e31",
+          "surface":   "#fcf9f8",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low":    "#f6f3f2",
+          "surface-container":        "#f0eded",
+          "surface-container-high":   "#eae7e7",
+          "outline-variant":          "#dfc0b2",
+          "on-surface":               "#1b1c1c",
+          "secondary-fixed-dim":      "#c5c3e9",
+        },
+      },
+    },
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle; display: inline-block; line-height: 1;
+  }
+  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+  /* Kinetic gradient */
+  .kinetic-gradient { background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%); }
+  .navy-gradient    { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
+
+  /* Animations */
+  .soft-reveal {
+    opacity: 0; transform: translateY(20px);
+    animation: softReveal 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes softReveal { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.05s; }
+  .delay-2 { animation-delay: 0.12s; }
+  .delay-3 { animation-delay: 0.20s; }
+  .delay-4 { animation-delay: 0.28s; }
+  .delay-5 { animation-delay: 0.36s; }
+
+  /* Sidebar nav */
+  .side-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-radius: 8px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #5c5b7c;
+    transition: background 200ms, color 200ms, padding-left 260ms;
+    cursor: pointer; text-decoration: none;
+  }
+  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+  .side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+
+  /* Sidebar scroll */
+  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
+
+  /* Progress bar */
+  .progress-bar-bg  { background: #e5e2e1; border-radius: 99px; height: 6px; }
+  .progress-bar-fill {
+    height: 6px; border-radius: 99px;
+    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    transition: width 1s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* Course card */
+  .course-card {
+    background: #fff; border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 240ms ease-out, box-shadow 240ms ease-out;
+    position: relative;
+  }
+  .course-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    opacity: 0; border-radius: 0 0 12px 12px; transition: opacity 200ms;
+  }
+  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(92,91,124,0.16); }
+  .course-card:hover::after { opacity: 1; }
+
+  /* Tab */
+  .tab-btn {
+    background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: #9ca3af; padding: 8px 0; border-bottom: 2px solid transparent;
+    transition: color 200ms, border-color 200ms;
+  }
+  .tab-btn.active { color: #FF7E31; border-bottom-color: #FF7E31; }
+  .tab-btn:hover:not(.active) { color: #1A1A37; }
+
+  /* CTA button */
+  .continue-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
+    color: #fff; border: none; cursor: pointer;
+    padding: 9px 16px; border-radius: 8px;
+    font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    text-decoration: none;
+    transition: transform 180ms, box-shadow 180ms, opacity 150ms;
+    box-shadow: 0 6px 18px -4px rgba(158,66,0,0.30);
+    width: 100%; justify-content: center;
+  }
+  .continue-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -4px rgba(158,66,0,0.38); }
+  .continue-btn:active { transform: scale(0.97); opacity: 0.92; }
+</style>
+</head>
+<body class="bg-surface-container-low">
+
+<!-- ═══ TOP NAV BAR ═══ -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-12">
+      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
+      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-orange-600 font-bold border-b-2 border-orange-500" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-6">
+      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ PAGE SHELL ═══ -->
+<div class="flex min-h-screen pt-20">
+
+  <!-- ═══ LEFT SIDEBAR ═══ -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
+    <!-- User avatar -->
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+      </div>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="learner_dashboard.html">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>
+        Overview
+      </a>
+      <a class="side-link active" href="learner_my_courses.html">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">school</span>
+        My Courses
+      </a>
+      <a class="side-link" href="#">
+        <span class="material-symbols-outlined text-[20px]">military_tech</span>
+        Achievements
+      </a>
+      <a class="side-link" href="account_skill_school_elite.html">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        Settings
+      </a>
+    </nav>
+
+    <!-- Upgrade card -->
+    <div class="mt-auto">
+      <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-orange-800 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-orange-700/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <button class="w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+      </div>
+      <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="flex-1 md:ml-72 p-6 md:p-10 overflow-y-auto">
+    <div class="max-w-6xl mx-auto space-y-8">
+
+      <!-- ── PAGE HEADER ── -->
+      <div class="soft-reveal delay-1 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500 mb-1">Student Portal</p>
+          <h1 class="text-3xl font-black tracking-tight text-slate-900">My Learning</h1>
+          <div class="h-1 w-10 bg-orange-500 rounded-full mt-2"></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-500 font-medium shadow-sm">
+            <span class="material-symbols-outlined text-[18px] text-slate-400">search</span>
+            <input type="text" placeholder="Search your courses..." class="outline-none border-none bg-transparent text-sm font-medium text-slate-700 placeholder:text-slate-400 w-40"/>
+          </div>
+          <select class="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-bold text-slate-600 outline-none shadow-sm cursor-pointer">
+            <option>Sort: Recent</option>
+            <option>Sort: Progress</option>
+            <option>Sort: A–Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ── STATS STRIP ── -->
+      <div class="soft-reveal delay-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-orange-500 text-[20px]">auto_stories</span>
+          </div>
+          <div>
+            <p class="text-xl font-black text-slate-900">12</p>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Enrolled</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-emerald-500 text-[20px]">verified</span>
+          </div>
+          <div>
+            <p class="text-xl font-black text-slate-900">8</p>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Completed</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-500 text-[20px]">schedule</span>
+          </div>
+          <div>
+            <p class="text-xl font-black text-slate-900">4</p>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">In Progress</p>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-purple-500 text-[20px]">workspace_premium</span>
+          </div>
+          <div>
+            <p class="text-xl font-black text-slate-900">5</p>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Certificates</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TABBED COURSE GRID ── -->
+      <section class="soft-reveal delay-3">
+
+        <!-- Tab bar -->
+        <div class="flex items-center gap-8 border-b border-slate-200 mb-7" id="tabBar">
+          <button class="tab-btn active" onclick="switchTab(this,'inprogress')">In Progress <span class="ml-1.5 text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">4</span></button>
+          <button class="tab-btn" onclick="switchTab(this,'completed')">Completed <span class="ml-1.5 text-[10px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">8</span></button>
+          <button class="tab-btn" onclick="switchTab(this,'archived')">Archived <span class="ml-1.5 text-[10px] font-black bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">0</span></button>
+        </div>
+
+        <!-- IN PROGRESS tab -->
+        <div id="tab-inprogress" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+
+          <!-- Card 1: Advanced Software Architecture — 38% -->
+          <div class="course-card">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4" alt="Software Architecture"/>
+              <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
+              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">38%</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Module 1 of 24</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">Advanced Software Architecture</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">38%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:38%"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Last studied <strong class="text-slate-600">2 days ago</strong> · 1h 44m remaining</p>
+              <a href="course_player.html" class="continue-btn">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+                Continue Course
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Machine Learning Bootcamp — 65% -->
+          <div class="course-card">
+            <div class="h-40 overflow-hidden relative">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo" alt="Machine Learning"/>
+              <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
+              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">65%</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Module 8 of 18</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">Machine Learning Bootcamp</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">65%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Last studied <strong class="text-slate-600">Today</strong> · 4h 20m remaining</p>
+              <a href="course_player.html" class="continue-btn">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+                Continue Course
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Full-Stack Mastery — 40% -->
+          <div class="course-card">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white/30 text-[80px]">code</span>
+              <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
+              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">40%</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Module 3 of 12</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">Full-Stack Mastery: Architecture &amp; Logic</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">40%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Last studied <strong class="text-slate-600">3 days ago</strong> · 6h 05m remaining</p>
+              <a href="course_player.html" class="continue-btn">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+                Continue Course
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Cloud-Native DevOps — 12% -->
+          <div class="course-card">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-sky-700 to-teal-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white/30 text-[80px]">cloud</span>
+              <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Beginner</div>
+              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">12%</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Module 1 of 16</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">Cloud-Native DevOps with Kubernetes</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-orange-600">12%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:12%"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Last studied <strong class="text-slate-600">1 week ago</strong> · 18h 30m remaining</p>
+              <a href="course_player.html" class="continue-btn">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">play_circle</span>
+                Continue Course
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /in-progress grid -->
+
+        <!-- COMPLETED tab (hidden by default) -->
+        <div id="tab-completed" class="hidden grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+
+          <!-- Completed Card 1 -->
+          <div class="course-card opacity-90">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-emerald-700 to-teal-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white/30 text-[80px]">psychology</span>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <span class="material-symbols-outlined text-white text-[32px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Completed</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">✓ All 14 Modules</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">UX Design Fundamentals</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-emerald-600">100%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:linear-gradient(90deg,#059669,#10b981)"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Completed <strong class="text-slate-600">Jan 12, 2025</strong></p>
+              <a href="course_player.html" class="continue-btn" style="background:linear-gradient(135deg,#065f46,#059669)">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">replay</span>
+                Review Course
+              </a>
+            </div>
+          </div>
+
+          <!-- Completed Card 2 -->
+          <div class="course-card opacity-90">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-violet-700 to-indigo-600 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white/30 text-[80px]">data_object</span>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                  <span class="material-symbols-outlined text-white text-[32px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Completed</div>
+            </div>
+            <div class="p-5 space-y-3">
+              <div>
+                <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest">✓ All 10 Modules</p>
+                <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">Python for Data Science</h3>
+              </div>
+              <div>
+                <div class="flex justify-between items-center mb-1.5">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
+                  <span class="text-[11px] font-black text-emerald-600">100%</span>
+                </div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:linear-gradient(90deg,#059669,#10b981)"></div></div>
+              </div>
+              <p class="text-[10px] text-slate-400">Completed <strong class="text-slate-600">Nov 28, 2024</strong></p>
+              <a href="course_player.html" class="continue-btn" style="background:linear-gradient(135deg,#065f46,#059669)">
+                <span class="material-symbols-outlined text-[15px]" style="font-variation-settings:'FILL' 1">replay</span>
+                Review Course
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /completed grid -->
+
+        <!-- ARCHIVED tab (hidden by default) -->
+        <div id="tab-archived" class="hidden">
+          <div class="flex flex-col items-center justify-center py-20 text-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center">
+              <span class="material-symbols-outlined text-slate-300 text-[32px]">inventory_2</span>
+            </div>
+            <p class="text-base font-bold text-slate-700">No archived courses</p>
+            <p class="text-sm text-slate-400 max-w-xs">Courses you archive will appear here. You can archive a course from its settings menu.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ── BROWSE MORE CTA ── -->
+      <div class="soft-reveal delay-5 bg-white rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl kinetic-gradient flex items-center justify-center shadow-lg flex-shrink-0">
+            <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1">explore</span>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-slate-900">Discover more courses</h3>
+            <p class="text-xs text-slate-500 mt-0.5">350+ expert-led courses across 20 specializations</p>
+          </div>
+        </div>
+        <a href="courses_skill_school_elite.html" class="kinetic-gradient text-white px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:translate-y-[-2px] transition-all flex-shrink-0" style="text-decoration:none;">Browse Catalog →</a>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<script>
+  function switchTab(btn, tabId) {
+    // Reset all tabs
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Hide all panels
+    ['inprogress','completed','archived'].forEach(id => {
+      const el = document.getElementById('tab-' + id);
+      el.classList.add('hidden');
+    });
+    // Show selected
+    document.getElementById('tab-' + tabId).classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

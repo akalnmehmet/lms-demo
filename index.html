@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#5c5b7c",
+              "on-surface-variant": "#584238",
+              "error": "#ba1a1a",
+              "primary": "#9e4200",
+              "on-secondary-container": "#5c5c7d",
+              "tertiary": "#6049c5",
+              "surface-container-highest": "#e5e2e1",
+              "surface-container-high": "#eae7e7",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#444463",
+              "tertiary-fixed-dim": "#cabeff",
+              "primary-fixed": "#ffdbcb",
+              "primary-container": "#ff7e31",
+              "on-background": "#1b1c1c",
+              "background": "#fcf9f8",
+              "on-primary-fixed-variant": "#793100",
+              "inverse-primary": "#ffb691",
+              "secondary-fixed-dim": "#c5c3e9",
+              "on-error-container": "#93000a",
+              "surface-tint": "#9e4200",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#303030",
+              "on-primary-container": "#632700",
+              "on-surface": "#1b1c1c",
+              "secondary-fixed": "#e2dfff",
+              "secondary-container": "#d8d6fd",
+              "outline-variant": "#dfc0b2",
+              "on-primary-fixed": "#341100",
+              "on-secondary-fixed": "#181835",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#3a1a9f",
+              "on-error": "#ffffff",
+              "surface-variant": "#e5e2e1",
+              "outline": "#8b7266",
+              "surface-container-low": "#f6f3f2",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              "on-primary": "#ffffff",
+              "surface-container": "#f0eded",
+              "surface": "#fcf9f8",
+              "inverse-on-surface": "#f3f0ef",
+              "primary-fixed-dim": "#ffb691",
+              "on-tertiary-fixed": "#1c0062",
+              "tertiary-container": "#a694ff",
+              "on-tertiary-fixed-variant": "#482dac",
+              "surface-bright": "#fcf9f8",
+              "tertiary-fixed": "#e6deff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -20px rgba(92, 91, 124, 0.08);
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Skill School Elite</span>
+<div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+<a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="pt-32 pb-24 px-8 bg-[#1A1A37] relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-tertiary rounded-full blur-[120px]"></div>
+</div>
+<div class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+<div class="lg:col-span-7 space-y-8">
+<span class="inline-block bg-primary-container/20 text-primary-container px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase">The Digital Atelier</span>
+<h1 class="text-white text-5xl md:text-7xl font-black tracking-tight leading-[1.1] font-headline">
+                    Master Your Skills <br/> with <span class="text-primary-container">Skill School Elite</span>
+</h1>
+<p class="text-secondary-fixed-dim text-lg md:text-xl leading-relaxed max-w-2xl font-body">
+                    A curated editorial learning experience designed for high-end mastery. Reject the industrial grid and embrace the sophisticated path to excellence.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-white px-10 py-5 rounded-lg text-sm font-bold uppercase tracking-widest hover:translate-y-[-4px] transition-all duration-300 editorial-shadow">Explore Courses</button>
+<button class="bg-transparent border border-outline-variant/20 text-white px-10 py-5 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-white/5 transition-all duration-300">Our Methodology</button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-square rounded-2xl overflow-hidden shadow-2xl rotate-3 bg-surface-container-high relative">
+<img class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700" data-alt="Professional student learning in a modern high-end studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKvsgls4KtCdRIPCGVhhCldZ_0igMu8lfXEE_IhA3f8ycgDtcLjLLqIc-IQglBlRWyBWl4ROyL-2fW8SaYPi5uyN7sniH7QUHAgi2sjGuyuE1ii5x64JwDi9855WU9-Rjz-Lx7tUW4xLfyzw8YT_vQa-ABYfn4SfKhqkWyz83wgTgkoYf_5lcAEwW9woHy74Ntvn3Ylzy3oE3tzEYtendst4duijejJjllTfn9haSYVZ7G9BHBDwGOhzhMQUDTCD1Spz-jQbcCvdY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A1A37] via-transparent to-transparent opacity-60"></div>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl editorial-shadow animate-bounce-slow max-w-[240px]">
+<div class="flex items-center gap-4 mb-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="text-xs font-bold uppercase tracking-tighter text-secondary">Elite Content</span>
+</div>
+<p class="text-on-surface font-bold text-sm">Curated by world-class industry professionals.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Counter Section -->
+<section class="bg-surface py-20 px-8 relative z-20">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16">
+<div class="text-center group">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">10K+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Active Students</div>
+</div>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">500+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Elite Courses</div>
+</div>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">100+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Master Mentors</div>
+</div>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">95%</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Completion Rate</div>
+</div>
+</div>
+</section>
+<!-- Featured Courses Section (Intentional Asymmetry) -->
+<section class="bg-surface-container-low py-24 px-8 overflow-hidden">
+<div class="max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="max-w-2xl">
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4 block">Curated Selection</span>
+<h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight font-headline">Featured Courses</h2>
+</div>
+<a class="text-sm font-bold uppercase tracking-widest text-primary border-b-2 border-primary hover:opacity-70 transition-all" href="#">View All Masterclasses</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+<!-- Course Card 1 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Advanced UI Design Masterclass thumbnail with abstract geometric patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALCHgD3EvgwVU0ajoEfhDbGhf1AmXA28cW6Qoqwt3B7oxWTFst_UsVF7JCS4GWXS86s513qlv3gj7u9tAf5K-GwhTPZ55amwlVavBxWzQhxj9UM6ub6CynfvibO50QxUbdKqKekAvAdjisNnzwWVkiLUtsS28K5WSvmOMCMVYCDq4QEhidO3mmHmuv8IJt0dNaKX85hFPLYK4lYRRPbAPnX5UMihvq3qh9lOoa-FW9EgVZ0B93OeI2yRi9lSBZLLucLEeRfqv3Jqk"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Design</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">Advanced UI Design Mastery</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Sarah Jenkins</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[75%]"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">75% Complete</span>
+</div>
+<button class="w-full bg-surface-container-low text-on-surface hover:bg-primary-container hover:text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-colors duration-300">Resume Lesson</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Course Card 2 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Strategic Business Management course visual with data charts and graphs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQgujRW79L40vULax98e5F7LHG3mvkGp5qSnBqIyOPUbY9cJubl8Lx8fw1XWQYX0WGbinOJQs-mYui0KiAS0oViGEOeyxSqilsE4WA_ZOr0QbWLlRIoniNQkSTDGMUo0r2duKy5eGMNVg4V7bCn1V456gc7u-GtzKmm5KfcRMzOa3xc9d73B6n2IlqFFDWU6kVwOU1jEhF2lzIzZ8CL4jdwKclyeecW9MycFEcprubLn-Lo0oq42WEQo2FKBXSgy9C34EnLJSMf7M"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Business</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">Strategic Business Management</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Marcus Thorne</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">Not Started</span>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-all duration-300 editorial-shadow">Enroll Now</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Course Card 3 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative lg:mt-12">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Full Stack Development course thumbnail with code and dark workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJgAMnXnVDLZtiYG7RLZK3gV4ak2sAAaILiuqJj4zvgTA-SC809PM9M8VuQwbOSgWJa2fvQUezxvEI3r5KTluJ4vCQgCrjepcpbiQ_F1xHeEciPs0U0Os_ZHMhLddKRgcxdy7pfPLSFXga1Xm-tweUArGfdGNjiR6fy04mCTe_U8RaTTBadqFSrRn91clqPn_LvQdz9NvuWGRAtHqSs1aNTMamwPXE9GmIvdNx1jhCR0Yl0ggGAOEMMIk_D13TayL3O22uX6E9s0"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Technology</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">Elite Full Stack Development</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Elena Rodriguez</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[15%]"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">15% Complete</span>
+</div>
+<button class="w-full bg-surface-container-low text-on-surface hover:bg-primary-container hover:text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-colors duration-300">Resume Lesson</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Course Card 4 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Digital Marketing and Branding course visuals" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0h4ioGR6beF_6-6IDLxbL8BE67P67EVBjGXxoo9nsbZUpVPvo6pqAqNzHlGwL9FVSvUlpU5kJtsz2NuQ45t_kaDQ0eZLi109LsiOLAb2LZSlEQhbUUYj1jeXbkaEpTeFKeCQE-lhAC2vquQyzho_PCGhqmkPVxE7cR4sNbDdqjYbt_pzpUf2znFKThHXMFaIjS0JBj84NYjttUrTsI3tqyJrlxhRuIzXwjEIz-9_wAvSLCBJ6QzCsFcfO0lfpN-SgeFqUFqUM3eQ"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Marketing</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">Digital Presence &amp; Branding</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Julian Vane</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">Not Started</span>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-all duration-300 editorial-shadow">Enroll Now</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Course Card 5 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Cybersecurity and Ethical Hacking terminal screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa1NglAvgQPYH4oBdxEzS6q0yQUAqysTrgzJ9m5r0T9e35NuHJuoGpasHaCsRRpaklJAf0CDA3WiWkRLiTlbS2pLPJI5ZKyMEO4KAm2BJGcp4tWCi6zplxyl9VmnssytInHFMnSzuvgpuaBA0MozXBn-sZtSFyLWeXXIFE1Fk6K4D0D7SIdtTNA_t9kTffwig2vMoQPF8fRXcOwO3h4TRHasBfqHqknrCQ0N4HbhZTDsBj-z27rl5CTHFgrceFtBjX2U0UihL2Fe4"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Security</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">Ethical Hacking Fundamentals</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Silas Grey</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[90%]"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">90% Complete</span>
+</div>
+<button class="w-full bg-surface-container-low text-on-surface hover:bg-primary-container hover:text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-colors duration-300">Resume Lesson</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+<!-- Course Card 6 -->
+<div class="group bg-surface-container-lowest p-4 rounded-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative lg:-mt-12">
+<div class="aspect-video rounded-md overflow-hidden bg-surface-variant mb-6 relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Modern Photography and Visual Storytelling camera lens visual" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnmKE6VQJO8kyw7nqq45Ki1iYrCcjF5xndWYj4UmqfpuTRwvFSrkPluvYIl3nAEv1yvWt2wsSRDvMLdhHEVZ8Zm-W3YfbeZ56w3C7ZfvM1_fqgoxzKHjKbDxOUa-JsQjKN09boT6MThhfgxr_Uah6UTEsBj-cyMCn3ZQw2jrclw1PJe97mp4422KjgOVcnd46iK_DXFwMLXtlcqGOXpj_Vhm_sD0Titwnotls6uHn3K7zAwPUwuVFgbJkeT-MAwlSFccRHKa69RQo"/>
+<div class="absolute top-4 right-4 bg-[#1A1A37]/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Creative</div>
+</div>
+<div class="px-2 pb-4">
+<h3 class="text-xl font-bold text-on-surface mb-2 leading-tight">High-End Visual Storytelling</h3>
+<p class="text-sm text-secondary mb-6 font-medium">Instructor: Clarissa Dawn</p>
+<div class="flex items-center justify-between mb-4">
+<div class="w-2/3 h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0"></div>
+</div>
+<span class="text-[10px] font-black text-on-surface uppercase tracking-tighter">Not Started</span>
+</div>
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-white py-3 rounded text-xs font-bold uppercase tracking-widest transition-all duration-300 editorial-shadow">Enroll Now</button>
+</div>
+<div class="absolute bottom-0 left-0 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-300"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 px-8 border-t border-slate-200 dark:border-slate-800">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-screen-2xl mx-auto">
+<div class="space-y-6">
+<span class="text-xl font-bold text-slate-900 dark:text-white">Skill School Elite</span>
+<p class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 max-w-[200px]">
+                    The digital atelier for those who seek mastery in their craft.
+                </p>
+</div>
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">Platform</h4>
+<ul class="space-y-2">
+<li><a class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">About Us</a></li>
+<li><a class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Careers</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">Legal</h4>
+<ul class="space-y-2">
+<li><a class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Terms of Service</a></li>
+<li><a class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 hover:text-orange-500 hover:underline underline-offset-4 transition-colors duration-200" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">Connect</h4>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors cursor-pointer" style="font-size: 20px;">share</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors cursor-pointer" style="font-size: 20px;">link</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors cursor-pointer" style="font-size: 20px;">public</span>
+</div>
+</div>
+</div>
+<div class="max-w-screen-2xl mx-auto mt-16 pt-8 border-t border-slate-200/50 dark:border-slate-800/50">
+<p class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400 text-center">
+                © 2024 Skill School Elite. Editorial Excellence in Education.
+            </p>
+</div>
+</footer>
+</body></html>
