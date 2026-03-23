@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Skill School Elite — My Certificates</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy":      "#1A1A37",
+          "navy-deep": "#0f0f24",
+          "orange":    "#FF7E31",
+          "secondary": "#5c5b7c",
+          "primary":   "#9e4200",
+          "primary-container": "#ff7e31",
+        },
+        fontFamily: {
+          "headline": ["Inter"],
+          "body":     ["Inter"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg":      "8px",
+          "xl":      "12px",
+          "2xl":     "16px",
+          "full":    "9999px",
+        },
+      },
+    },
+  }
+</script>
+<style>
+  /* ─── Base ─── */
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+
+  /* ─── Material icons ─── */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+  }
+
+  /* ─── Glassmorphic nav ─── */
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* ─── Staggered soft-reveal animation ─── */
+  .soft-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes softReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.05s; }
+  .delay-2 { animation-delay: 0.12s; }
+
+  /* ─── Kinetic gradients ─── */
+  .kinetic-gradient {
+    background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
+  }
+  .navy-gradient {
+    background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
+  }
+
+  /* ─── Sidebar nav item ─── */
+  .side-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-radius: 8px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #5c5b7c;
+    transition: background 200ms, color 200ms, padding-left 260ms;
+    cursor: pointer; text-decoration: none;
+  }
+  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+  .side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+
+  /* ─── Certificate Card ─── */
+  .cert-preview-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 300ms, box-shadow 300ms;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .cert-preview-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(92,91,124,0.15);
+  }
+  .cert-preview-card .top-accent {
+    height: 6px;
+    background: linear-gradient(90deg, #1A1A37, #FF7E31);
+    width: 100%;
+  }
+
+  /* ─── Scrollbar ─── */
+  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
+</style>
+</head>
+<body class="bg-[#f6f3f2]">
+
+<!-- ═══════════════════════════ TOP NAV BAR ═══════════════════════════ -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-12">
+      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
+      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 transition-all duration-200" href="index.html">Home</a>
+        <a class="text-slate-600 hover:text-slate-900 transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 font-['Inter'] tracking-tight text-sm" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-slate-600 hover:text-slate-900 transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-6">
+      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 hover:text-slate-900 transition-all">Support</button>
+      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 hover:text-slate-900 transition-all">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all shadow-md">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ PAGE SHELL ═══════════════════════════ -->
+<div class="flex min-h-screen pt-20">
+
+  <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
+    <!-- User avatar -->
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+      </div>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="learner_dashboard.html">
+        <span class="material-symbols-outlined text-[20px]">dashboard</span>
+        Overview
+      </a>
+      <a class="side-link" href="learner_my_courses.html">
+        <span class="material-symbols-outlined text-[20px]">school</span>
+        My Courses
+      </a>
+      <!-- ACTIVE ITEM: My Certificates -->
+      <a class="side-link active" href="learner_certificates.html">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+        My Certificates
+      </a>
+      <a class="side-link" href="#">
+        <span class="material-symbols-outlined text-[20px]">military_tech</span>
+        Achievements
+      </a>
+      <a class="side-link" href="account_skill_school_elite.html">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        Settings
+      </a>
+    </nav>
+
+    <!-- Upgrade card -->
+    <div class="mt-auto">
+      <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-orange-800 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-orange-700/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <button class="w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+      </div>
+      <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main class="flex-1 md:ml-72 p-6 md:p-10 overflow-y-auto">
+    <div class="max-w-5xl mx-auto space-y-10">
+      
+      <!-- Header -->
+      <section class="soft-reveal delay-1 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-slate-200 pb-8">
+        <div>
+          <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-2">My Certificates</h1>
+          <p class="text-slate-500 font-medium max-w-lg">View, download, and verify your earned credentials. Your achievements representing your commitment to digital mastery.</p>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-2 text-sm font-bold text-emerald-600 bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-100">
+                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">verified</span>
+                3 Verified Credentials
+            </span>
+        </div>
+      </section>
+
+      <!-- Certificates Grid -->
+      <section class="soft-reveal delay-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Certificate 1: Advanced Software Architecture -->
+        <div class="cert-preview-card flex flex-col items-stretch group">
+            <div class="top-accent"></div>
+            <div class="p-8 flex flex-col flex-1 relative overflow-hidden">
+                <!-- Decorative BG icon -->
+                <span class="material-symbols-outlined absolute -right-6 -top-6 text-[120px] text-slate-50 opacity-50 z-0">workspace_premium</span>
+                
+                <div class="relative z-10 flex flex-col h-full items-start">
+                    <div class="w-14 h-14 rounded-full navy-gradient text-white flex items-center justify-center mb-6 shadow-lg shadow-navy/20">
+                        <span class="material-symbols-outlined text-3xl">architecture</span>
+                    </div>
+                    <h3 class="text-xl font-black text-slate-900 leading-tight mb-2">Advanced Software Architecture</h3>
+                    <p class="text-xs text-slate-500 font-medium mb-6 flex-1">Completed March 24, 2026</p>
+                    
+                    <div class="w-full flex items-center justify-between mt-auto">
+                        <div class="flex items-center gap-1 text-emerald-600 text-[10px] font-bold uppercase tracking-widest">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            Verified
+                        </div>
+                        <a href="verified_certificate.html" class="bg-[#1A1A37] text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-[#252548] transition-colors shadow-md">
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate 2: UI/UX Design -->
+        <div class="cert-preview-card flex flex-col flex-auto group">
+            <div class="top-accent"></div>
+            <div class="p-8 flex flex-col flex-1 relative overflow-hidden">
+                <span class="material-symbols-outlined absolute -right-6 -top-6 text-[120px] text-slate-50 opacity-50 z-0">workspace_premium</span>
+                
+                <div class="relative z-10 flex flex-col h-full items-start">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
+                        <span class="material-symbols-outlined text-3xl">brush</span>
+                    </div>
+                    <h3 class="text-xl font-black text-slate-900 leading-tight mb-2">UI/UX Design Masterclass</h3>
+                    <p class="text-xs text-slate-500 font-medium mb-6 flex-1">Completed February 12, 2026</p>
+                    
+                    <div class="w-full flex items-center justify-between mt-auto">
+                        <div class="flex items-center gap-1 text-emerald-600 text-[10px] font-bold uppercase tracking-widest">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            Verified
+                        </div>
+                        <a href="#" class="bg-white border border-slate-200 text-slate-600 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest hover:text-navy hover:border-navy transition-colors">
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate 3: Data Science 101 -->
+        <div class="cert-preview-card flex flex-col flex-auto group">
+            <div class="top-accent"></div>
+            <div class="p-8 flex flex-col flex-1 relative overflow-hidden">
+                <span class="material-symbols-outlined absolute -right-6 -top-6 text-[120px] text-slate-50 opacity-50 z-0">workspace_premium</span>
+                
+                <div class="relative z-10 flex flex-col h-full items-start">
+                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-white flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20">
+                        <span class="material-symbols-outlined text-3xl">query_stats</span>
+                    </div>
+                    <h3 class="text-xl font-black text-slate-900 leading-tight mb-2">Data Science &amp; Machine Learning 101</h3>
+                    <p class="text-xs text-slate-500 font-medium mb-6 flex-1">Completed January 05, 2026</p>
+                    
+                    <div class="w-full flex items-center justify-between mt-auto">
+                        <div class="flex items-center gap-1 text-emerald-600 text-[10px] font-bold uppercase tracking-widest">
+                            <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            Verified
+                        </div>
+                        <a href="#" class="bg-white border border-slate-200 text-slate-600 px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest hover:text-navy hover:border-navy transition-colors">
+                            View Certificate
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </section>
+
+    </div><!-- /max-w-5xl -->
+  </main><!-- /main -->
+</div><!-- /flex shell -->
+
+</body>
+</html>
