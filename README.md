@@ -1,9 +1,9 @@
-# 🎓 Skill School Elite - Next-Gen LMS Prototype
+# 🎓 Baynal Group LMS - Next-Gen LMS Prototype
 **Geliştirici:** Mehmet Akalın  
 **Canlı Demo:** [https://akalnmehmet.github.io/lms-demo/](https://akalnmehmet.github.io/lms-demo/)
 
 ## 🚀 Proje Vizyonu
-Skill School Elite, modern eğitim teknolojileri (EdTech) standartlarında, kullanıcı deneyimi (UX) odaklı ve doğrulanabilir başarı belgeleri sunan bir öğrenme yönetim sistemi (LMS) prototipidir. Bu çalışma, sadece statik bir arayüz değil, uçtan uca bir "Öğrenme Yolculuğu" simülasyonudur.
+Baynal Group LMS, modern eğitim teknolojileri (EdTech) standartlarında, kullanıcı deneyimi (UX) odaklı ve doğrulanabilir başarı belgeleri sunan bir öğrenme yönetim sistemi (LMS) prototipidir. Bu çalışma, sadece statik bir arayüz değil, uçtan uca bir "Öğrenme Yolculuğu" simülasyonudur.
 
 ## 🛠 Öne Çıkan Teknik Özellikler
 * **Modern Navigasyon:** Tüm sayfalarda tutarlı, sabit (sticky) ve duyarlı (responsive) navbar yapısı.

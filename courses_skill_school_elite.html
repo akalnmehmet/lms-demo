@@ -3,7 +3,7 @@
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Skill School Elite - Courses Catalog</title>
+<title>Baynal Group LMS - Courses Catalog</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -17,7 +17,7 @@
               "secondary": "#5c5b7c",
               "on-surface-variant": "#584238",
               "error": "#ba1a1a",
-              "primary": "#9e4200",
+              "primary": "#1F3456",
               "on-secondary-container": "#5c5c7d",
               "tertiary": "#6049c5",
               "surface-container-highest": "#e5e2e1",
@@ -25,18 +25,18 @@
               "surface-container-lowest": "#ffffff",
               "on-secondary-fixed-variant": "#444463",
               "tertiary-fixed-dim": "#cabeff",
-              "primary-fixed": "#ffdbcb",
-              "primary-container": "#ff7e31",
+              "primary-fixed": "#dbeafe",
+              "primary-container": "#47689A",
               "on-background": "#1b1c1c",
               "background": "#fcf9f8",
-              "on-primary-fixed-variant": "#793100",
+              "on-primary-fixed-variant": "#111f38",
               "inverse-primary": "#ffb691",
               "secondary-fixed-dim": "#c5c3e9",
               "on-error-container": "#93000a",
-              "surface-tint": "#9e4200",
+              "surface-tint": "#1F3456",
               "on-tertiary": "#ffffff",
               "inverse-surface": "#303030",
-              "on-primary-container": "#632700",
+              "on-primary-container": "#e0e7ff",
               "on-surface": "#1b1c1c",
               "secondary-fixed": "#e2dfff",
               "secondary-container": "#d8d6fd",
@@ -77,7 +77,7 @@
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
       .kinetic-gradient {
-        background: linear-gradient(135deg, #9e4200 0%, #ff7e31 100%);
+        background: linear-gradient(135deg, #1F3456 0%, #47689A 100%);
       }
       .glass-nav {
         backdrop-filter: blur(20px);
@@ -91,35 +91,310 @@
         to { opacity: 1; transform: translateY(0); }
       }
     </style>
+
+<style id="premium-animations">
+/* ─── Premium Scroll Animations ─── */
+.reveal-on-scroll {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+.fade-up { transform: translateY(40px); }
+.fade-up.is-visible { transform: translateY(0); }
+
+.fade-right { transform: translateX(-40px); }
+.fade-right.is-visible { transform: translateX(0); }
+
+.fade-left { transform: translateX(40px); }
+.fade-left.is-visible { transform: translateX(0); }
+
+.scale-up { transform: scale(0.92); }
+.scale-up.is-visible { transform: scale(1); }
+
+/* ─── Floating Background Elements ─── */
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+.animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -4s;
+}
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ─── Hover Elevation ─── */
+.hover-elevate {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-elevate:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2);
+}
+</style>
+
+
+<style id="custom-cursor">
+@media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button, input, textarea, select, [tabindex], label { cursor: none !important; }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #47689A;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        /* Using absolute transforms for lerping in JS directly */
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    .cursor-ring {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(71, 104, 154, 0.4);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
+        will-change: width, height, transform, border;
+    }
+    .cursor-ring.hovering {
+        width: 55px;
+        height: 55px;
+        background-color: rgba(71, 104, 154, 0.1);
+        border-color: rgba(71, 104, 154, 0.9);
+    }
+    .cursor-dot.hovering {
+        opacity: 0.6;
+        width: 4px;
+        height: 4px;
+    }
+    
+    /* Disappear naturally when off screen */
+    .cursor-hidden {
+        opacity: 0 !important;
+    }
+}
+@media (pointer: coarse), (hover: none) {
+    .cursor-dot, .cursor-ring { display: none !important; }
+}
+</style>
+
+
+<style id="advanced-flair-css">
+/* ─── Glassmorphism Shine Effect ─── */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+.shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 10;
+    pointer-events: none;
+}
+.shine-effect:hover::after {
+    animation: shineSweep 0.8s ease-out forwards;
+}
+@keyframes shineSweep {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* ─── Inner Glow for Cards ─── */
+.inner-glow {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.04);
+}
+.inner-glow:hover {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), 0 20px 40px -8px rgba(31,52,86,0.2) !important;
+}
+
+/* ─── Image Zoom ─── */
+.image-zoom-container {
+    overflow: hidden;
+}
+.image-zoom-container img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.image-zoom-container:hover img {
+    transform: scale(1.08); /* slight smooth zoom */
+}
+</style>
+
+
+
+<style id="footer-glow-css">
+.footer-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(71, 104, 154, 0.8) 50%, transparent 100%);
+    animation: flow-glow 4s linear infinite;
+}
+@keyframes flow-glow {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+.pulse-badge {
+    animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); box-shadow: 0 0 15px rgba(71, 104, 154, 0.3); }
+}
+</style>
+
 </head>
-<body class="bg-surface font-body text-on-surface">
+<body class="bg-surface font-body text-on-surface" overflow-x-hidden w-full m-0 p-0>
+
+<!-- backgroundParticles injected -->
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script id="particles-script">
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 35 : 75; // Optimal count for smooth performance
+    
+    // Baynal Group Navy Blues: #47689A, #314E78, #1F3456
+    const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+
+    function init() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: Math.random() * 2.5 + 0.8,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+    }
+
+    let mouseX = -1000;
+    let mouseY = -1000;
+    
+    // Slight attractive-repulsive physics to mouse
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            
+            // Mouse Repel Physics
+            let dxMouse = mouseX - p.x;
+            let dyMouse = mouseY - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            
+            if (distMouse < 180) {
+                // gentle push outward
+                p.x -= (dxMouse / distMouse) * 1.5;
+                p.y -= (dyMouse / distMouse) * 1.5;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Bounce on edges
+            if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+            if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+
+            // Connect lines
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    // Fade out lines based on distance
+                    const opacity = Math.max(0, 1 - (dist / 130));
+                    ctx.strokeStyle = `rgba(71, 104, 154, ${opacity * 0.25})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    init();
+    draw();
+    
+    window.addEventListener('resize', () => {
+        init(); 
+    });
+});
+</script>
+
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none transition-all duration-200">
-<div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
-<div class="flex items-center gap-12">
-<span class="text-2xl font-black tracking-tighter text-slate-900 dark:text-white">Skill School Elite</span>
-<div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+<div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-6 md:gap-6 md:p-12">
+<a href="index.html" class="flex items-center gap-3">
+  <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+</a>
+<div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
 <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="index.html">Home</a>
-<a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="courses_skill_school_elite.html">Courses</a>
+<a class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-700 hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="courses_skill_school_elite.html">Courses</a>
 <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="learner_dashboard.html">Dashboard</a>
 <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200 active:scale-95" href="contact_skill_school_elite.html">Contact</a>
 </div>
 </div>
-<div class="flex items-center gap-6">
-<div class="relative hidden lg:block">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-<input class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary-container transition-all" placeholder="Search courses..." type="text"/>
-</div>
-<button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+<div class="flex items-center gap-4 md:p-6">
+<a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
 <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
-<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
 </div>
 </div>
 </nav>
-<main class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto min-h-screen">
+<main class="pt-32 pb-20 px-4 md:px-4 md:px-8 max-w-screen-2xl mx-auto min-h-screen">
 <!-- Header Section -->
 <header class="mb-12 soft-reveal">
-<h1 class="text-5xl md:text-7xl font-black tracking-tighter text-on-surface mb-4 leading-none">
+<h1 class="text-5xl md:text-7xl font-black tracking-tighter text-on-surface mb-4 leading-none reveal-on-scroll fade-up">
                 Master the <span class="text-primary-container">Next Level</span>.
             </h1>
 <p class="text-lg text-secondary max-w-2xl leading-relaxed">
@@ -127,33 +402,33 @@
             </p>
 </header>
 <!-- Search & Filter Bar (Tonal Depth Principle) -->
-<section class="mb-12 sticky top-24 z-40 soft-reveal" style="animation-delay: 0.1s;">
-<div class="bg-surface-container-low p-6 rounded-xl flex flex-col md:flex-row gap-6 items-center justify-between">
+<section class="mb-12 sticky top-24 z-40 soft-reveal reveal-on-scroll fade-up" style="animation-delay: 0.1s;">
+<div class="bg-surface-container-low p-4 md:p-6 rounded-xl flex flex-col md:flex-row gap-4 md:p-6 items-center justify-between">
 <!-- Filters -->
-<div class="flex flex-wrap gap-3">
-<button class="bg-primary-container text-white px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all shadow-sm">All Courses</button>
-<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Development</button>
-<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Design</button>
-<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Business</button>
-<button class="bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Marketing</button>
+<div class="flex flex-wrap gap-3" id="course-filters">
+<button data-filter="all" class="filter-btn bg-primary-container text-white px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all shadow-sm">All Courses</button>
+<button data-filter="development" class="filter-btn bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Development</button>
+<button data-filter="design" class="filter-btn bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Design</button>
+<button data-filter="business" class="filter-btn bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Business</button>
+<button data-filter="marketing" class="filter-btn bg-surface-container-lowest text-secondary px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-primary transition-all border border-transparent hover:border-outline-variant/20">Marketing</button>
 </div>
 <!-- Search Input -->
-<div class="w-full md:w-80 group">
+<div class="w-full md:w-80 max-w-full group">
 <div class="relative flex items-center bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant/15 group-focus-within:border-primary transition-colors">
 <span class="material-symbols-outlined px-3 text-secondary group-focus-within:text-primary">search</span>
-<input class="w-full py-3 bg-transparent border-none focus:ring-0 text-sm" placeholder="Filter by keywords..." type="text"/>
+<input id="search-input" class="w-full py-3 bg-transparent border-none focus:ring-0 text-sm" placeholder="Filter by keywords..." type="text"/>
 </div>
 </div>
 </div>
 </section>
 <!-- Course Grid (Asymmetric & Elite Cards) -->
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:p-8 reveal-on-scroll fade-up">
 <!-- Card 1 -->
-<a href="course_detail.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.2s; text-decoration: none;">
+<a href="course_fullstack.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.2s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Laptop with code on screen and coffee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4" alt="Full-Stack Mastery"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
 <span class="text-primary-container font-black text-lg">$199</span>
@@ -162,20 +437,18 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Level up from coder to architect. Master the patterns that define world-class applications.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">24 Lessons</span>
-<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-    View Details
-    <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </a>
+
 <!-- Card 2 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.25s;">
+<a href="course_ux.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.25s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist design workspace with modern tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQ6vth737NZ8FnBpLxa4hFg4TZ5IwJVjLJED5grty7j34W33n8JS8ONotrobBpFUzlHY_ZbIX4GbEuaolTJ3w2Yyq-6qDok8ICgUK7QZYtakdmwF-q23dN056XQXfMO1XB6wzpTuYnK32FEDl84s9AgJUDBnK55ZsDw9wdjU8w8r2M4MP5nJC-7hMqQdlISAmHcNapN-kHgHpUbmcN3h10tY8YleoQBVUp1Z0pzvUFNNYCSbJGEytEjkSCnTVXDbUVxjudAGYCTc"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQ6vth737NZ8FnBpLxa4hFg4TZ5IwJVjLJED5grty7j34W33n8JS8ONotrobBpFUzlHY_ZbIX4GbEuaolTJ3w2Yyq-6qDok8ICgUK7QZYtakdmwF-q23dN056XQXfMO1XB6wzpTuYnK32FEDl84s9AgJUDBnK55ZsDw9wdjU8w8r2M4MP5nJC-7hMqQdlISAmHcNapN-kHgHpUbmcN3h10tY8YleoQBVUp1Z0pzvUFNNYCSbJGEytEjkSCnTVXDbUVxjudAGYCTc" alt="UX Fundamentals"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary-fixed px-2 py-1 rounded">Design</span>
 <span class="text-primary-container font-black text-lg">$149</span>
@@ -184,20 +457,18 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Learn the emotional psychology behind high-converting interfaces and premium experiences.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">18 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
+</a>
+
 <!-- Card 3 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.3s;">
+<a href="course_business.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.3s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Financial charts and analytics on a screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuKrbHERTKfv8wK0aBO4b2PD2ZPjl7y3SH_Fk-3LXCq5ZZ8rS1SenZojxB0hybIvvQkRNJKQcFbRafDtiRfZvCAVdVDqXziKRNEmJtZwcykpqDsDGYbPgIU6QmvMDHm5CzTyG4OCipIvzlT3Nemh_rxoWfL_gMjgZWa6-TigIDe8Tyvdkk0AtDBsPkdCXOBzRPdQ_8pcvoMosMSP6nRwZA4CDmz08VomTJkFQWJJRCzA6ItxUvyfKMKfPp3qsYm7a-1f2kUHiOot8"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuKrbHERTKfv8wK0aBO4b2PD2ZPjl7y3SH_Fk-3LXCq5ZZ8rS1SenZojxB0hybIvvQkRNJKQcFbRafDtiRfZvCAVdVDqXziKRNEmJtZwcykpqDsDGYbPgIU6QmvMDHm5CzTyG4OCipIvzlT3Nemh_rxoWfL_gMjgZWa6-TigIDe8Tyvdkk0AtDBsPkdCXOBzRPdQ_8pcvoMosMSP6nRwZA4CDmz08VomTJkFQWJJRCzA6ItxUvyfKMKfPp3qsYm7a-1f2kUHiOot8" alt="Venture Growth"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
 <span class="text-primary-container font-black text-lg">$299</span>
@@ -206,20 +477,18 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Transition from founder to CEO. Understanding the economics of rapid market expansion.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">32 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
+</a>
+
 <!-- Card 4 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.35s;">
+<a href="course_marketing.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.35s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Social media marketing conceptual scene" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8o5SrR6K8k01KE_dIRV5xHtCa-5iOdGXYujVtazh0zznDjioRkQb_MAw3vT5xNpqehpJkIaT8QP8-DR5gFwpbSf_uVXiEUDX95qqYpvgYuOQpAZ1fsWwKotFe4WLiH9MKO5SksBzShbdGMO1nyP1HFFgkhF8IYFQb9UnuiO4xm23cSKVeKUEfYeOex2MGuy7Q8x7VS-ligKrzniu-6OuWOBgFWfonkHoUkVhs1nQhl7P2GvcPmAlInUG-px_ncdkWFGToCx3-XiE"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8o5SrR6K8k01KE_dIRV5xHtCa-5iOdGXYujVtazh0zznDjioRkQb_MAw3vT5xNpqehpJkIaT8QP8-DR5gFwpbSf_uVXiEUDX95qqYpvgYuOQpAZ1fsWwKotFe4WLiH9MKO5SksBzShbdGMO1nyP1HFFgkhF8IYFQb9UnuiO4xm23cSKVeKUEfYeOex2MGuy7Q8x7VS-ligKrzniu-6OuWOBgFWfonkHoUkVhs1nQhl7P2GvcPmAlInUG-px_ncdkWFGToCx3-XiE" alt="Growth Hacking"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
 <span class="text-primary-container font-black text-lg">$129</span>
@@ -228,21 +497,18 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Data-driven strategies for exponential user acquisition without massive budgets.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">12 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Duplicate Cards for Grid (12 total requested) -->
+</a>
+
 <!-- Card 5 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.1s;">
+<a href="course_react.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.4s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Clean programming setup with dual monitors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkfIY-vbdTQrGE9rnuW-0cbraWtgdAYapF9U392DWE-CUvTkGmKx8gNaLQ2d-U844hzrjYCRd9HvLytXdENnki_njf5w-ao0RxFcOlD135jVIoim2ZFKqfE5qmCWWtJfvVpvPe93TOV1rxu3h-rDYjWuBLPjYp1r95fqXSOUScFcJbLEvGbqS-EFkBzEfHXJHCyYfGg7jaYjjsXjYd_3H-p_OqSDL78-QhrlGqmuiikVJ_vKBl_zWaIpD1KvSVF6q3-9ay2LhFeK8"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkfIY-vbdTQrGE9rnuW-0cbraWtgdAYapF9U392DWE-CUvTkGmKx8gNaLQ2d-U844hzrjYCRd9HvLytXdENnki_njf5w-ao0RxFcOlD135jVIoim2ZFKqfE5qmCWWtJfvVpvPe93TOV1rxu3h-rDYjWuBLPjYp1r95fqXSOUScFcJbLEvGbqS-EFkBzEfHXJHCyYfGg7jaYjjsXjYd_3H-p_OqSDL78-QhrlGqmuiikVJ_vKBl_zWaIpD1KvSVF6q3-9ay2LhFeK8" alt="React TypeScript"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
 <span class="text-primary-container font-black text-lg">$199</span>
@@ -251,20 +517,18 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Building type-safe, scalable web applications for enterprise-grade performance.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">28 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
+</a>
+
 <!-- Card 6 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.15s;">
+<a href="course_backend.html" class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden inner-glow" style="animation-delay: 0.45s; text-decoration: none;">
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Cyberpunk style tech gadgets background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsaEIo7ES974nng_HYBgt17qLfDxwoqF67zzDppDsiV4MLw6awQyLymGk64i4mD6wu8Scli644hHhEIh0bKGGnnF5ayMZ3wGg7c33KzqUm-xGYorD6lCOiNxJvUaWoYNSzVH4va6peTNsKDpoVKja_e0HlLLkBFNk4PnhIQgFbUEzI8fAYlSMh6WYbBUMB8iDpTtioNEnhyLXpHJcVu-X8Y-NbrL2AuOGV042zosETSlmL4j7rAYnR-3Wksq89PwjGPw5bY9LEkHo"/>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsaEIo7ES974nng_HYBgt17qLfDxwoqF67zzDppDsiV4MLw6awQyLymGk64i4mD6wu8Scli644hHhEIh0bKGGnnF5ayMZ3wGg7c33KzqUm-xGYorD6lCOiNxJvUaWoYNSzVH4va6peTNsKDpoVKja_e0HlLLkBFNk4PnhIQgFbUEzI8fAYlSMh6WYbBUMB8iDpTtioNEnhyLXpHJcVu-X8Y-NbrL2AuOGV042zosETSlmL4j7rAYnR-3Wksq89PwjGPw5bY9LEkHo" alt="Backend Systems"/>
 </div>
-<div class="p-6 flex flex-col flex-grow">
+<div class="p-4 md:p-6 flex flex-col flex-grow">
 <div class="flex justify-between items-start mb-4">
 <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
 <span class="text-primary-container font-black text-lg">$249</span>
@@ -273,200 +537,451 @@
 <p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Understanding high-availability architectures and global data consistency.</p>
 <div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
 <span class="text-[10px] font-bold tracking-widest uppercase text-outline">36 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">View Details <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span></span>
 </div>
 </div>
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 7 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.2s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist abstract design with geometric shapes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMvmwGOYbp9pN7ZXoG1psuIxIWGu5iejJUjsLup8mykUzLjatpVrw5mNfjZzcOwzX3L9PuBF0DszNU47HQWAnJNF8pVkDqnA0o2nVIg3Rx94Et0WusnaX8JFdtNtyMP1Yjnk3rE_S_roThkFXla5oYV4e5yF5AsYFZUlGl56U8Z6nXPza6JjcuPBR4kAnNTVjhrzLFFpza6AUCRplN_M4jg_tcf7sf3P_vS5KidXB81GSKKxdxh7vc6iDzWJV6q9kMOMlrq_k5lxA"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary-fixed px-2 py-1 rounded">Design</span>
-<span class="text-primary-container font-black text-lg">$179</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Visual Storytelling &amp; Brand Systems</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Creating cohesive brand identities that resonate across all digital touchpoints.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">22 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 8 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.25s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Data visualization on a large screen dashboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCbmpzsZEdrgEB6Q7tWqwsyutDBWqVrhnUqhsmbV0ncUkGZYqN1eAFNnt9bowHnvRwtJtaQaMm4gZlUdmryz07vrmav6NpMCJBp_GWLCbgtOMYjeCN0suGvqDsYBHp9ZOEqGcYgwVsBWV8gRTBPX0Xinf9TRtLkar0OLUUQa10OrymdvW1GMnAd5ReLY47VURyEbvqdTaEBbNcSFzln82CodhbzC8haC88HKcbKzWbi-Adok3GyU_HQ-sT6sqM-ZHD7674WCP9dQg"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
-<span class="text-primary-container font-black text-lg">$349</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Big Data for Executives</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Decision-making in the era of AI. Turning raw data into strategic advantage.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">20 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 9 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.3s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Productive workspace with design plans" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwrBVgSdMvwcRjw2TU73o5YIuLwAZg7wbzpdo12zcncStFkWuHinYHu1JnrbaNc1MFcPpIkz8i5Nu9eF7vZM4QngXiIIR8IQMeP5cLu0t4Ks2-Jju6VBp1woMhNbRyFzxYZFXMYKXk8YwGVUoJByx-pYUtVx5HSBuHb6ubN3-xlWXomB3W9L4LKxUAgl3fo1d-TscUTyortkqSN_5I8F3b1y-mZWEOrTLzM2zOhgVUIOH-liHUL40VOWtJJom-yUi7bRoYX_BXvo8"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
-<span class="text-primary-container font-black text-lg">$159</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Content Strategy &amp; Narrative Design</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">How to craft stories that capture attention in a distracted digital world.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">15 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 10 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.35s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Team working together on a software project" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARHOr9NghhrzxJ3L8m3ahokPGoobqOzVG_dWY5mVs_L7K_aXgdP2EWxLqY5cJwaikGlbUNWBFraIZGLX2ZxTY0zuARZHIPVUzb3-9jVIOtZDgsRO6cQ3wOvEzJLzaEqdmGJvQtQf8au-P-dtMHgbD74sHgOqIE_o6E_g_Jq_RsosZEESDijJGQjSMfpS7hAF1fjAsa4lxkffmX4g9VPdMvxJ1Hupt6cmIzTMwmfAlYCqMar1u1yvBkdgpbLvRu57SoWLZKWd-bkko"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
-<span class="text-primary-container font-black text-lg">$199</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Agile Engineering &amp; DevOps Flow</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Optimization of the delivery pipeline from local commit to global production.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">30 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 11 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.4s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Students collaborating in a modern studio space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnaJXd55sl6InJwN87wqVJeYeMw_jG0-gVlvihjYLocLyDMOkBLJMK1taLn9nYsxfKOWoSCmH9TKFcXhWXey19f4Bn0DnasZt6-w7MwWvzexFxU-PufMfFH-Oca4Z5C2Oi4h_MnWcE4IuVB7LZV_qcnFYrr_j2G3W4r3YDdwplTe-DSOEYpS9a2TCRu7xED_EQWWmbPd4m5DgatU-9i5F_v1MgNNgTZDQBsUYt-CkS5VSJI5KTR5pwN_rY7ARp-hDxkm7Tu5or3FA"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
-<span class="text-primary-container font-black text-lg">$279</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">The Art of Negotiation &amp; Influence</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Psychology-based methods for closing deals and leading teams with authority.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">21 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
-<!-- Card 12 -->
-<div class="soft-reveal group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden" style="animation-delay: 0.45s;">
-<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
-<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Person writing notes in a clean minimal notebook" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPPsueUKg1hiwoVx5B3dcLOPPWxE3onbOs7qZ3N_nCFCM3J-l2ODRi9zLgm1Huzuwh6qq4cg2NlCoLo6_xS9lLGKh7Ah0ksbpp8Kg79J3R2ENlT8rH-l-IyICs8RR2ypqHePbajH4RPuZsIhuhJX4vOgN40F21MXufZ-KOIBwB5JfS8tCv61D-SfaFr0G6vodKyUPzHZeSH4-7Pa_nBwbJkLEQZ4Uaa4QnHsBHGmN7QHVXP0SV1uhvOMgsRwWgmJ2XT2Rxn3T8qU8"/>
-</div>
-<div class="p-6 flex flex-col flex-grow">
-<div class="flex justify-between items-start mb-4">
-<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
-<span class="text-primary-container font-black text-lg">$139</span>
-</div>
-<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Email Engineering: Retention &amp; ROI</h3>
-<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Building automated sequences that turn subscribers into lifelong customers.</p>
-<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
-<span class="text-[10px] font-bold tracking-widest uppercase text-outline">16 Lessons</span>
-<button class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1 group/btn">
-                            View Details 
-                            <span class="material-symbols-outlined text-sm transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
-</button>
-</div>
-</div>
-<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
-</div>
+</a>
 </section>
 <!-- CTA Section -->
-<section class="mt-24 bg-on-surface text-surface py-20 px-12 rounded-2xl relative overflow-hidden soft-reveal">
+<section class="mt-24 bg-on-surface text-surface py-20 px-12 rounded-2xl relative overflow-hidden soft-reveal reveal-on-scroll fade-up">
 <div class="relative z-10 max-w-3xl">
 <h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-6">Ready to lead the industry?</h2>
 <p class="text-lg text-surface-container-highest/70 mb-10 leading-relaxed">Join 50,000+ elite students mastering the crafts of the future. Unlimited access to all courses starting at $49/mo.</p>
 <div class="flex flex-wrap gap-4">
-<button class="kinetic-gradient text-white px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm shadow-xl hover:scale-105 active:scale-95 transition-all">Start Your Journey</button>
-<button class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm hover:bg-white/20 transition-all">View Pricing</button>
+<a href="get_started_skill_school_elite.html" class="kinetic-gradient text-white px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm shadow-xl hover:scale-105 active:scale-95 transition-all inline-block text-center">Start Your Journey</a>
+<a href="pricing.html" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm hover:bg-white/20 transition-all inline-block text-center">View Pricing</a>
 </div>
 </div>
 <!-- Decorative Element -->
-<div class="absolute top-[-50%] right-[-10%] w-[600px] h-[600px] bg-primary-container opacity-20 blur-[120px] rounded-full"></div>
+<div class="absolute top-[-50%] right-[-10%] w-[600px] max-w-full h-[600px] bg-primary-container opacity-20 blur-[120px] rounded-full animate-float-delayed"></div>
 </section>
 </main>
 <!-- Footer -->
-<footer class="bg-slate-50 dark:bg-slate-950 w-full py-12 px-8 border-t border-slate-200 dark:border-slate-800 transition-colors">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-screen-2xl mx-auto">
-<div class="col-span-1 md:col-span-1">
-<span class="text-xl font-bold text-slate-900 dark:text-white block mb-6">Skill School Elite</span>
-<p class="font-['Inter'] text-xs leading-6 text-slate-500 dark:text-slate-400">© 2024 Skill School Elite. Editorial Excellence in Education.</p>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Platform</h4>
-<ul class="space-y-4 font-['Inter'] text-xs text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">About Us</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Terms of Service</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Careers</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Explore</h4>
-<ul class="space-y-4 font-['Inter'] text-xs text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Development</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Design</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Business</a></li>
-<li><a class="hover:text-orange-500 hover:underline underline-offset-4 transition-colors" href="#">Marketing</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold text-sm mb-6 uppercase tracking-widest">Social</h4>
-<div class="flex gap-4">
-<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-lg">language</span>
-</a>
-<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-lg">campaign</span>
-</a>
-<a class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-primary-container hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined text-lg">hub</span>
-</a>
-</div>
-</div>
-</div>
+
+
+<footer class="bg-[#111f38] text-white w-full py-10 md:py-14 px-4 md:px-12 border-t border-white/5 relative overflow-hidden mt-auto">
+    <!-- Animated background subtle glow -->
+    <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#47689A] rounded-full blur-[150px] opacity-[0.15] pointer-events-none animate-float"></div>
+    <div class="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#1F3456] rounded-full blur-[150px] opacity-30 pointer-events-none animate-float-delayed"></div>
+    
+    <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative z-10 p-2 md:p-4">
+        <!-- Brand Col -->
+        <div class="md:col-span-5 flex flex-col items-start space-y-4 reveal-on-scroll fade-right">
+            <a href="index.html" class="inline-block hover-elevate">
+                <img src="logo.png" alt="Baynal Group LMS Logo" class="h-10 md:h-12 w-auto object-contain drop-shadow-2xl">
+            </a>
+            <p class="font-body text-xs md:text-sm leading-relaxed text-slate-300 max-w-sm">
+                The digital atelier for those who seek mastery in their craft. We are redefining the standard of high-end educational experiences.
+            </p>
+            <div class="flex gap-3 pt-1">
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">share</span>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">public</span>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">link</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Links Grid -->
+        <div class="md:col-span-3 space-y-4 reveal-on-scroll fade-up">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#47689A]">Navigation</h4>
+            <ul class="space-y-3">
+                <li><a href="courses_skill_school_elite.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Courses</a></li>
+                <li><a href="learner_dashboard.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Dashboard</a></li>
+                <li><a href="contact_skill_school_elite.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Contact</a></li>
+            </ul>
+        </div>
+        
+        <!-- Legal & Newsletter -->
+        <div class="md:col-span-4 space-y-4 reveal-on-scroll fade-left">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#47689A]">Join the Elite</h4>
+            <p class="font-body text-xs md:text-sm text-slate-400 leading-relaxed">Subscribe for exclusive insights and early access.</p>
+            <form class="relative group mt-2 flex shadow-2xl">
+                <input type="email" placeholder="Email address" class="w-full bg-white/5 border border-white/10 rounded-l-md py-2.5 px-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#47689A] focus:ring-1 focus:ring-[#47689A] transition-all font-body text-sm" required>
+                <button type="button" class="bg-[#47689A] hover:bg-[#314E78] text-white px-5 py-2.5 rounded-r-md font-bold text-xs transition-colors shine-effect">
+                    Subscribe
+                </button>
+            </form>
+            <div class="pt-2 flex gap-4 text-[11px] text-slate-500 font-medium">
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="max-w-screen-xl mx-auto mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 px-2 md:px-4">
+        <p class="font-body text-xs text-slate-500">© 2026 Baynal Group LMS. All rights reserved.</p>
+        <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-full border border-white/5 pulse-badge">
+            <span class="material-symbols-outlined text-[12px] text-[#47689A]" style="font-variation-settings:'FILL' 1;">verified</span>
+            Editorial Excellence
+        </div>
+    </div>
 </footer>
-</body></html>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('search-input');
+    const cards = document.querySelectorAll('section.grid > a');
+    
+    // Helper to toggle active button styles
+    function setActiveButton(activeBtn) {
+        filterButtons.forEach(btn => {
+            btn.classList.remove('bg-primary-container', 'text-white', 'shadow-sm');
+            btn.classList.add('bg-surface-container-lowest', 'text-secondary', 'border', 'border-transparent');
+        });
+        activeBtn.classList.remove('bg-surface-container-lowest', 'text-secondary', 'border', 'border-transparent');
+        activeBtn.classList.add('bg-primary-container', 'text-white', 'shadow-sm');
+    }
+
+    function doFilter(sourceValue) {
+        const searchTerm = sourceValue.toLowerCase();
+        const activeFilterBtn = document.querySelector('.filter-btn.bg-primary-container');
+        const activeFilter = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+        cards.forEach(card => {
+            const categorySpan = card.querySelector('.rounded');
+            const category = categorySpan ? categorySpan.textContent.trim().toLowerCase() : '';
+            const titleElement = card.querySelector('h3');
+            const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+            const descriptionElement = card.querySelector('p');
+            const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : '';
+
+            const matchesFilter = activeFilter === 'all' || category === activeFilter;
+            const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+
+            if (matchesFilter && matchesSearch) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            setActiveButton(e.currentTarget);
+            doFilter(searchInput ? searchInput.value : '');
+        });
+    });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => doFilter(searchInput.value));
+    }
+});
+</script>
+<!-- mobileMenuScript injected -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject mobile menu logic dynamically without heavy HTML replace
+    const navRight = document.querySelector('nav .flex.items-center.gap-6') || document.querySelector('nav .flex.justify-between > div:last-child');
+    const navLinks = document.querySelector('nav .hidden.md\\:flex, nav .hidden.lg\\:flex') || document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+    
+    // Some pages like sign_in or get_started intentionally have no nav links, so we skip if not found
+    if (navRight && navLinks && !document.getElementById('mobileMenuContainer')) {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        btn.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.appendChild(btn);
+
+        const menuContainer = document.createElement('div');
+        menuContainer.id = 'mobileMenuContainer';
+        menuContainer.className = 'fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transform -translate-y-[150%] transition-transform duration-300 z-40 p-6 flex flex-col gap-4';
+        
+        // Clone links into mobile menu
+        Array.from(navLinks.querySelectorAll('a')).forEach(link => {
+            const clone = link.cloneNode(true);
+            clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
+            menuContainer.appendChild(clone);
+        });
+
+        // Add to body
+        document.body.appendChild(menuContainer);
+
+        let isOpen = false;
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                menuContainer.classList.remove('-translate-y-[150%]');
+                menuContainer.classList.add('translate-y-0');
+                btn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+            } else {
+                menuContainer.classList.remove('translate-y-0');
+                menuContainer.classList.add('-translate-y-[150%]');
+                btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+            }
+        });
+    }
+
+    // Fix sidebar on dashboard pages for mobile
+    const sidebar = document.querySelector('aside.hidden.md\\:flex');
+    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const toggleSidebar = document.createElement('button');
+        toggleSidebar.id = 'mobileSidebarToggle';
+        toggleSidebar.innerHTML = '<span class="material-symbols-outlined">dataset</span>';
+        toggleSidebar.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(toggleSidebar, navRight.firstChild);
+
+        let sidebarOpen = false;
+        toggleSidebar.addEventListener('click', () => {
+            sidebarOpen = !sidebarOpen;
+            if (sidebarOpen) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex', 'w-full', 'z-50');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex', 'w-full', 'z-50');
+            }
+        });
+    }
+
+    // Fix Course Player sidebar
+    const curSidebar = document.querySelector('#curriculumSidebar');
+    const playerMain = document.querySelector('.lg\\:mr-80');
+    if (curSidebar && !document.getElementById('curSidebarToggle')) {
+        const curToggle = document.createElement('button');
+        curToggle.id = 'curSidebarToggle';
+        curToggle.innerHTML = '<span class="material-symbols-outlined mr-2">menu_book</span> Curriculum';
+        curToggle.className = 'lg:hidden w-full bg-slate-100 text-slate-800 font-bold p-4 text-center mt-4 rounded-xl flex items-center justify-center';
+        
+        if(playerMain) playerMain.appendChild(curToggle);
+
+        curToggle.addEventListener('click', () => {
+            curSidebar.classList.toggle('hidden');
+            if(!curSidebar.classList.contains('hidden')) {
+               curSidebar.style.position = 'static';
+               curSidebar.style.width = '100%';
+               curSidebar.style.height = 'auto';
+               curSidebar.style.borderLeft = 'none';
+               curSidebar.style.marginTop = '20px';
+               playerMain.appendChild(curSidebar);
+            }
+        });
+    }
+});
+</script>
+
+<!-- premiumAnimations injected -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        // Group entries that intersect at the exact same time
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+            // Stagger animations based on how many are appearing at once
+            setTimeout(() => {
+                entry.target.classList.add('is-visible');
+            }, index * 120); // 120ms stagger
+            observer.unobserve(entry.target);
+        });
+    }, observerOptions);
+
+    // Observe all elements gracefully
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+});
+</script>
+
+
+<!-- cursorScript injected -->
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', () => {
+    // Only initialize custom cursor on devices with a mouse
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring cursor-hidden';
+        
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let isSetup = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Unhide on first movement
+            if (!isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+                ringX = mouseX;
+                ringY = mouseY;
+                isSetup = true;
+            }
+            
+            // Dot follows directly with zero lag
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+        
+        // Hide cursors when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            dot.classList.add('cursor-hidden');
+            ring.classList.add('cursor-hidden');
+        });
+        document.addEventListener('mouseenter', () => {
+            if(isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+            }
+        });
+
+        // Loop for the smooth fluid ring follower
+        const render = () => {
+            // Lerp (Linear Interpolation) formula for smooth dragging animation
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            if (isSetup) {
+                ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+            }
+            requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        // Hover states trigger
+        const interactiveSelectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.add('hovering');
+                dot.classList.add('hovering');
+            }
+        });
+        document.body.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.remove('hovering');
+                dot.classList.remove('hovering');
+            }
+        });
+        
+        // Clicks effect
+        document.body.addEventListener('mousedown', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(0.9)`;
+        });
+        document.body.addEventListener('mouseup', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(1)`;
+        });
+    }
+});
+</script>
+
+
+<!-- advancedFlair injected -->
+<script id="advanced-flair-js">
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Dynamic Number Counter for stats
+    const counters = document.querySelectorAll('.text-5xl.font-black');
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.innerText || el.textContent;
+                    const numMatch = text.match(/[0-9]+/);
+                    if (numMatch) {
+                        const targetNum = parseInt(numMatch[0], 10);
+                        const parts = text.split(numMatch[0]); // to keep prefixes/suffixes
+                        
+                        let current = 0;
+                        const duration = 2500;
+                        const startTime = performance.now();
+                        
+                        const updateCount = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // easeOutQuart
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            const currentVal = Math.floor(targetNum * ease);
+                            
+                            el.innerText = (parts[0] || '') + currentVal + (parts[1] || '');
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.innerText = text; // Ensure exact final value
+                            }
+                        };
+                        requestAnimationFrame(updateCount);
+                    }
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(c => counterObserver.observe(c));
+    }
+
+    // 2. 3D Tilt Effect on Course Cards & Large Images
+    // We only apply this safely if it's not a pure touch device
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const tiltCards = document.querySelectorAll('.hover-elevate.group, .image-zoom-container, .inner-glow');
+        tiltCards.forEach(card => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Very subtle tilt mapping (-3 to 3 degrees max to look professional)
+                const rotateX = ((y - centerY) / centerY) * -3; 
+                const rotateY = ((x - centerX) / centerX) * 3;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    }
+
+    // 3. Magnetic Magnetic Buttons (Pulls toward cursor)
+    const magneticBtns = document.querySelectorAll('.px-10.py-5, .px-6.py-2\\.5'); // Matching typical buttons
+    if (window.matchMedia('(pointer: fine)').matches && magneticBtns.length > 0) {
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Pull effect: Max 10px translate
+                const translateX = ((x - centerX) / centerX) * 10;
+                const translateY = ((y - centerY) / centerY) * 10;
+                
+                btn.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.02)`;
+                btn.style.transition = 'none'; // smooth follow
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            });
+        });
+    }
+});
+</script>
+
+
+</body>
+
+</html>

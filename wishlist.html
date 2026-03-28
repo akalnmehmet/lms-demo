@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Wishlist — Baynal Group LMS</title>
+<meta name="description" content="View and manage your saved courses on Baynal Group LMS."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy": "#1A1A37", "navy-deep": "#0f0f24", "orange": "#47689A", "orange-dim": "#314E78",
+          "secondary": "#5c5b7c", "primary": "#1F3456", "primary-container": "#47689A",
+          "surface": "#fcf9f8", "on-surface": "#1b1c1c",
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; display: inline-block; line-height: 1; }
+  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .kinetic-gradient { background: linear-gradient(135deg, #1F3456 0%, #47689A 100%); }
+  .navy-gradient { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
+  .soft-reveal { opacity: 0; transform: translateY(24px); animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  @keyframes softReveal { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.05s; } .delay-2 { animation-delay: 0.12s; } .delay-3 { animation-delay: 0.20s; } .delay-4 { animation-delay: 0.28s; }
+  .side-link { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #5c5b7c; transition: background 200ms, color 200ms, padding-left 260ms; cursor: pointer; text-decoration: none; }
+  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+  .side-link.active { background: #ffffff; color: #47689A; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
+
+  /* Wishlist card */
+  .wl-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; transition: transform 260ms, box-shadow 260ms; }
+  .wl-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -8px rgba(31,52,86,0.14); }
+
+  /* Remove button */
+  .remove-btn { opacity: 0; transition: opacity 200ms; }
+  .wl-card:hover .remove-btn { opacity: 1; }
+
+  /* Shine */
+  .shine-effect { position: relative; overflow: hidden; }
+  .shine-effect::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); z-index: 10; pointer-events: none; }
+  .shine-effect:hover::after { animation: shineSweep 0.8s ease-out forwards; }
+  @keyframes shineSweep { 0% { left: -150%; } 100% { left: 150%; } }
+
+  /* Cursor */
+  @media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button { cursor: none !important; }
+    .cursor-dot { width:8px;height:8px;background:#47689A;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transition:width .2s,height .2s,opacity .2s; }
+    .cursor-ring { width:40px;height:40px;border:2px solid rgba(71,104,154,.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;will-change:transform; }
+    .cursor-hidden { opacity:0!important; }
+    .cursor-ring.hovering { width:56px;height:56px;background:rgba(71,104,154,.08);border-color:rgba(71,104,154,.7); }
+  }
+
+  /* Scroll reveal */
+  .reveal-on-scroll { opacity:0;visibility:hidden;transition:all .8s cubic-bezier(.25,.46,.45,.94); }
+  .reveal-on-scroll.is-visible { opacity:1;visibility:visible; }
+  .fade-up { transform:translateY(40px); }
+  .fade-up.is-visible { transform:translateY(0); }
+  .fade-right { transform:translateX(-40px); }
+  .fade-right.is-visible { transform:translateX(0); }
+
+  /* Toast */
+  #wl-toast { position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1F3456;color:#fff;padding:12px 24px;border-radius:99px;font-size:.8rem;font-weight:700;z-index:9999;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s;opacity:0;pointer-events:none;display:flex;align-items:center;gap:8px; }
+  #wl-toast.show { transform:translateX(-50%) translateY(0);opacity:1; }
+</style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+
+<!-- Toast -->
+<div id="wl-toast">
+  <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1" id="toast-icon">check_circle</span>
+  <span id="toast-msg">Removed from wishlist</span>
+</div>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-6">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+      </a>
+      <div class="hidden md:flex gap-5 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 transition-all" href="index.html">Home</a>
+        <a class="text-slate-600 hover:text-slate-900 transition-all" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A]" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-slate-600 hover:text-slate-900 transition-all" href="contact_skill_school_elite.html">Contact</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="learner_help.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-all" style="text-decoration:none;">Support</a>
+      <a href="sign_in.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-all" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="kinetic-gradient text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] transition-all shadow-md shine-effect" style="text-decoration:none;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE SHELL -->
+<div class="flex min-h-screen pt-20">
+
+  <!-- SIDEBAR -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+      </div>
+    </div>
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="learner_dashboard.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>Overview</a>
+      <a class="side-link" href="learner_my_courses.html"><span class="material-symbols-outlined text-[20px]">school</span>My Courses</a>
+      <a class="side-link active" href="wishlist.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">favorite</span>Wishlist</a>
+      <a class="side-link" href="learner_certificates.html"><span class="material-symbols-outlined text-[20px]">workspace_premium</span>My Certificates</a>
+      <a class="side-link" href="learner_achievements.html"><span class="material-symbols-outlined text-[20px]">military_tech</span>Achievements</a>
+      <a class="side-link" href="account_skill_school_elite.html"><span class="material-symbols-outlined text-[20px]">settings</span>Settings</a>
+    </nav>
+    <div class="mt-auto">
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-blue-900 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-blue-800/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <a href="learner_upgrade.html" class="block text-center w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</a>
+      </div>
+      <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+        <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span>Help</a>
+        <a class="side-link" href="index.html"><span class="material-symbols-outlined text-[18px]">logout</span>Logout</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 md:ml-72 p-4 md:p-6 lg:p-10 overflow-y-auto">
+    <div class="max-w-5xl mx-auto space-y-8 pb-16">
+
+      <!-- Header -->
+      <div class="soft-reveal delay-1 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#47689A] mb-1">My Account</p>
+          <h1 class="text-3xl font-black tracking-tight text-slate-900">My Wishlist</h1>
+          <div class="h-1 w-10 bg-[#47689A] rounded-full mt-2"></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-slate-500 font-medium"><span id="wl-count" class="font-black text-slate-900">0</span> saved courses</span>
+          <button onclick="clearAll()" class="text-xs font-bold text-red-400 hover:text-red-600 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-all" id="clear-btn" style="display:none;">Clear All</button>
+        </div>
+      </div>
+
+      <!-- Grid / Empty State -->
+      <div id="wl-grid" class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+      <!-- Empty state -->
+      <div id="wl-empty" class="soft-reveal delay-2 hidden flex flex-col items-center justify-center py-24 text-center gap-5">
+        <div class="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center">
+          <span class="material-symbols-outlined text-slate-300 text-[40px]">favorite</span>
+        </div>
+        <div>
+          <p class="text-lg font-black text-slate-700 mb-1">Your wishlist is empty</p>
+          <p class="text-sm text-slate-400 max-w-xs">Save courses you're interested in with the ♡ button on any course page.</p>
+        </div>
+        <a href="courses_skill_school_elite.html" class="kinetic-gradient text-white px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:opacity-90 transition-all shine-effect" style="text-decoration:none;">Explore Courses</a>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 mt-auto z-10 relative">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <img src="logo.png" alt="Baynal Group LMS Logo" class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all">
+      <p class="text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="learner_help.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Support</a>
+      <a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
+      <a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Wishlist Engine ─────────────────────────────────────────────────
+const WL_KEY = 'baynal_wishlist';
+
+function getWishlist() {
+    try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; }
+}
+function saveWishlist(list) {
+    localStorage.setItem(WL_KEY, JSON.stringify(list));
+}
+function removeItem(id) {
+    const list = getWishlist().filter(c => c.id !== id);
+    saveWishlist(list);
+    renderGrid();
+    showToast('Removed from wishlist', 'delete');
+}
+function clearAll() {
+    saveWishlist([]);
+    renderGrid();
+}
+
+function showToast(msg, type) {
+    const t = document.getElementById('wl-toast');
+    const icon = document.getElementById('toast-icon');
+    document.getElementById('toast-msg').textContent = msg;
+    icon.textContent = type === 'delete' ? 'delete' : 'favorite';
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function renderGrid() {
+    const list = getWishlist();
+    const grid = document.getElementById('wl-grid');
+    const empty = document.getElementById('wl-empty');
+    const countEl = document.getElementById('wl-count');
+    const clearBtn = document.getElementById('clear-btn');
+
+    countEl.textContent = list.length;
+    clearBtn.style.display = list.length > 0 ? '' : 'none';
+
+    if (list.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+    }
+    empty.classList.add('hidden');
+
+    grid.innerHTML = list.map(course => `
+        <div class="wl-card reveal-on-scroll fade-up" id="card-${course.id}">
+            <!-- Thumbnail -->
+            <div class="relative h-40 overflow-hidden ${course.thumb ? '' : 'navy-gradient flex items-center justify-center'}">
+                ${course.thumb
+                    ? `<img src="${course.thumb}" class="w-full h-full object-cover" alt="${course.title}" onerror="this.onerror=null;this.parentElement.classList.add('navy-gradient','flex','items-center','justify-center');this.remove();this.parentElement.innerHTML+='<span class=\\'material-symbols-outlined text-white/30 text-[60px]\\'>school</span>'">`
+                    : `<span class="material-symbols-outlined text-white/30 text-[60px]">school</span>`
+                }
+                <!-- Remove button -->
+                <button onclick="removeItem('${course.id}')" class="remove-btn absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-red-50 transition-colors group" title="Remove from wishlist">
+                    <span class="material-symbols-outlined text-[16px] text-slate-500 group-hover:text-red-500" style="font-variation-settings:'FILL' 1">favorite</span>
+                </button>
+                ${course.badge ? `<div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">${course.badge}</div>` : ''}
+            </div>
+            <!-- Body -->
+            <div class="p-5 space-y-3">
+                <div>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${course.category || 'Course'}</p>
+                    <h3 class="text-sm font-black text-slate-900 leading-tight mt-0.5">${course.title}</h3>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-xl font-black text-slate-900">${course.price || ''}</span>
+                        ${course.original ? `<span class="text-xs text-slate-400 line-through">${course.original}</span>` : ''}
+                    </div>
+                    ${course.rating ? `<div class="flex items-center gap-1"><span class="material-symbols-outlined text-amber-400 text-[14px]" style="font-variation-settings:'FILL' 1">star</span><span class="text-xs font-bold text-slate-700">${course.rating}</span></div>` : ''}
+                </div>
+                <a href="${course.url}" class="block w-full text-center kinetic-gradient text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all shine-effect" style="text-decoration:none;">View Course</a>
+            </div>
+        </div>
+    `).join('');
+
+    // re-trigger scroll animations
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
+    }, 50);
+}
+
+// ── Particles ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    renderGrid();
+
+    const canvas = document.getElementById('bg-particles');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let w, h, parts;
+        const colors = ['rgba(71,104,154,0.4)','rgba(49,78,120,0.25)','rgba(31,52,86,0.12)'];
+        function init() { w=window.innerWidth;h=window.innerHeight;canvas.width=w;canvas.height=h;parts=[];for(let i=0;i<60;i++)parts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,r:Math.random()*2.5+.8,c:colors[Math.floor(Math.random()*colors.length)]}); }
+        let mx=-1000,my=-1000;
+        document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+        function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<parts.length;i++){let p=parts[i];let dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy);if(d<180){p.x-=(dx/d)*1.5;p.y-=(dy/d)*1.5;}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c;ctx.fill();for(let j=i+1;j<parts.length;j++){let p2=parts[j],dx2=p.x-p2.x,dy2=p.y-p2.y,dist=Math.sqrt(dx2*dx2+dy2*dy2);if(dist<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(71,104,154,${(1-dist/120)*.2})`;ctx.lineWidth=.7;ctx.stroke();}}}requestAnimationFrame(draw);}
+        init();draw();window.addEventListener('resize',init);
+    }
+
+    // Custom cursor
+    if(window.matchMedia('(pointer: fine)').matches){
+        const dot=document.createElement('div');dot.className='cursor-dot cursor-hidden';
+        const ring=document.createElement('div');ring.className='cursor-ring cursor-hidden';
+        document.body.appendChild(dot);document.body.appendChild(ring);
+        let mx2=-100,my2=-100,rx=-100,ry=-100,setup=false;
+        document.addEventListener('mousemove',e=>{mx2=e.clientX;my2=e.clientY;if(!setup){dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');rx=mx2;ry=my2;setup=true;}dot.style.transform=`translate(calc(${mx2}px - 50%),calc(${my2}px - 50%))`;});
+        const rend=()=>{rx+=(mx2-rx)*.15;ry+=(my2-ry)*.15;if(setup)ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;requestAnimationFrame(rend);};rend();
+        document.body.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){ring.classList.add('hovering');}});
+        document.body.addEventListener('mouseout',e=>{if(e.target.closest('a,button')){ring.classList.remove('hovering');}});
+    }
+
+    // Scroll observer
+    const obs = new IntersectionObserver(entries => {
+        entries.filter(e=>e.isIntersecting).forEach((e,i)=>{ setTimeout(()=>e.target.classList.add('is-visible'),i*80); obs.unobserve(e.target); });
+    }, {threshold:0.1});
+    document.querySelectorAll('.reveal-on-scroll').forEach(el=>obs.observe(el));
+});
+
+// Mobile sidebar toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const navRight = document.querySelector('nav .flex.items-center.gap-4');
+    const sidebar = document.querySelector('aside');
+    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const t = document.createElement('button');
+        t.id = 'mobileSidebarToggle';
+        t.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        t.className = 'md:hidden text-slate-600 p-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(t, navRight.firstChild);
+        let open = false;
+        t.addEventListener('click',()=>{open=!open;if(open){sidebar.classList.remove('hidden');sidebar.classList.add('flex','w-full','z-50');}else{sidebar.classList.add('hidden');sidebar.classList.remove('flex','w-full','z-50');}});
+    }
+});
+</script>
+
+</body>
+</html>

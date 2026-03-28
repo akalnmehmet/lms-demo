@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pricing — Baynal Group LMS</title>
+<meta name="description" content="Simple, transparent pricing for individuals and enterprises. Choose your plan and start mastering the future with Baynal Group LMS."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#1F3456",
+          "primary-container": "#47689A",
+          "secondary": "#5c5b7c",
+          "on-surface": "#1b1c1c",
+          "surface": "#fcf9f8",
+          "outline-variant": "#dfc0b2",
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle; display: inline-block; line-height: 1;
+  }
+
+  .kinetic-gradient {
+    background: linear-gradient(135deg, #1F3456 0%, #47689A 100%);
+  }
+
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Reveal animations */
+  .reveal-on-scroll {
+    opacity: 0; visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal-on-scroll.is-visible { opacity: 1; visibility: visible; }
+  .fade-up { transform: translateY(40px); }
+  .fade-up.is-visible { transform: translateY(0); }
+  .fade-right { transform: translateX(-40px); }
+  .fade-right.is-visible { transform: translateX(0); }
+  .fade-left { transform: translateX(40px); }
+  .fade-left.is-visible { transform: translateX(0); }
+  .scale-up { transform: scale(0.92); }
+  .scale-up.is-visible { transform: scale(1); }
+
+  @keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+  }
+  .animate-float { animation: float 8s ease-in-out infinite; }
+  .animate-float-delayed { animation: float 8s ease-in-out infinite; animation-delay: -4s; }
+
+  /* Pricing card popular badge glow */
+  .popular-card {
+    box-shadow: 0 0 0 2px #47689A, 0 24px 60px -12px rgba(71,104,154,0.35);
+  }
+
+  /* Hover elevation */
+  .hover-elevate { transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s; }
+  .hover-elevate:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2); }
+
+  /* Shine effect */
+  .shine-effect { position: relative; overflow: hidden; }
+  .shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.6s ease;
+  }
+  .shine-effect:hover::after { left: 150%; }
+
+  /* Toggle switch */
+  .billing-toggle {
+    appearance: none; width: 52px; height: 28px;
+    background: #e5e7eb; border-radius: 99px; position: relative; cursor: pointer;
+    transition: background 250ms;
+  }
+  .billing-toggle:checked { background: #1F3456; }
+  .billing-toggle::before {
+    content: ''; position: absolute;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: white; top: 3px; left: 3px;
+    transition: transform 250ms;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+  .billing-toggle:checked::before { transform: translateX(24px); }
+</style>
+</head>
+<body class="bg-white min-h-screen overflow-x-hidden">
+
+<!-- Particle canvas -->
+<canvas id="bg-particles" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 shadow-sm">
+  <div class="flex justify-between items-center h-20 px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-6">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+      </a>
+      <div class="hidden md:flex gap-5 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-blue-600 font-bold border-b-2 border-blue-700 hover:translate-y-[-2px] transition-all duration-200" href="pricing.html">Pricing</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 hover:text-slate-900 transition-all" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="kinetic-gradient text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md shine-effect" style="text-decoration:none;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main -->
+<main class="relative z-10 pt-32">
+
+  <!-- Hero -->
+  <section class="text-center py-16 px-4 reveal-on-scroll fade-up">
+    <span class="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-4">Simple Pricing</span>
+    <h1 class="text-5xl md:text-7xl font-black tracking-tight text-slate-900 mb-6">
+      Invest in your <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(135deg, #1F3456, #47689A);">future.</span>
+    </h1>
+    <p class="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+      One straightforward subscription. Full access to every course, certificate and live session. Cancel anytime.
+    </p>
+
+    <!-- Billing toggle -->
+    <div class="flex items-center justify-center gap-4 mt-10">
+      <span class="text-sm font-semibold text-slate-700" id="monthly-label">Monthly</span>
+      <input type="checkbox" id="billingToggle" class="billing-toggle" onchange="toggleBilling()">
+      <span class="text-sm font-semibold text-slate-700" id="annual-label">Annual</span>
+      <span id="saveBadge" class="hidden bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Save 30%</span>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="max-w-screen-xl mx-auto px-4 md:px-8 pb-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- Starter -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-8 hover-elevate reveal-on-scroll fade-right" style="transition-delay: 0s;">
+      <div class="mb-8">
+        <div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-slate-600" style="font-variation-settings:'FILL' 1">explore</span>
+        </div>
+        <h3 class="text-xl font-black text-slate-900 mb-1">Starter</h3>
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400">For individuals getting started</p>
+      </div>
+      <div class="mb-8">
+        <div class="flex items-end gap-1">
+          <span class="text-5xl font-black text-slate-900" id="starter-price">$29</span>
+          <span class="text-slate-400 text-sm font-medium mb-2" id="starter-period">/month</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1 h-4" id="starter-note"></p>
+      </div>
+      <ul class="space-y-3 mb-10">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Access to 100+ beginner courses</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Completion certificates</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Mobile & offline access</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Community forum access</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-slate-300 text-[18px] mt-0.5">cancel</span>
+          <span class="text-sm text-slate-400">Live Q&A sessions</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-slate-300 text-[18px] mt-0.5">cancel</span>
+          <span class="text-sm text-slate-400">Mentorship & 1-on-1 sessions</span>
+        </li>
+      </ul>
+      <a href="get_started_skill_school_elite.html" class="block w-full text-center border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-white transition-all duration-300 shine-effect">Get Started</a>
+    </div>
+
+    <!-- Pro — Popular -->
+    <div class="bg-[#1F3456] text-white rounded-2xl p-8 hover-elevate popular-card reveal-on-scroll scale-up relative" style="transition-delay: 0.1s;">
+      <div class="absolute top-[-14px] left-1/2 -translate-x-1/2">
+        <span class="bg-[#47689A] text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">Most Popular</span>
+      </div>
+      <div class="mb-8">
+        <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-white" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+        </div>
+        <h3 class="text-xl font-black mb-1">Pro</h3>
+        <p class="text-xs font-bold uppercase tracking-widest text-white/50">For serious learners</p>
+      </div>
+      <div class="mb-8">
+        <div class="flex items-end gap-1">
+          <span class="text-5xl font-black" id="pro-price">$49</span>
+          <span class="text-white/60 text-sm font-medium mb-2" id="pro-period">/month</span>
+        </div>
+        <p class="text-xs text-white/40 mt-1 h-4" id="pro-note"></p>
+      </div>
+      <ul class="space-y-3 mb-10">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-white/80">Full access to all 500+ courses</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-white/80">LinkedIn-verified certificates</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-white/80">Live weekly Q&A sessions</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-white/80">Mobile, offline & downloads</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-white/80">Priority support</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-white/30 text-[18px] mt-0.5">cancel</span>
+          <span class="text-sm text-white/40">Dedicated account manager</span>
+        </li>
+      </ul>
+      <a href="get_started_skill_school_elite.html" class="block w-full text-center bg-[#47689A] hover:bg-[#314E78] text-white font-bold py-3 rounded-xl transition-all duration-300 shine-effect shadow-xl">Start Pro Trial</a>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-8 hover-elevate reveal-on-scroll fade-left" style="transition-delay: 0.2s;">
+      <div class="mb-8">
+        <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1">corporate_fare</span>
+        </div>
+        <h3 class="text-xl font-black text-slate-900 mb-1">Enterprise</h3>
+        <p class="text-xs font-bold uppercase tracking-widest text-slate-400">For teams & organizations</p>
+      </div>
+      <div class="mb-8">
+        <div class="flex items-end gap-1">
+          <span class="text-5xl font-black text-slate-900">Custom</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-1 h-4">Contact us for a tailored quote</p>
+      </div>
+      <ul class="space-y-3 mb-10">
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Everything in Pro</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Dedicated account manager</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Custom learning paths</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">Analytics & progress reporting</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">SSO & API integration</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-green-500 text-[18px] mt-0.5" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm text-slate-600">1-on-1 mentorship sessions</span>
+        </li>
+      </ul>
+      <a href="contact_skill_school_elite.html" class="block w-full text-center border-2 border-primary text-primary font-bold py-3 rounded-xl hover:bg-primary hover:text-white transition-all duration-300 shine-effect">Contact Sales</a>
+    </div>
+
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="max-w-screen-lg mx-auto px-4 md:px-8 pb-24 reveal-on-scroll fade-up">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Frequently asked questions</h2>
+    </div>
+    <div class="space-y-4" id="faq-list">
+      <div class="faq-item border border-slate-200 rounded-xl overflow-hidden">
+        <button class="faq-trigger w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+          Can I cancel my subscription at any time?
+          <span class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+          Absolutely. You can cancel your subscription at any time with no questions asked. You'll retain access until the end of your billing period.
+        </div>
+      </div>
+      <div class="faq-item border border-slate-200 rounded-xl overflow-hidden">
+        <button class="faq-trigger w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+          Is there a free trial?
+          <span class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+          Yes! The Pro plan comes with a 7-day free trial. No credit card required to start. Explore the full platform before committing.
+        </div>
+      </div>
+      <div class="faq-item border border-slate-200 rounded-xl overflow-hidden">
+        <button class="faq-trigger w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+          Do certificates expire?
+          <span class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+          No. All certificates earned on Baynal Group LMS are yours permanently and can be shared directly on LinkedIn.
+        </div>
+      </div>
+      <div class="faq-item border border-slate-200 rounded-xl overflow-hidden">
+        <button class="faq-trigger w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+          How does the annual discount work?
+          <span class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+          When you choose annual billing, you save 30% compared to monthly. The full year is billed upfront, and you can still cancel within 30 days for a full refund.
+        </div>
+      </div>
+      <div class="faq-item border border-slate-200 rounded-xl overflow-hidden">
+        <button class="faq-trigger w-full flex justify-between items-center p-5 text-left font-bold text-slate-800 hover:bg-slate-50 transition-colors" onclick="toggleFaq(this)">
+          What payment methods are accepted?
+          <span class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+        </button>
+        <div class="faq-answer hidden px-5 pb-5 text-sm text-slate-500 leading-relaxed">
+          We accept all major credit and debit cards (Visa, Mastercard, Amex), PayPal, and bank transfers for Enterprise plans.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="bg-[#1F3456] text-white py-20 px-8 mx-4 md:mx-8 rounded-2xl mb-20 text-center relative overflow-hidden reveal-on-scroll fade-up">
+    <div class="absolute top-[-50%] right-[-10%] w-[500px] h-[500px] bg-[#47689A] opacity-20 blur-[120px] rounded-full animate-float"></div>
+    <div class="relative z-10">
+      <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4">Start learning today.</h2>
+      <p class="text-white/60 text-lg mb-8 max-w-xl mx-auto">Join 50,000+ professionals building their expertise on Baynal Group LMS.</p>
+      <a href="get_started_skill_school_elite.html" class="inline-block bg-[#47689A] hover:bg-[#314E78] text-white font-bold px-10 py-4 rounded-xl uppercase tracking-widest text-sm transition-all hover:translate-y-[-3px] shine-effect shadow-xl">Create Free Account</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-[#111f38] text-white w-full py-10 md:py-14 px-4 md:px-12 border-t border-white/5 relative overflow-hidden mt-auto">
+    <div class="footer-glow-line"></div>
+    <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#47689A] rounded-full blur-[150px] opacity-[0.15] pointer-events-none animate-float"></div>
+    <div class="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#1F3456] rounded-full blur-[150px] opacity-30 pointer-events-none animate-float-delayed"></div>
+    <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative z-10 p-2 md:p-4">
+        <div class="md:col-span-5 flex flex-col items-start space-y-4 reveal-on-scroll fade-right">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="Baynal Group LMS Logo" class="h-10 w-auto object-contain">
+            </a>
+            <p class="text-slate-400 text-sm leading-relaxed max-w-xs">Empowering the next generation of professionals with curated, premium learning experiences.</p>
+        </div>
+        <div class="md:col-span-3 space-y-4 reveal-on-scroll fade-up">
+            <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest">Platform</p>
+            <ul class="space-y-2">
+                <li><a href="courses_skill_school_elite.html" class="text-slate-400 hover:text-white text-sm transition-colors">Explore Courses</a></li>
+                <li><a href="pricing.html" class="text-slate-400 hover:text-white text-sm transition-colors">Pricing</a></li>
+                <li><a href="learner_dashboard.html" class="text-slate-400 hover:text-white text-sm transition-colors">Dashboard</a></li>
+                <li><a href="learner_certificates.html" class="text-slate-400 hover:text-white text-sm transition-colors">Certificates</a></li>
+            </ul>
+        </div>
+        <div class="md:col-span-4 space-y-4 reveal-on-scroll fade-left">
+            <p class="text-[11px] font-black text-slate-500 uppercase tracking-widest">Stay Updated</p>
+            <p class="text-slate-400 text-sm">Get the latest courses and insights in your inbox.</p>
+            <form class="flex gap-2" onsubmit="return false;">
+                <input type="email" placeholder="your@email.com" class="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#47689A] transition-colors">
+                <button type="submit" class="bg-[#47689A] hover:bg-[#314E78] text-white px-4 py-2.5 rounded-lg text-sm font-bold transition-colors">→</button>
+            </form>
+        </div>
+    </div>
+    <div class="max-w-screen-xl mx-auto mt-8 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3 relative z-10 px-2 md:px-4">
+        <p class="text-[11px] text-slate-600">© 2025 Baynal Group LMS. All rights reserved.</p>
+        <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full pulse-badge">
+            <span class="material-symbols-outlined text-[12px]">verified</span> Verified Editorial Excellence
+        </div>
+    </div>
+</footer>
+
+<style id="footer-glow-css">
+.footer-glow-line {
+    position: absolute; top: 0; left: 0; width: 200%; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(71, 104, 154, 0.8) 50%, transparent 100%);
+    animation: flow-glow 4s linear infinite;
+}
+@keyframes flow-glow { 0% { transform: translateX(-50%); } 100% { transform: translateX(0%); } }
+.pulse-badge { animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes badgePulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.95); } }
+</style>
+
+<style id="custom-cursor">
+@media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button, input, textarea, select, [tabindex], label { cursor: none !important; }
+    .cursor-dot { width: 8px; height: 8px; background-color: #47689A; border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99999; transition: width 0.2s, height 0.2s, opacity 0.2s; }
+    .cursor-ring { width: 40px; height: 40px; border: 2px solid rgba(71, 104, 154, 0.4); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 99998; transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s; will-change: width, height, transform, border; }
+    .cursor-hidden { opacity: 0; }
+    .cursor-ring.hovering { width: 56px; height: 56px; background-color: rgba(71, 104, 154, 0.08); border-color: rgba(71, 104, 154, 0.7); }
+    .cursor-dot.hovering { transform: scale(1.5); }
+}
+</style>
+
+<!-- Particles Script -->
+<script id="particles-script">
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 35 : 75;
+    const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+    function init() {
+        width = window.innerWidth; height = window.innerHeight;
+        canvas.width = width; canvas.height = height;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6, radius: Math.random() * 2.5 + 0.8, color: colors[Math.floor(Math.random() * colors.length)] });
+        }
+    }
+    let mouseX = -1000, mouseY = -1000;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            let dxMouse = mouseX - p.x, dyMouse = mouseY - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            if (distMouse < 180) { p.x -= (dxMouse / distMouse) * 1.5; p.y -= (dyMouse / distMouse) * 1.5; }
+            p.x += p.vx; p.y += p.vy;
+            if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+            if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill();
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j], dx = p.x - p2.x, dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 130) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.strokeStyle = `rgba(71, 104, 154, ${Math.max(0, 1 - dist / 130) * 0.25})`; ctx.lineWidth = 0.8; ctx.stroke(); }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    init(); draw();
+    window.addEventListener('resize', init);
+});
+</script>
+
+<!-- Cursor Script -->
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div'); dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div'); ring.className = 'cursor-ring cursor-hidden';
+        document.body.appendChild(dot); document.body.appendChild(ring);
+        let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100, isSetup = false;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            if (!isSetup) { dot.classList.remove('cursor-hidden'); ring.classList.remove('cursor-hidden'); ringX = mouseX; ringY = mouseY; isSetup = true; }
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+        document.addEventListener('mouseleave', () => { dot.classList.add('cursor-hidden'); ring.classList.add('cursor-hidden'); });
+        document.addEventListener('mouseenter', () => { if(isSetup) { dot.classList.remove('cursor-hidden'); ring.classList.remove('cursor-hidden'); } });
+        const render = () => { ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15; if (isSetup) ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`; requestAnimationFrame(render); };
+        requestAnimationFrame(render);
+        const selectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => { if (e.target.closest(selectors)) { ring.classList.add('hovering'); dot.classList.add('hovering'); } });
+        document.body.addEventListener('mouseout', (e) => { if (e.target.closest(selectors)) { ring.classList.remove('hovering'); dot.classList.remove('hovering'); } });
+    }
+});
+</script>
+
+<!-- Scroll Reveal Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.filter(e => e.isIntersecting).forEach((entry, index) => {
+            setTimeout(() => { entry.target.classList.add('is-visible'); }, index * 80);
+            observer.unobserve(entry.target);
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+});
+
+// FAQ toggle
+function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const isOpen = !answer.classList.contains('hidden');
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+    document.querySelectorAll('.faq-trigger .material-symbols-outlined').forEach(i => { i.style.transform = ''; });
+    if (!isOpen) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+    }
+}
+
+// Billing toggle
+function toggleBilling() {
+    const isAnnual = document.getElementById('billingToggle').checked;
+    const badge = document.getElementById('saveBadge');
+    badge.classList.toggle('hidden', !isAnnual);
+
+    const starterPrice = document.getElementById('starter-price');
+    const starterNote = document.getElementById('starter-note');
+    const proPrice = document.getElementById('pro-price');
+    const proNote = document.getElementById('pro-note');
+
+    if (isAnnual) {
+        starterPrice.textContent = '$20'; starterNote.textContent = 'Billed $240/year';
+        proPrice.textContent = '$34'; proNote.textContent = 'Billed $408/year';
+    } else {
+        starterPrice.textContent = '$29'; starterNote.textContent = '';
+        proPrice.textContent = '$49'; proNote.textContent = '';
+    }
+}
+</script>
+
+</body>
+</html>

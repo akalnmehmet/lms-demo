@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+html { font-family: 'Inter', sans-serif; }
+
+.font-serif { font-family: var(--font-playfair); }
+
+@theme {
+  --color-navy: #1A1A37;
+  --color-navy-deep: #0f0f24;
+  --color-orange: #FF7E31;
+  --color-orange-dim: #ff6600;
+  --color-secondary: #5c5b7c;
+  --color-primary: #9e4200;
+  --color-primary-container: #ff7e31;
+  --color-surface: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-variant: #e5e2e1;
+  --color-outline-variant: #dfc0b2;
+  --color-on-surface: #1b1c1c;
+  --color-secondary-fixed-dim: #c5c3e9;
+  --color-error: #ba1a1a;
+  --font-sans: 'Inter', sans-serif;
+  --font-headline: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-serif: var(--font-playfair), serif;
+}
+
+:root {
+  --background: #f6f3f2;
+  --foreground: #1b1c1c;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+/* Certificate Styles */
+.cert-container {
+    width: 100%;
+    max-width: 1120px;
+    aspect-ratio: 1.414 / 1;
+}
+.cert-shadow {
+    box-shadow: 0 25px 50px -12px rgba(26, 26, 55, 0.25), 0 0 0 1px rgba(26, 26, 55, 0.05);
+}
+.cert-inner-border {
+    border: 12px solid #1A1A37;
+    outline: 2px solid #FF7E31;
+    outline-offset: -16px;
+}
+
+/* Material icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* ─── Glassmorphic nav ─── */
+.glass-nav {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ─── Staggered soft-reveal animation ─── */
+.soft-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes softReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.12s; }
+.delay-3 { animation-delay: 0.20s; }
+.delay-4 { animation-delay: 0.28s; }
+.delay-5 { animation-delay: 0.36s; }
+.delay-6 { animation-delay: 0.44s; }
+.delay-7 { animation-delay: 0.52s; }
+.delay-8 { animation-delay: 0.60s; }
+
+/* ─── Kinetic gradient ─── */
+.kinetic-gradient {
+  background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
+}
+.navy-gradient {
+  background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
+}
+
+/* ─── Course card hover ─── */
+.course-card {
+  transition: transform 260ms ease-out, box-shadow 260ms ease-out;
+  position: relative;
+}
+.course-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FF7E31, #ff6600);
+  opacity: 0;
+  border-radius: 0 0 8px 8px;
+  transition: opacity 200ms ease;
+}
+.course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(92,91,124,0.14); }
+.course-card:hover::after { opacity: 1; }
+
+/* ─── Progress bar ─── */
+.progress-bar-bg { background: #e5e2e1; border-radius: 99px; height: 6px; }
+.progress-bar-fill {
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #FF7E31, #ff6600);
+  transition: width 1s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ─── Donut SVG rings ─── */
+.donut-ring { transition: stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+/* ─── Sidebar nav item ─── */
+.side-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 16px; border-radius: 8px;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+  color: #5c5b7c;
+  transition: background 200ms, color 200ms, padding-left 260ms;
+  cursor: pointer; text-decoration: none;
+}
+.side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+.side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+
+/* ─── Badge card ─── */
+.badge-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  transition: transform 200ms, box-shadow 200ms;
+}
+.badge-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(92,91,124,0.1); }
+
+/* ─── Certificate card ─── */
+.cert-card {
+  background: #fff;
+  border-radius: 12px;
+  border-left: 4px solid #FF7E31;
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  transition: transform 200ms, box-shadow 200ms;
+}
+.cert-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(92,91,124,0.1); }
+
+/* ─── Stat card ─── */
+.stat-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  border-bottom: 2px solid transparent;
+  transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+}
+.stat-card:hover { border-bottom-color: #FF7E31; transform: translateY(-4px); box-shadow: 0 12px 28px rgba(92,91,124,0.1); }
+
+/* ─── Live badge pulse ─── */
+.live-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #dcfce7; color: #166534;
+  font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 2px 8px; border-radius: 99px;
+}
+.live-dot {
+  width: 6px; height: 6px; background: #16a34a; border-radius: 50%;
+  animation: pulse 1.4s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ─── Announcement item ─── */
+.announce-item {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(223,192,178,0.15);
+}
+.announce-item:last-child { border-bottom: none; }
+
+/* ─── Scrollbar for sidebar on small screens ─── */
+.sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }

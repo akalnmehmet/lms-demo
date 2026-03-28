@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Pro — Baynal Group LMS</title>
+<meta name="description" content="Your Pro upgrade is confirmed. Welcome to the full Baynal Group LMS experience."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: { extend: { colors: { "primary": "#1F3456", "primary-container": "#47689A" } } }
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; }
+
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle; display: inline-block; line-height: 1;
+  }
+
+  .kinetic-gradient { background: linear-gradient(135deg, #1F3456 0%, #47689A 100%); }
+
+  /* Confetti */
+  @keyframes confettiFall {
+    0%   { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Checkmark animation */
+  @keyframes scaleIn {
+    0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+    70% { transform: scale(1.15) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+  .check-circle {
+    animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up-1 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.8s both; }
+  .fade-up-2 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 1.0s both; }
+  .fade-up-3 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 1.2s both; }
+  .fade-up-4 { animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 1.4s both; }
+
+  /* Shine effect */
+  .shine-effect { position: relative; overflow: hidden; }
+  .shine-effect::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.6s ease; }
+  .shine-effect:hover::after { left: 150%; }
+
+  /* Radial glow */
+  .pro-glow {
+    background: radial-gradient(ellipse at 50% 0%, rgba(71,104,154,0.15) 0%, transparent 70%);
+  }
+
+  /* Custom cursor */
+  @media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button { cursor: none !important; }
+    .cursor-dot { width:8px;height:8px;background:#47689A;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transition:width .2s,height .2s,opacity .2s; }
+    .cursor-ring { width:40px;height:40px;border:2px solid rgba(71,104,154,.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;will-change:transform; }
+    .cursor-hidden { opacity:0; }
+    .cursor-ring.hovering { width:56px;height:56px;background:rgba(71,104,154,.08);border-color:rgba(71,104,154,.7); }
+  }
+</style>
+</head>
+<body class="bg-white min-h-screen overflow-x-hidden flex flex-col">
+
+<!-- Particle canvas -->
+<canvas id="bg-particles" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+<!-- Radial glow at top -->
+<div class="pro-glow fixed inset-0 pointer-events-none z-0"></div>
+
+<!-- Main centered content -->
+<main class="relative z-10 flex-1 flex items-center justify-center px-4 py-16">
+  <div class="max-w-lg w-full text-center">
+
+    <!-- Success Checkmark -->
+    <div class="check-circle w-24 h-24 kinetic-gradient rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl" style="box-shadow: 0 0 0 8px rgba(71,104,154,0.15), 0 20px 60px -10px rgba(31,52,86,0.4);">
+      <span class="material-symbols-outlined text-white text-[48px]" style="font-variation-settings:'FILL' 1">check</span>
+    </div>
+
+    <!-- Heading -->
+    <div class="fade-up-1">
+      <span class="inline-block bg-[#1F3456]/10 text-[#1F3456] text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">Upgrade Successful</span>
+      <h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Welcome to Pro! 🎉</h1>
+      <p class="text-slate-500 text-lg leading-relaxed">Your 7-day free trial has started. Explore every course, earn verified certificates, and join live Q&A sessions — all unlocked.</p>
+    </div>
+
+    <!-- Pro Benefits Summary -->
+    <div class="fade-up-2 bg-[#1F3456] text-white rounded-2xl p-6 mt-8 text-left space-y-3" style="box-shadow: 0 0 0 1px rgba(71,104,154,0.4), 0 24px 60px -12px rgba(31,52,86,0.35);">
+      <p class="text-[10px] font-black uppercase tracking-widest text-white/50 mb-4">Your Pro Benefits — Active Now</p>
+      <div class="space-y-2.5">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm font-semibold">All 500+ premium courses unlocked</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm font-semibold">LinkedIn-verified certificates</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm font-semibold">Weekly live Q&A with instructors</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm font-semibold">Mobile & offline downloads</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-[#47689A] text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>
+          <span class="text-sm font-semibold">Priority support</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trial countdown note -->
+    <div class="fade-up-3 mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800 flex items-start gap-3">
+      <span class="material-symbols-outlined text-amber-500 text-[20px] mt-0.5 flex-shrink-0" style="font-variation-settings:'FILL' 1">schedule</span>
+      <div class="text-left">
+        <p class="font-bold">Your free trial ends in 7 days</p>
+        <p class="text-amber-700/70 text-xs mt-0.5">You'll be charged $49/mo after April 4, 2025. Cancel anytime in Settings → Billing.</p>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="fade-up-4 flex flex-col sm:flex-row gap-3 mt-8">
+      <a href="learner_dashboard.html" class="flex-1 kinetic-gradient text-white font-black py-4 rounded-xl uppercase tracking-widest text-sm hover:opacity-90 transition-all shine-effect shadow-lg text-center">Go to Dashboard</a>
+      <a href="courses_skill_school_elite.html" class="flex-1 border-2 border-[#1F3456] text-[#1F3456] font-black py-4 rounded-xl uppercase tracking-widest text-sm hover:bg-[#1F3456] hover:text-white transition-all text-center">Explore Courses</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Particles Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Confetti burst
+    const colors = ['#47689A', '#1F3456', '#60a5fa', '#a5f3fc', '#fbbf24', '#34d399'];
+    for (let i = 0; i < 80; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width = (Math.random() * 10 + 6) + 'px';
+        el.style.height = (Math.random() * 6 + 4) + 'px';
+        el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        el.style.animationDuration = (Math.random() * 2.5 + 2) + 's';
+        el.style.animationDelay = (Math.random() * 1.5) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+    }
+
+    // Particles
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 30 : 60;
+    const particleColors = ['rgba(71, 104, 154, 0.35)', 'rgba(49, 78, 120, 0.2)', 'rgba(31, 52, 86, 0.1)'];
+    function init() {
+        width = window.innerWidth; height = window.innerHeight;
+        canvas.width = width; canvas.height = height;
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({ x: Math.random()*width, y: Math.random()*height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, radius:Math.random()*2+0.5, color:particleColors[Math.floor(Math.random()*particleColors.length)] });
+        }
+    }
+    let mX=-1000, mY=-1000;
+    document.addEventListener('mousemove', e => { mX=e.clientX; mY=e.clientY; });
+    function draw() {
+        ctx.clearRect(0,0,width,height);
+        for(let i=0;i<particles.length;i++){
+            let p=particles[i];
+            let dx=mX-p.x, dy=mY-p.y, dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<160){p.x-=(dx/dist)*1.2;p.y-=(dy/dist)*1.2;}
+            p.x+=p.vx; p.y+=p.vy;
+            if(p.x<0||p.x>width)p.vx*=-1;
+            if(p.y<0||p.y>height)p.vy*=-1;
+            ctx.beginPath();ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();
+            for(let j=i+1;j<particles.length;j++){
+                let p2=particles[j],dx2=p.x-p2.x,dy2=p.y-p2.y,d=Math.sqrt(dx2*dx2+dy2*dy2);
+                if(d<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(71,104,154,${(1-d/120)*0.2})`;ctx.lineWidth=0.7;ctx.stroke();}
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    init(); draw();
+    window.addEventListener('resize', init);
+
+    // Custom cursor
+    if(window.matchMedia('(pointer: fine)').matches){
+        const dot=document.createElement('div');dot.className='cursor-dot cursor-hidden';
+        const ring=document.createElement('div');ring.className='cursor-ring cursor-hidden';
+        document.body.appendChild(dot);document.body.appendChild(ring);
+        let mxC=-100,myC=-100,rxC=-100,ryC=-100,setup=false;
+        document.addEventListener('mousemove',e=>{mxC=e.clientX;myC=e.clientY;if(!setup){dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');rxC=mxC;ryC=myC;setup=true;}dot.style.transform=`translate(calc(${mxC}px - 50%),calc(${myC}px - 50%))`;});
+        const rend=()=>{rxC+=(mxC-rxC)*.15;ryC+=(myC-ryC)*.15;if(setup)ring.style.transform=`translate(calc(${rxC}px - 50%),calc(${ryC}px - 50%))`;requestAnimationFrame(rend);};rend();
+        document.body.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){ring.classList.add('hovering');}});
+        document.body.addEventListener('mouseout',e=>{if(e.target.closest('a,button')){ring.classList.remove('hovering');}});
+    }
+});
+</script>
+
+</body>
+</html>

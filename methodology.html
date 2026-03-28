@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Methodology — Baynal Group LMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#5c5b7c",
+              "on-surface-variant": "#584238",
+              "error": "#ba1a1a",
+              "primary": "#1F3456",
+              "on-secondary-container": "#5c5c7d",
+              "tertiary": "#6049c5",
+              "surface-container-highest": "#e5e2e1",
+              "surface-container-high": "#eae7e7",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#444463",
+              "tertiary-fixed-dim": "#cabeff",
+              "primary-fixed": "#dbeafe",
+              "primary-container": "#47689A",
+              "on-background": "#1b1c1c",
+              "background": "#fcf9f8",
+              "on-primary-fixed-variant": "#111f38",
+              "inverse-primary": "#ffb691",
+              "secondary-fixed-dim": "#c5c3e9",
+              "on-error-container": "#93000a",
+              "surface-tint": "#1F3456",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#303030",
+              "on-primary-container": "#e0e7ff",
+              "on-surface": "#1b1c1c",
+              "secondary-fixed": "#e2dfff",
+              "secondary-container": "#d8d6fd",
+              "outline-variant": "#dfc0b2",
+              "on-primary-fixed": "#341100",
+              "on-secondary-fixed": "#181835",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#3a1a9f",
+              "on-error": "#ffffff",
+              "surface-variant": "#e5e2e1",
+              "outline": "#8b7266",
+              "surface-container-low": "#f6f3f2",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              "on-primary": "#ffffff",
+              "surface-container": "#f0eded",
+              "surface": "#fcf9f8",
+              "inverse-on-surface": "#f3f0ef",
+              "primary-fixed-dim": "#ffb691",
+              "on-tertiary-fixed": "#1c0062",
+              "tertiary-container": "#a694ff",
+              "on-tertiary-fixed-variant": "#482dac",
+              "surface-bright": "#fcf9f8",
+              "tertiary-fixed": "#e6deff"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -20px rgba(92, 91, 124, 0.08);
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+
+<style id="premium-animations">
+/* ─── Premium Scroll Animations ─── */
+.reveal-on-scroll {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+.fade-up { transform: translateY(40px); }
+.fade-up.is-visible { transform: translateY(0); }
+
+.fade-right { transform: translateX(-40px); }
+.fade-right.is-visible { transform: translateX(0); }
+
+.fade-left { transform: translateX(40px); }
+.fade-left.is-visible { transform: translateX(0); }
+
+.scale-up { transform: scale(0.92); }
+.scale-up.is-visible { transform: scale(1); }
+
+/* ─── Floating Background Elements ─── */
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+.animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -4s;
+}
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ─── Hover Elevation ─── */
+.hover-elevate {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-elevate:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2);
+}
+</style>
+
+
+<style id="custom-cursor">
+@media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button, input, textarea, select, [tabindex], label { cursor: none !important; }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #47689A;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        /* Using absolute transforms for lerping in JS directly */
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    .cursor-ring {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(71, 104, 154, 0.4);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
+        will-change: width, height, transform, border;
+    }
+    .cursor-ring.hovering {
+        width: 55px;
+        height: 55px;
+        background-color: rgba(71, 104, 154, 0.1);
+        border-color: rgba(71, 104, 154, 0.9);
+    }
+    .cursor-dot.hovering {
+        opacity: 0.6;
+        width: 4px;
+        height: 4px;
+    }
+    
+    /* Disappear naturally when off screen */
+    .cursor-hidden {
+        opacity: 0 !important;
+    }
+}
+@media (pointer: coarse), (hover: none) {
+    .cursor-dot, .cursor-ring { display: none !important; }
+}
+</style>
+
+
+<style id="advanced-flair-css">
+/* ─── Glassmorphism Shine Effect ─── */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+.shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 10;
+    pointer-events: none;
+}
+.shine-effect:hover::after {
+    animation: shineSweep 0.8s ease-out forwards;
+}
+@keyframes shineSweep {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* ─── Inner Glow for Cards ─── */
+.inner-glow {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.04);
+}
+.inner-glow:hover {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), 0 20px 40px -8px rgba(31,52,86,0.2) !important;
+}
+
+/* ─── Image Zoom ─── */
+.image-zoom-container {
+    overflow: hidden;
+}
+.image-zoom-container img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.image-zoom-container:hover img {
+    transform: scale(1.08); /* slight smooth zoom */
+}
+</style>
+
+
+
+<style id="footer-glow-css">
+.footer-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(71, 104, 154, 0.8) 50%, transparent 100%);
+    animation: flow-glow 4s linear infinite;
+}
+@keyframes flow-glow {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+.pulse-badge {
+    animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); box-shadow: 0 0 15px rgba(71, 104, 154, 0.3); }
+}
+</style>
+
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container" overflow-x-hidden w-full m-0 p-0>
+
+<!-- backgroundParticles injected -->
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script id="particles-script">
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 35 : 75; // Optimal count for smooth performance
+    
+    // Baynal Group Navy Blues: #47689A, #314E78, #1F3456
+    const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+
+    function init() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: Math.random() * 2.5 + 0.8,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+    }
+
+    let mouseX = -1000;
+    let mouseY = -1000;
+    
+    // Slight attractive-repulsive physics to mouse
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            
+            // Mouse Repel Physics
+            let dxMouse = mouseX - p.x;
+            let dyMouse = mouseY - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            
+            if (distMouse < 180) {
+                // gentle push outward
+                p.x -= (dxMouse / distMouse) * 1.5;
+                p.y -= (dyMouse / distMouse) * 1.5;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Bounce on edges
+            if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+            if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+
+            // Connect lines
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    // Fade out lines based on distance
+                    const opacity = Math.max(0, 1 - (dist / 130));
+                    ctx.strokeStyle = `rgba(71, 104, 154, ${opacity * 0.25})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    init();
+    draw();
+    
+    window.addEventListener('resize', () => {
+        init(); 
+    });
+});
+</script>
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-6 md:gap-6 md:p-12">
+<a href="index.html" class="flex items-center gap-3">
+  <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+</a>
+<div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-4 md:p-6">
+<a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
+<a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
+</div>
+</div>
+</nav>
+
+<!-- Hero Header -->
+<section class="pt-32 pb-20 px-4 md:px-4 md:px-8 bg-transparent border-b border-outline-variant/20 reveal-on-scroll fade-up">
+  <div class="max-w-screen-2xl mx-auto">
+    <span class="inline-block bg-primary-fixed text-primary px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Our Philosophy</span>
+    <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-on-surface leading-[1.05] font-headline max-w-4xl mb-6 reveal-on-scroll fade-up">
+      The Anatomy<br/>of <span class="text-primary-container">Mastery</span>
+    </h1>
+    <p class="text-lg md:text-xl text-secondary max-w-2xl leading-relaxed font-body">
+      We reject the industrial learning grid. Welcome to the curated path to excellence.
+    </p>
+  </div>
+</section>
+
+<!-- Three Pillars -->
+<section class="bg-transparent-container-low py-24 px-4 md:px-4 md:px-8 reveal-on-scroll fade-up">
+  <div class="max-w-screen-2xl mx-auto">
+    <div class="mb-16">
+      <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4 block">The Framework</span>
+      <h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight font-headline">The Pillars</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:p-8">
+
+      <!-- Pillar 1: Curated Excellence -->
+      <div class="bg-surface-container-lowest rounded-xl p-10 editorial-shadow group hover:-translate-y-2 transition-all duration-300 border border-outline-variant/10 inner-glow">
+        <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center mb-8 group-hover:bg-primary-container transition-colors duration-300">
+          <span class="material-symbols-outlined text-primary group-hover:text-white transition-colors duration-300" style="font-size: 28px; font-variation-settings: 'FILL' 1;">workspace_premium</span>
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-container mb-4 block">01</span>
+        <h3 class="text-2xl font-black tracking-tight text-on-surface mb-4 font-headline">Curated Excellence</h3>
+        <p class="text-secondary leading-relaxed text-sm font-body">
+          Only the top 1% of industry leaders curate our masterclasses. Every lesson is an act of editorial precision — no filler, no fluff, only actionable insight from those who have already arrived.
+        </p>
+        <div class="mt-8 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-500"></div>
+      </div>
+
+      <!-- Pillar 2: Project-Based Logic -->
+      <div class="bg-surface-container-lowest rounded-xl p-10 editorial-shadow group hover:-translate-y-2 transition-all duration-300 border border-outline-variant/10 md:mt-10 inner-glow">
+        <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center mb-8 group-hover:bg-primary-container transition-colors duration-300">
+          <span class="material-symbols-outlined text-primary group-hover:text-white transition-colors duration-300" style="font-size: 28px; font-variation-settings: 'FILL' 1;">architecture</span>
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-container mb-4 block">02</span>
+        <h3 class="text-2xl font-black tracking-tight text-on-surface mb-4 font-headline">Project-Based Logic</h3>
+        <p class="text-secondary leading-relaxed text-sm font-body">
+          Theory meets real-world execution. Build as you learn. Every module culminates in a tangible deliverable that belongs in your portfolio — not a forgotten quiz result.
+        </p>
+        <div class="mt-8 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-500"></div>
+      </div>
+
+      <!-- Pillar 3: Elite Mentorship -->
+      <div class="bg-surface-container-lowest rounded-xl p-10 editorial-shadow group hover:-translate-y-2 transition-all duration-300 border border-outline-variant/10 inner-glow">
+        <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center mb-8 group-hover:bg-primary-container transition-colors duration-300">
+          <span class="material-symbols-outlined text-primary group-hover:text-white transition-colors duration-300" style="font-size: 28px; font-variation-settings: 'FILL' 1;">psychology</span>
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-primary-container mb-4 block">03</span>
+        <h3 class="text-2xl font-black tracking-tight text-on-surface mb-4 font-headline">Elite Mentorship</h3>
+        <p class="text-secondary leading-relaxed text-sm font-body">
+          Direct feedback loops with professionals who are still in the field. No retired academics. No recycled slides. Just sharp, real-time guidance from people who do the work daily.
+        </p>
+        <div class="mt-8 h-0.5 bg-primary-container w-0 group-hover:w-full transition-all duration-500"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Manifesto Strip -->
+<section class="bg-[#1A1A37] py-20 px-4 md:px-4 md:px-8 reveal-on-scroll fade-up">
+  <div class="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 md:p-12 items-center">
+    <div>
+      <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary-container mb-4 block">Our Belief</span>
+      <h2 class="text-4xl md:text-5xl font-black tracking-tighter text-white font-headline leading-[1.1]">
+        Mastery is not a destination.<br/>It is a <span class="text-primary-container">discipline</span>.
+      </h2>
+    </div>
+    <div class="space-y-6">
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined text-primary-container mt-1 shrink-0" style="font-size: 20px;">check_circle</span>
+        <p class="text-secondary-fixed-dim text-sm leading-relaxed">We design for the ambitious, not the passive. Our platform rewards those who show up consistently and demand more from themselves.</p>
+      </div>
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined text-primary-container mt-1 shrink-0" style="font-size: 20px;">check_circle</span>
+        <p class="text-secondary-fixed-dim text-sm leading-relaxed">Learning without application is noise. We build every course around the belief that knowledge must produce work — visible, tangible, portfolio-worthy work.</p>
+      </div>
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined text-primary-container mt-1 shrink-0" style="font-size: 20px;">check_circle</span>
+        <p class="text-secondary-fixed-dim text-sm leading-relaxed">Excellence is a standard, not an aspiration. Every piece of content, every mentor, every experience is held to the highest editorial bar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-transparent py-24 px-4 md:px-4 md:px-8 reveal-on-scroll fade-up">
+  <div class="max-w-screen-2xl mx-auto text-center">
+    <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4 block">Begin Your Journey</span>
+    <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-on-surface font-headline mb-6">
+      Ready to experience<br/>the <span class="text-primary-container">difference</span>?
+    </h2>
+    <p class="text-secondary text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+      Join thousands of ambitious learners who chose the curated path. Your masterclass awaits.
+    </p>
+    <a href="courses_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-12 py-5 rounded-lg text-sm font-bold uppercase tracking-widest hover:translate-y-[-4px] transition-all duration-300 editorial-shadow inline-block text-center hover-elevate shine-effect">
+      Explore Masterclasses
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+
+
+<footer class="bg-[#111f38] text-white w-full py-10 md:py-14 px-4 md:px-12 border-t border-white/5 relative overflow-hidden mt-auto">
+    <!-- Animated background subtle glow -->
+    <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[#47689A] rounded-full blur-[150px] opacity-[0.15] pointer-events-none animate-float"></div>
+    <div class="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-[#1F3456] rounded-full blur-[150px] opacity-30 pointer-events-none animate-float-delayed"></div>
+    
+    <div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative z-10 p-2 md:p-4">
+        <!-- Brand Col -->
+        <div class="md:col-span-5 flex flex-col items-start space-y-4 reveal-on-scroll fade-right">
+            <a href="index.html" class="inline-block hover-elevate">
+                <img src="logo.png" alt="Baynal Group LMS Logo" class="h-10 md:h-12 w-auto object-contain drop-shadow-2xl">
+            </a>
+            <p class="font-body text-xs md:text-sm leading-relaxed text-slate-300 max-w-sm">
+                The digital atelier for those who seek mastery in their craft. We are redefining the standard of high-end educational experiences.
+            </p>
+            <div class="flex gap-3 pt-1">
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">share</span>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">public</span>
+                </a>
+                <a href="#" class="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#47689A] hover:border-transparent hover:scale-110 hover:text-white transition-all duration-300 text-slate-400">
+                    <span class="material-symbols-outlined text-[16px]">link</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Links Grid -->
+        <div class="md:col-span-3 space-y-4 reveal-on-scroll fade-up">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#47689A]">Navigation</h4>
+            <ul class="space-y-3">
+                <li><a href="courses_skill_school_elite.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Courses</a></li>
+                <li><a href="learner_dashboard.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Dashboard</a></li>
+                <li><a href="contact_skill_school_elite.html" class="font-body text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group"><span class="w-1.5 h-[1.5px] rounded-full bg-[#47689A] group-hover:w-3 transition-all"></span> Contact</a></li>
+            </ul>
+        </div>
+        
+        <!-- Legal & Newsletter -->
+        <div class="md:col-span-4 space-y-4 reveal-on-scroll fade-left">
+            <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#47689A]">Join the Elite</h4>
+            <p class="font-body text-xs md:text-sm text-slate-400 leading-relaxed">Subscribe for exclusive insights and early access.</p>
+            <form class="relative group mt-2 flex shadow-2xl">
+                <input type="email" placeholder="Email address" class="w-full bg-white/5 border border-white/10 rounded-l-md py-2.5 px-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#47689A] focus:ring-1 focus:ring-[#47689A] transition-all font-body text-sm" required>
+                <button type="button" class="bg-[#47689A] hover:bg-[#314E78] text-white px-5 py-2.5 rounded-r-md font-bold text-xs transition-colors shine-effect">
+                    Subscribe
+                </button>
+            </form>
+            <div class="pt-2 flex gap-4 text-[11px] text-slate-500 font-medium">
+                <a href="privacy.html" class="hover:text-white transition-colors">Privacy</a>
+                <a href="terms.html" class="hover:text-white transition-colors">Terms</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="max-w-screen-xl mx-auto mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 px-2 md:px-4">
+        <p class="font-body text-xs text-slate-500">© 2026 Baynal Group LMS. All rights reserved.</p>
+        <div class="flex items-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-full border border-white/5 pulse-badge">
+            <span class="material-symbols-outlined text-[12px] text-[#47689A]" style="font-variation-settings:'FILL' 1;">verified</span>
+            Editorial Excellence
+        </div>
+    </div>
+</footer>
+
+
+<!-- mobileMenuScript injected -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject mobile menu logic dynamically without heavy HTML replace
+    const navRight = document.querySelector('nav .flex.items-center.gap-6') || document.querySelector('nav .flex.justify-between > div:last-child');
+    const navLinks = document.querySelector('nav .hidden.md\\:flex, nav .hidden.lg\\:flex') || document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+    
+    // Some pages like sign_in or get_started intentionally have no nav links, so we skip if not found
+    if (navRight && navLinks && !document.getElementById('mobileMenuContainer')) {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        btn.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.appendChild(btn);
+
+        const menuContainer = document.createElement('div');
+        menuContainer.id = 'mobileMenuContainer';
+        menuContainer.className = 'fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transform -translate-y-[150%] transition-transform duration-300 z-40 p-6 flex flex-col gap-4';
+        
+        // Clone links into mobile menu
+        Array.from(navLinks.querySelectorAll('a')).forEach(link => {
+            const clone = link.cloneNode(true);
+            clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
+            menuContainer.appendChild(clone);
+        });
+
+        // Add to body
+        document.body.appendChild(menuContainer);
+
+        let isOpen = false;
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                menuContainer.classList.remove('-translate-y-[150%]');
+                menuContainer.classList.add('translate-y-0');
+                btn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+            } else {
+                menuContainer.classList.remove('translate-y-0');
+                menuContainer.classList.add('-translate-y-[150%]');
+                btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+            }
+        });
+    }
+
+    // Fix sidebar on dashboard pages for mobile
+    const sidebar = document.querySelector('aside.hidden.md\\:flex');
+    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const toggleSidebar = document.createElement('button');
+        toggleSidebar.id = 'mobileSidebarToggle';
+        toggleSidebar.innerHTML = '<span class="material-symbols-outlined">dataset</span>';
+        toggleSidebar.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(toggleSidebar, navRight.firstChild);
+
+        let sidebarOpen = false;
+        toggleSidebar.addEventListener('click', () => {
+            sidebarOpen = !sidebarOpen;
+            if (sidebarOpen) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex', 'w-full', 'z-50');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex', 'w-full', 'z-50');
+            }
+        });
+    }
+
+    // Fix Course Player sidebar
+    const curSidebar = document.querySelector('#curriculumSidebar');
+    const playerMain = document.querySelector('.lg\\:mr-80');
+    if (curSidebar && !document.getElementById('curSidebarToggle')) {
+        const curToggle = document.createElement('button');
+        curToggle.id = 'curSidebarToggle';
+        curToggle.innerHTML = '<span class="material-symbols-outlined mr-2">menu_book</span> Curriculum';
+        curToggle.className = 'lg:hidden w-full bg-slate-100 text-slate-800 font-bold p-4 text-center mt-4 rounded-xl flex items-center justify-center';
+        
+        if(playerMain) playerMain.appendChild(curToggle);
+
+        curToggle.addEventListener('click', () => {
+            curSidebar.classList.toggle('hidden');
+            if(!curSidebar.classList.contains('hidden')) {
+               curSidebar.style.position = 'static';
+               curSidebar.style.width = '100%';
+               curSidebar.style.height = 'auto';
+               curSidebar.style.borderLeft = 'none';
+               curSidebar.style.marginTop = '20px';
+               playerMain.appendChild(curSidebar);
+            }
+        });
+    }
+});
+</script>
+
+<!-- premiumAnimations injected -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        // Group entries that intersect at the exact same time
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+            // Stagger animations based on how many are appearing at once
+            setTimeout(() => {
+                entry.target.classList.add('is-visible');
+            }, index * 120); // 120ms stagger
+            observer.unobserve(entry.target);
+        });
+    }, observerOptions);
+
+    // Observe all elements gracefully
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+});
+</script>
+
+
+<!-- cursorScript injected -->
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', () => {
+    // Only initialize custom cursor on devices with a mouse
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring cursor-hidden';
+        
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let isSetup = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Unhide on first movement
+            if (!isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+                ringX = mouseX;
+                ringY = mouseY;
+                isSetup = true;
+            }
+            
+            // Dot follows directly with zero lag
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+        
+        // Hide cursors when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            dot.classList.add('cursor-hidden');
+            ring.classList.add('cursor-hidden');
+        });
+        document.addEventListener('mouseenter', () => {
+            if(isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+            }
+        });
+
+        // Loop for the smooth fluid ring follower
+        const render = () => {
+            // Lerp (Linear Interpolation) formula for smooth dragging animation
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            if (isSetup) {
+                ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+            }
+            requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        // Hover states trigger
+        const interactiveSelectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.add('hovering');
+                dot.classList.add('hovering');
+            }
+        });
+        document.body.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.remove('hovering');
+                dot.classList.remove('hovering');
+            }
+        });
+        
+        // Clicks effect
+        document.body.addEventListener('mousedown', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(0.9)`;
+        });
+        document.body.addEventListener('mouseup', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(1)`;
+        });
+    }
+});
+</script>
+
+
+<!-- advancedFlair injected -->
+<script id="advanced-flair-js">
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Dynamic Number Counter for stats
+    const counters = document.querySelectorAll('.text-5xl.font-black');
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.innerText || el.textContent;
+                    const numMatch = text.match(/[0-9]+/);
+                    if (numMatch) {
+                        const targetNum = parseInt(numMatch[0], 10);
+                        const parts = text.split(numMatch[0]); // to keep prefixes/suffixes
+                        
+                        let current = 0;
+                        const duration = 2500;
+                        const startTime = performance.now();
+                        
+                        const updateCount = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // easeOutQuart
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            const currentVal = Math.floor(targetNum * ease);
+                            
+                            el.innerText = (parts[0] || '') + currentVal + (parts[1] || '');
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.innerText = text; // Ensure exact final value
+                            }
+                        };
+                        requestAnimationFrame(updateCount);
+                    }
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(c => counterObserver.observe(c));
+    }
+
+    // 2. 3D Tilt Effect on Course Cards & Large Images
+    // We only apply this safely if it's not a pure touch device
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const tiltCards = document.querySelectorAll('.hover-elevate.group, .image-zoom-container, .inner-glow');
+        tiltCards.forEach(card => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Very subtle tilt mapping (-3 to 3 degrees max to look professional)
+                const rotateX = ((y - centerY) / centerY) * -3; 
+                const rotateY = ((x - centerX) / centerX) * 3;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    }
+
+    // 3. Magnetic Magnetic Buttons (Pulls toward cursor)
+    const magneticBtns = document.querySelectorAll('.px-10.py-5, .px-6.py-2\\.5'); // Matching typical buttons
+    if (window.matchMedia('(pointer: fine)').matches && magneticBtns.length > 0) {
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Pull effect: Max 10px translate
+                const translateX = ((x - centerX) / centerX) * 10;
+                const translateY = ((y - centerY) / centerY) * 10;
+                
+                btn.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.02)`;
+                btn.style.transition = 'none'; // smooth follow
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            });
+        });
+    }
+});
+</script>
+
+
+</body>
+
+</html>

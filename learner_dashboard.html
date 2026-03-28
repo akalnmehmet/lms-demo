@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Skill School Elite — Learner Dashboard</title>
+<title>Baynal Group LMS — Learner Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -15,11 +15,11 @@
         colors: {
           "navy":      "#1A1A37",
           "navy-deep": "#0f0f24",
-          "orange":    "#FF7E31",
-          "orange-dim":"#ff6600",
+          "orange":    "#47689A",
+          "orange-dim":"#314E78",
           "secondary": "#5c5b7c",
-          "primary":   "#9e4200",
-          "primary-container": "#ff7e31",
+          "primary":   "#1F3456",
+          "primary-container": "#47689A",
           "surface":   "#fcf9f8",
           "surface-container-lowest": "#ffffff",
           "surface-container-low":    "#f6f3f2",
@@ -85,7 +85,7 @@
 
   /* ─── Kinetic gradient ─── */
   .kinetic-gradient {
-    background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
+    background: linear-gradient(135deg, #1F3456 0%, #47689A 100%);
   }
   .navy-gradient {
     background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
@@ -101,7 +101,7 @@
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    background: linear-gradient(90deg, #47689A, #314E78);
     opacity: 0;
     border-radius: 0 0 8px 8px;
     transition: opacity 200ms ease;
@@ -114,7 +114,7 @@
   .progress-bar-fill {
     height: 6px;
     border-radius: 99px;
-    background: linear-gradient(90deg, #FF7E31, #ff6600);
+    background: linear-gradient(90deg, #47689A, #314E78);
     transition: width 1s cubic-bezier(0.16,1,0.3,1);
   }
 
@@ -131,7 +131,7 @@
     cursor: pointer; text-decoration: none;
   }
   .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
-  .side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+  .side-link.active { background: #ffffff; color: #47689A; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
 
   /* ─── Badge card ─── */
   .badge-card {
@@ -148,7 +148,7 @@
   .cert-card {
     background: #fff;
     border-radius: 12px;
-    border-left: 4px solid #FF7E31;
+    border-left: 4px solid #47689A;
     padding: 20px 24px;
     display: flex; align-items: center; justify-content: space-between;
     box-shadow: 0 4px 20px rgba(0,0,0,0.04);
@@ -165,7 +165,7 @@
     border-bottom: 2px solid transparent;
     transition: border-color 200ms, transform 200ms, box-shadow 200ms;
   }
-  .stat-card:hover { border-bottom-color: #FF7E31; transform: translateY(-4px); box-shadow: 0 12px 28px rgba(92,91,124,0.1); }
+  .stat-card:hover { border-bottom-color: #47689A; transform: translateY(-4px); box-shadow: 0 12px 28px rgba(92,91,124,0.1); }
 
   /* ─── Live badge pulse ─── */
   .live-badge {
@@ -193,27 +193,306 @@
   /* ─── Scrollbar for sidebar on small screens ─── */
   .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
 </style>
+
+<style id="premium-animations">
+/* ─── Premium Scroll Animations ─── */
+.reveal-on-scroll {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+.fade-up { transform: translateY(40px); }
+.fade-up.is-visible { transform: translateY(0); }
+
+.fade-right { transform: translateX(-40px); }
+.fade-right.is-visible { transform: translateX(0); }
+
+.fade-left { transform: translateX(40px); }
+.fade-left.is-visible { transform: translateX(0); }
+
+.scale-up { transform: scale(0.92); }
+.scale-up.is-visible { transform: scale(1); }
+
+/* ─── Floating Background Elements ─── */
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+.animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -4s;
+}
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ─── Hover Elevation ─── */
+.hover-elevate {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-elevate:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2);
+}
+</style>
+
+
+<style id="custom-cursor">
+@media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button, input, textarea, select, [tabindex], label { cursor: none !important; }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #47689A;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        /* Using absolute transforms for lerping in JS directly */
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    .cursor-ring {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(71, 104, 154, 0.4);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
+        will-change: width, height, transform, border;
+    }
+    .cursor-ring.hovering {
+        width: 55px;
+        height: 55px;
+        background-color: rgba(71, 104, 154, 0.1);
+        border-color: rgba(71, 104, 154, 0.9);
+    }
+    .cursor-dot.hovering {
+        opacity: 0.6;
+        width: 4px;
+        height: 4px;
+    }
+    
+    /* Disappear naturally when off screen */
+    .cursor-hidden {
+        opacity: 0 !important;
+    }
+}
+@media (pointer: coarse), (hover: none) {
+    .cursor-dot, .cursor-ring { display: none !important; }
+}
+</style>
+
+
+<style id="advanced-flair-css">
+/* ─── Glassmorphism Shine Effect ─── */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+.shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 10;
+    pointer-events: none;
+}
+.shine-effect:hover::after {
+    animation: shineSweep 0.8s ease-out forwards;
+}
+@keyframes shineSweep {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* ─── Inner Glow for Cards ─── */
+.inner-glow {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.04);
+}
+.inner-glow:hover {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), 0 20px 40px -8px rgba(31,52,86,0.2) !important;
+}
+
+/* ─── Image Zoom ─── */
+.image-zoom-container {
+    overflow: hidden;
+}
+.image-zoom-container img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.image-zoom-container:hover img {
+    transform: scale(1.08); /* slight smooth zoom */
+}
+</style>
+
+
+
+<style id="footer-glow-css">
+.footer-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(71, 104, 154, 0.8) 50%, transparent 100%);
+    animation: flow-glow 4s linear infinite;
+}
+@keyframes flow-glow {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+.pulse-badge {
+    animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); box-shadow: 0 0 15px rgba(71, 104, 154, 0.3); }
+}
+</style>
+
 </head>
-<body class="bg-surface-container-low">
+<body class="bg-surface-container-low" overflow-x-hidden w-full m-0 p-0>
+
+<!-- backgroundParticles injected -->
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script id="particles-script">
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 35 : 75; // Optimal count for smooth performance
+    
+    // Baynal Group Navy Blues: #47689A, #314E78, #1F3456
+    const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+
+    function init() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: Math.random() * 2.5 + 0.8,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+    }
+
+    let mouseX = -1000;
+    let mouseY = -1000;
+    
+    // Slight attractive-repulsive physics to mouse
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            
+            // Mouse Repel Physics
+            let dxMouse = mouseX - p.x;
+            let dyMouse = mouseY - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            
+            if (distMouse < 180) {
+                // gentle push outward
+                p.x -= (dxMouse / distMouse) * 1.5;
+                p.y -= (dyMouse / distMouse) * 1.5;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Bounce on edges
+            if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+            if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+
+            // Connect lines
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    // Fade out lines based on distance
+                    const opacity = Math.max(0, 1 - (dist / 130));
+                    ctx.strokeStyle = `rgba(71, 104, 154, ${opacity * 0.25})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    init();
+    draw();
+    
+    window.addEventListener('resize', () => {
+        init(); 
+    });
+});
+</script>
+
 
 <!-- ═══════════════════════════ TOP NAV BAR ═══════════════════════════ -->
 <nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
-  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
+  <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
     <!-- Logo + Links -->
-    <div class="flex items-center gap-12">
-      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
-      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+    <div class="flex items-center gap-6 md:gap-6 md:p-12">
+      <a href="index.html" class="flex items-center gap-3">
+  <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+</a>
+      <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
-        <a class="text-orange-600 dark:text-orange-500 font-bold border-b-2 border-orange-600 font-['Inter'] tracking-tight text-sm" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] font-['Inter'] tracking-tight text-sm hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
       </div>
     </div>
     <!-- Right Actions -->
-    <div class="flex items-center gap-6">
-      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+    <div class="flex items-center gap-4 md:p-6">
+      <a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
       <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
-      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
     </div>
   </div>
 </nav>
@@ -222,7 +501,7 @@
 <div class="flex min-h-screen pt-20">
 
   <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
-  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 max-w-full flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
     <!-- User avatar -->
     <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
       <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
@@ -242,11 +521,12 @@
         <span class="material-symbols-outlined text-[20px]">school</span>
         My Courses
       </a>
+            <a class="side-link" href="wishlist.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">favorite</span>Wishlist</a>
       <a class="side-link" href="learner_certificates.html">
         <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
         My Certificates
       </a>
-      <a class="side-link" href="#">
+      <a class="side-link" href="learner_achievements.html">
         <span class="material-symbols-outlined text-[20px]">military_tech</span>
         Achievements
       </a>
@@ -258,41 +538,41 @@
 
     <!-- Upgrade card -->
     <div class="mt-auto">
-      <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4">
-        <p class="text-xs font-bold text-orange-800 uppercase tracking-tighter mb-1">Pro Plan</p>
-        <p class="text-[11px] text-orange-700/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
-        <button class="w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-blue-900 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-blue-800/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <a href="learner_upgrade.html" class="block text-center w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</a>
       </div>
       <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
-        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
-        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+        <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+        <a class="side-link" href="index.html"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
       </div>
     </div>
   </aside>
 
   <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
-  <main class="flex-1 md:ml-72 p-6 md:p-10 overflow-y-auto">
+  <main class="flex-1 md:ml-72 p-4 md:p-6 md:p-10 overflow-y-auto">
     <div class="max-w-6xl mx-auto space-y-10">
 
       <!-- ── WELCOME BANNER ── -->
-      <section class="soft-reveal delay-1 relative overflow-hidden rounded-2xl navy-gradient text-white p-8 md:p-12 shadow-[0_20px_60px_-12px_rgba(26,26,55,0.35)]">
+      <section class="soft-reveal delay-1 relative overflow-hidden rounded-2xl navy-gradient text-white p-5 md:p-8 md:p-6 md:p-12 shadow-[0_20px_60px_-12px_rgba(26,26,55,0.35)] reveal-on-scroll fade-up">
         <!-- Decorative blobs -->
-        <div class="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-        <div class="absolute -bottom-12 -left-8 w-64 h-64 bg-purple-500/10 rounded-full blur-[60px] pointer-events-none"></div>
+        <div class="absolute top-0 right-0 w-96 max-w-full h-96 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none"></div>
+        <div class="absolute -bottom-12 -left-8 w-64 max-w-full h-64 bg-purple-500/10 rounded-full blur-[60px] pointer-events-none"></div>
         <!-- Grid pattern overlay -->
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image:radial-gradient(circle, #fff 1px, transparent 1px);background-size:28px 28px;"></div>
 
-        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 md:p-8">
           <div class="space-y-5">
             <div>
-              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-300">Student Portal</span>
-              <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-none mt-1">Welcome Back, Alex!</h1>
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-300">Student Portal</span>
+              <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-none mt-1 reveal-on-scroll fade-up">Welcome Back, Alex!</h1>
             </div>
             <p class="text-secondary-fixed-dim text-base leading-relaxed max-w-md opacity-80">
-              Your journey toward mastery continues. You're performing better than <strong class="text-orange-300">84%</strong> of peers this week.
+              Your journey toward mastery continues. You're performing better than <strong class="text-slate-300">84%</strong> of peers this week.
             </p>
             <div class="flex flex-wrap items-center gap-4">
-              <a href="courses_skill_school_elite.html" class="inline-flex items-center gap-2 kinetic-gradient px-7 py-3.5 rounded-lg text-sm font-bold uppercase tracking-widest shadow-lg hover:translate-y-[-3px] active:scale-95 transition-all duration-200">
+              <a href="course_player.html?course=fullstack" class="inline-flex items-center gap-2 kinetic-gradient px-7 py-3.5 rounded-lg text-sm font-bold uppercase tracking-widest shadow-lg hover:translate-y-[-3px] active:scale-95 transition-all duration-200">
                 <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1">play_circle</span>
                 Resume Next Lesson
               </a>
@@ -303,8 +583,8 @@
             </div>
             <!-- Active course chip -->
             <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/10">
-              <span class="material-symbols-outlined text-orange-300 text-[16px]">play_lesson</span>
-              <span class="text-xs font-semibold text-white/80">Continuing: <span class="text-white font-bold">Full-Stack Mastery — Module 3</span></span>
+              <span class="material-symbols-outlined text-slate-300 text-[16px]">play_lesson</span>
+              <a href="course_player.html?course=fullstack" class="text-xs font-semibold text-white/80 hover:underline">Continuing: <span class="text-white font-bold">Full-Stack Mastery — Module 3</span></a>
             </div>
           </div>
           <!-- Overall progress donut -->
@@ -312,7 +592,7 @@
             <div class="relative w-36 h-36">
               <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
                 <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="10"/>
-                <circle cx="60" cy="60" r="50" fill="none" stroke="#FF7E31" stroke-width="10"
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#47689A" stroke-width="10"
                         stroke-dasharray="314" stroke-dashoffset="113"
                         stroke-linecap="round" class="donut-ring"/>
               </svg>
@@ -327,7 +607,7 @@
       </section>
 
       <!-- ── KPI STATS ROW ── -->
-      <section class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <section class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-3 gap-5 reveal-on-scroll fade-up">
         <div class="stat-card">
           <div class="flex justify-between items-start mb-3">
             <span class="material-symbols-outlined text-3xl text-slate-400">auto_stories</span>
@@ -339,7 +619,7 @@
         <div class="stat-card">
           <div class="flex justify-between items-start mb-3">
             <span class="material-symbols-outlined text-3xl text-slate-400">verified</span>
-            <span class="text-[10px] font-bold bg-orange-50 text-orange-700 px-2.5 py-1 rounded-full">Level 4 Elite</span>
+            <span class="text-[10px] font-bold bg-blue-50 text-blue-800 px-2.5 py-1 rounded-full">Level 4 Elite</span>
           </div>
           <div class="text-4xl font-black text-slate-900 tracking-tighter">08</div>
           <div class="text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-1">Completed</div>
@@ -355,20 +635,20 @@
       </section>
 
       <!-- ── MY COURSES ── -->
-      <section class="soft-reveal delay-3 space-y-6">
+      <section class="soft-reveal delay-3 space-y-6 reveal-on-scroll fade-up">
         <div class="flex justify-between items-end">
           <div>
             <h2 class="text-2xl font-black tracking-tight text-slate-900">My Courses</h2>
-            <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+            <div class="h-1 w-10 bg-blue-500 rounded-full mt-1.5"></div>
           </div>
-          <a href="courses_skill_school_elite.html" class="text-xs font-bold uppercase tracking-widest text-orange-600 hover:underline underline-offset-4 transition-all">View All</a>
+          <a href="learner_my_courses.html" class="text-xs font-bold uppercase tracking-widest text-blue-600 hover:underline underline-offset-4 transition-all">View All</a>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:p-6">
 
           <!-- Card 1 — Machine Learning Bootcamp 65% -->
           <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 max-w-full h-auto"
                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo"
                    alt="Machine Learning"/>
               <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
@@ -379,7 +659,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">65%</span>
+                  <span class="text-[11px] font-black text-blue-600">65%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div>
               </div>
@@ -388,9 +668,7 @@
                   <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
                   <span class="text-[10px] text-slate-400 font-semibold">Module 7 of 12</span>
                 </div>
-                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </button>
+                <a href="course_player.html" class="text-blue-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
               </div>
             </div>
           </div>
@@ -398,7 +676,7 @@
           <!-- Card 2 — UI/UX Advanced Design 20% -->
           <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 max-w-full h-auto"
                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKG_av0mECtEAFFouclqEzi1PYslLOkXdrxq5p6g6SE5iBQn0Owta2AJWLiPmK-tGAkgCu0cUn9qNeAhHUH2AKs4TOipqoagjEQgE0bYDJ6jEmzPFW0w0qAtpCqNnVQY3mjZX7OSLlpkxY3QIUyMaI2dSFwHOMxz_ErzmupoeNkoZYavzYOmt_hpERK26QpcXmSsLP86P9mkACCYCrSyHzFLDK9-i-dJ4yNt1TnY6vYdToi2sKYq9t2afqSr0SHozOAUfscpa0SgA"
                    alt="UI/UX Design"/>
               <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
@@ -409,7 +687,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">20%</span>
+                  <span class="text-[11px] font-black text-blue-600">20%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:20%"></div></div>
               </div>
@@ -418,9 +696,7 @@
                   <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
                   <span class="text-[10px] text-slate-400 font-semibold">Module 3 of 15</span>
                 </div>
-                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </button>
+                <a href="course_player.html" class="text-blue-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
               </div>
             </div>
           </div>
@@ -428,7 +704,7 @@
           <!-- Card 3 — Full-Stack Architecture 78% -->
           <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 max-w-full h-auto"
                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVJgAMnXnVDLZtiYG7RLZK3gV4ak2sAAaILiuqJj4zvgTA-SC809PM9M8VuQwbOSgWJa2fvQUezxvEI3r5KTluJ4vCQgCrjepcpbiQ_F1xHeEciPs0U0Os_ZHMhLddKRgcxdy7pfPLSFXga1Xm-tweUArGfdGNjiR6fy04mCTe_U8RaTTBadqFSrRn91clqPn_LvQdz9NvuWGRAtHqSs1aNTMamwPXE9GmIvdNx1jhCR0Yl0ggGAOEMMIk_D13TayL3O22uX6E9s0"
                    alt="Full Stack"/>
               <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
@@ -439,7 +715,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">78%</span>
+                  <span class="text-[11px] font-black text-blue-600">78%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:78%"></div></div>
               </div>
@@ -448,9 +724,7 @@
                   <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
                   <span class="text-[10px] text-slate-400 font-semibold">Module 9 of 14</span>
                 </div>
-                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </button>
+                <a href="course_player.html" class="text-blue-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
               </div>
             </div>
           </div>
@@ -458,7 +732,7 @@
           <!-- Card 4 — Strategic Business Management 40% -->
           <div class="course-card bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              <img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 max-w-full h-auto"
                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQgujRW79L40vULax98e5F7LHG3mvkGp5qSnBqIyOPUbY9cJubl8Lx8fw1XWQYX0WGbinOJQs-mYui0KiAS0oViGEOeyxSqilsE4WA_ZOr0QbWLlRIoniNQkSTDGMUo0r2duKy5eGMNVg4V7bCn1V456gc7u-GtzKmm5KfcRMzOa3xc9d73B6n2IlqFFDWU6kVwOU1jEhF2lzIzZ8CL4jdwKclyeecW9MycFEcprubLn-Lo0oq42WEQo2FKBXSgy9C34EnLJSMf7M"
                    alt="Business"/>
               <div class="absolute top-3 left-3 bg-navy-deep/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
@@ -469,7 +743,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">40%</span>
+                  <span class="text-[11px] font-black text-blue-600">40%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
               </div>
@@ -478,9 +752,7 @@
                   <span class="material-symbols-outlined text-[14px] text-slate-400">play_circle</span>
                   <span class="text-[10px] text-slate-400 font-semibold">Module 4 of 10</span>
                 </div>
-                <button class="text-orange-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">
-                  Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </button>
+                <a href="course_player.html" class="text-blue-600 font-black text-[10px] uppercase tracking-widest hover:translate-x-0.5 transition-transform flex items-center gap-1">Continue <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a>
               </div>
             </div>
           </div>
@@ -489,22 +761,22 @@
       </section>
 
       <!-- ── MIDDLE ROW: Progress Overview + Upcoming & Announcements ── -->
-      <div class="soft-reveal delay-4 grid grid-cols-1 xl:grid-cols-3 gap-6 items-start">
+      <div class="soft-reveal delay-4 grid grid-cols-1 xl:grid-cols-3 gap-4 md:p-6 items-start">
 
         <!-- Progress Overview (spans 2/3) -->
-        <div class="xl:col-span-2 bg-white rounded-2xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
+        <div class="xl:col-span-2 bg-white rounded-2xl p-5 md:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
           <div>
             <h2 class="text-xl font-black tracking-tight text-slate-900">Progress Overview</h2>
-            <div class="h-1 w-8 bg-orange-500 rounded-full mt-1.5"></div>
+            <div class="h-1 w-8 bg-blue-500 rounded-full mt-1.5"></div>
           </div>
-          <div class="grid grid-cols-3 gap-6">
+          <div class="grid grid-cols-3 gap-4 md:p-6">
 
             <!-- Donut 1 — Overall 64% -->
             <div class="flex flex-col items-center gap-3">
               <div class="relative w-28 h-28">
                 <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="40" fill="none" stroke="#f0eded" stroke-width="9"/>
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#FF7E31" stroke-width="9"
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#47689A" stroke-width="9"
                           stroke-dasharray="251.2" stroke-dashoffset="90.4"
                           stroke-linecap="round" class="donut-ring"/>
                 </svg>
@@ -523,7 +795,7 @@
               <div class="relative w-28 h-28">
                 <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="40" fill="none" stroke="#f0eded" stroke-width="9"/>
-                  <circle cx="50" cy="50" r="40" fill="none" stroke="#9e4200" stroke-width="9"
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#1F3456" stroke-width="9"
                           stroke-dasharray="251.2" stroke-dashoffset="138.2"
                           stroke-linecap="round" class="donut-ring"/>
                 </svg>
@@ -560,8 +832,8 @@
           <!-- Learning streak -->
           <div class="bg-surface-container-low rounded-xl p-5 flex items-center justify-between">
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
-                <span class="material-symbols-outlined text-orange-600 text-[20px]" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                <span class="material-symbols-outlined text-blue-600 text-[20px]" style="font-variation-settings:'FILL' 1">local_fire_department</span>
               </div>
               <div>
                 <p class="text-sm font-bold text-slate-900">14-Day Learning Streak 🔥</p>
@@ -570,11 +842,11 @@
             </div>
             <div class="flex gap-1.5">
               <!-- mini day bubbles -->
-              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">M</div>
-              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
-              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">W</div>
-              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
-              <div class="w-7 h-7 rounded-full bg-orange-500 flex items-center justify-center text-white text-[9px] font-black">F</div>
+              <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[9px] font-black">M</div>
+              <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
+              <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[9px] font-black">W</div>
+              <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[9px] font-black">T</div>
+              <div class="w-7 h-7 rounded-full bg-blue-500 flex items-center justify-center text-white text-[9px] font-black">F</div>
               <div class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 text-[9px] font-black">S</div>
               <div class="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 text-[9px] font-black">S</div>
             </div>
@@ -582,28 +854,28 @@
         </div>
 
         <!-- Upcoming & Announcements (1/3) -->
-        <div class="bg-white rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
+        <div class="bg-white rounded-2xl p-4 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] space-y-6">
           <div>
             <h2 class="text-xl font-black tracking-tight text-slate-900">Upcoming</h2>
-            <div class="h-1 w-8 bg-orange-500 rounded-full mt-1.5"></div>
+            <div class="h-1 w-8 bg-blue-500 rounded-full mt-1.5"></div>
           </div>
 
           <!-- Deadlines -->
           <div>
-            <p class="text-[10px] font-bold uppercase tracking-widest text-orange-600 mb-3 flex items-center gap-1.5">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-3 flex items-center gap-1.5">
               <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1">warning</span>
               Deadlines
             </p>
             <div class="space-y-0">
               <div class="announce-item">
                 <p class="text-xs font-bold text-slate-800">ML Bootcamp — Project 3</p>
-                <p class="text-[10px] text-orange-600 font-semibold mt-0.5 flex items-center gap-1">
+                <p class="text-[10px] text-blue-600 font-semibold mt-0.5 flex items-center gap-1">
                   <span class="material-symbols-outlined text-[12px]">event</span> Due Tomorrow, 11:59 PM
                 </p>
               </div>
               <div class="announce-item">
                 <p class="text-xs font-bold text-slate-800">UI/UX Design Quiz</p>
-                <p class="text-[10px] text-orange-500 font-semibold mt-0.5 flex items-center gap-1">
+                <p class="text-[10px] text-blue-400 font-semibold mt-0.5 flex items-center gap-1">
                   <span class="material-symbols-outlined text-[12px]">event</span> Due in 3 days
                 </p>
               </div>
@@ -661,27 +933,27 @@
       </div>
 
       <!-- ── ACHIEVEMENT BADGES ── -->
-      <section class="soft-reveal delay-5 space-y-6">
+      <section class="soft-reveal delay-5 space-y-6 reveal-on-scroll fade-up">
         <div class="flex justify-between items-end">
           <div>
             <h2 class="text-2xl font-black tracking-tight text-slate-900">Achievement Badges</h2>
-            <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+            <div class="h-1 w-10 bg-blue-500 rounded-full mt-1.5"></div>
           </div>
-          <a href="#" class="text-xs font-bold uppercase tracking-widest text-orange-600 hover:underline underline-offset-4">View All</a>
+          <a href="learner_achievements.html" class="text-xs font-bold uppercase tracking-widest text-blue-600 hover:underline underline-offset-4">View All</a>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
 
           <div class="badge-card">
             <div class="w-16 h-16 mx-auto rounded-full navy-gradient flex items-center justify-center mb-4 shadow-lg">
-              <span class="material-symbols-outlined text-3xl text-orange-300" style="font-variation-settings:'FILL' 1">workspace_premium</span>
+              <span class="material-symbols-outlined text-3xl text-slate-300" style="font-variation-settings:'FILL' 1">workspace_premium</span>
             </div>
             <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Elite Scholar</p>
             <p class="text-[10px] text-slate-500 mt-1">Completed 8 courses</p>
-            <div class="mt-3 inline-block bg-orange-50 text-orange-600 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Earned</div>
+            <div class="mt-3 inline-block bg-blue-50 text-blue-600 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Earned</div>
           </div>
 
           <div class="badge-card">
-            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 shadow-lg">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 shadow-lg shine-effect">
               <span class="material-symbols-outlined text-3xl text-white" style="font-variation-settings:'FILL' 1">local_fire_department</span>
             </div>
             <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Streak Master</p>
@@ -690,7 +962,7 @@
           </div>
 
           <div class="badge-card">
-            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-4 shadow-lg">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-4 shadow-lg shine-effect">
               <span class="material-symbols-outlined text-3xl text-white" style="font-variation-settings:'FILL' 1">code</span>
             </div>
             <p class="text-xs font-black text-slate-900 uppercase tracking-tight">Code Architect</p>
@@ -705,7 +977,7 @@
             <p class="text-xs font-black text-slate-700 uppercase tracking-tight">Grandmaster</p>
             <p class="text-[10px] text-slate-400 mt-1">Complete all 12 courses</p>
             <div class="mt-3">
-              <div class="progress-bar-bg mx-auto max-w-[80px]"><div class="progress-bar-fill" style="width:67%"></div></div>
+              <div class="progress-bar-bg mx-auto max-w-[80px] max-w-full"><div class="progress-bar-fill" style="width:67%"></div></div>
               <p class="text-[9px] text-slate-400 mt-1">8 / 12 done</p>
             </div>
           </div>
@@ -714,17 +986,17 @@
       </section>
 
       <!-- ── MY CERTIFICATES ── -->
-      <section class="soft-reveal delay-6 space-y-6">
+      <section class="soft-reveal delay-6 space-y-6 reveal-on-scroll fade-up">
         <div>
           <h2 class="text-2xl font-black tracking-tight text-slate-900">My Certificates</h2>
-          <div class="h-1 w-10 bg-orange-500 rounded-full mt-1.5"></div>
+          <div class="h-1 w-10 bg-blue-500 rounded-full mt-1.5"></div>
         </div>
         <div class="space-y-4">
 
           <div class="cert-card">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+                <span class="material-symbols-outlined text-slate-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
               </div>
               <div>
                 <p class="text-sm font-bold text-slate-900">Ethical Hacking Fundamentals</p>
@@ -735,16 +1007,16 @@
                 </div>
               </div>
             </div>
-            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+            <a href="verified_certificate.html" class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0" style="text-decoration:none;">
               <span class="material-symbols-outlined text-[16px]">download</span>
               Download
-            </button>
+            </a>
           </div>
 
           <div class="cert-card">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+                <span class="material-symbols-outlined text-slate-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
               </div>
               <div>
                 <p class="text-sm font-bold text-slate-900">Advanced UI Design Mastery</p>
@@ -755,16 +1027,16 @@
                 </div>
               </div>
             </div>
-            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+            <a href="verified_certificate.html" class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0" style="text-decoration:none;">
               <span class="material-symbols-outlined text-[16px]">download</span>
               Download
-            </button>
+            </a>
           </div>
 
           <div class="cert-card">
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl navy-gradient flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-orange-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
+                <span class="material-symbols-outlined text-slate-300 text-[22px]" style="font-variation-settings:'FILL' 1">verified</span>
               </div>
               <div>
                 <p class="text-sm font-bold text-slate-900">Digital Presence &amp; Branding</p>
@@ -775,10 +1047,10 @@
                 </div>
               </div>
             </div>
-            <button class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0">
+            <a href="verified_certificate.html" class="flex items-center gap-2 kinetic-gradient text-white px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest shadow-md hover:translate-y-[-2px] active:scale-95 transition-all flex-shrink-0" style="text-decoration:none;">
               <span class="material-symbols-outlined text-[16px]">download</span>
               Download
-            </button>
+            </a>
           </div>
 
         </div>
@@ -789,29 +1061,327 @@
 </div><!-- /flex shell -->
 
 <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
-<footer class="md:ml-72 bg-slate-50 border-t border-slate-200 py-12 px-8">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-    <div class="md:col-span-2 space-y-3">
-      <span class="text-xl font-bold text-slate-900 block">Skill School Elite</span>
-      <p class="text-xs text-slate-500 leading-6 max-w-sm">The digital atelier for those who seek mastery. Editorial excellence in education.</p>
-      <p class="text-xs text-slate-400">© 2025 Skill School Elite. All rights reserved.</p>
+
+<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 mt-auto z-10 relative">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Baynal Group LMS Logo" class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all cursor-pointer hover-elevate">
+            <p class="font-body text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="learner_help.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Support</a>
+            <a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
+            <a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
+        </div>
     </div>
-    <div class="space-y-4">
-      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Platform</h5>
-      <ul class="space-y-2 text-xs text-slate-500">
-        <li><a href="#" class="hover:text-orange-500 transition-colors">About Us</a></li>
-        <li><a href="#" class="hover:text-orange-500 transition-colors">Careers</a></li>
-      </ul>
-    </div>
-    <div class="space-y-4">
-      <h5 class="text-xs font-bold uppercase tracking-widest text-slate-900">Legal</h5>
-      <ul class="space-y-2 text-xs text-slate-500">
-        <li><a href="#" class="hover:text-orange-500 transition-colors">Terms of Service</a></li>
-        <li><a href="#" class="hover:text-orange-500 transition-colors">Privacy Policy</a></li>
-      </ul>
-    </div>
-  </div>
 </footer>
 
+
+<!-- mobileMenuScript injected -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject mobile menu logic dynamically without heavy HTML replace
+    const navRight = document.querySelector('nav .flex.items-center.gap-6') || document.querySelector('nav .flex.justify-between > div:last-child');
+    const navLinks = document.querySelector('nav .hidden.md\\:flex, nav .hidden.lg\\:flex') || document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+    
+    // Some pages like sign_in or get_started intentionally have no nav links, so we skip if not found
+    if (navRight && navLinks && !document.getElementById('mobileMenuContainer')) {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        btn.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.appendChild(btn);
+
+        const menuContainer = document.createElement('div');
+        menuContainer.id = 'mobileMenuContainer';
+        menuContainer.className = 'fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transform -translate-y-[150%] transition-transform duration-300 z-40 p-6 flex flex-col gap-4';
+        
+        // Clone links into mobile menu
+        Array.from(navLinks.querySelectorAll('a')).forEach(link => {
+            const clone = link.cloneNode(true);
+            clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
+            menuContainer.appendChild(clone);
+        });
+
+        // Add to body
+        document.body.appendChild(menuContainer);
+
+        let isOpen = false;
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                menuContainer.classList.remove('-translate-y-[150%]');
+                menuContainer.classList.add('translate-y-0');
+                btn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+            } else {
+                menuContainer.classList.remove('translate-y-0');
+                menuContainer.classList.add('-translate-y-[150%]');
+                btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+            }
+        });
+    }
+
+    // Fix sidebar on dashboard pages for mobile
+    const sidebar = document.querySelector('aside.hidden.md\\:flex');
+    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const toggleSidebar = document.createElement('button');
+        toggleSidebar.id = 'mobileSidebarToggle';
+        toggleSidebar.innerHTML = '<span class="material-symbols-outlined">dataset</span>';
+        toggleSidebar.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(toggleSidebar, navRight.firstChild);
+
+        let sidebarOpen = false;
+        toggleSidebar.addEventListener('click', () => {
+            sidebarOpen = !sidebarOpen;
+            if (sidebarOpen) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex', 'w-full', 'z-50');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex', 'w-full', 'z-50');
+            }
+        });
+    }
+
+    // Fix Course Player sidebar
+    const curSidebar = document.querySelector('#curriculumSidebar');
+    const playerMain = document.querySelector('.lg\\:mr-80');
+    if (curSidebar && !document.getElementById('curSidebarToggle')) {
+        const curToggle = document.createElement('button');
+        curToggle.id = 'curSidebarToggle';
+        curToggle.innerHTML = '<span class="material-symbols-outlined mr-2">menu_book</span> Curriculum';
+        curToggle.className = 'lg:hidden w-full bg-slate-100 text-slate-800 font-bold p-4 text-center mt-4 rounded-xl flex items-center justify-center';
+        
+        if(playerMain) playerMain.appendChild(curToggle);
+
+        curToggle.addEventListener('click', () => {
+            curSidebar.classList.toggle('hidden');
+            if(!curSidebar.classList.contains('hidden')) {
+               curSidebar.style.position = 'static';
+               curSidebar.style.width = '100%';
+               curSidebar.style.height = 'auto';
+               curSidebar.style.borderLeft = 'none';
+               curSidebar.style.marginTop = '20px';
+               playerMain.appendChild(curSidebar);
+            }
+        });
+    }
+});
+</script>
+
+<!-- premiumAnimations injected -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        // Group entries that intersect at the exact same time
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+            // Stagger animations based on how many are appearing at once
+            setTimeout(() => {
+                entry.target.classList.add('is-visible');
+            }, index * 120); // 120ms stagger
+            observer.unobserve(entry.target);
+        });
+    }, observerOptions);
+
+    // Observe all elements gracefully
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+});
+</script>
+
+
+<!-- cursorScript injected -->
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', () => {
+    // Only initialize custom cursor on devices with a mouse
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring cursor-hidden';
+        
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let isSetup = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Unhide on first movement
+            if (!isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+                ringX = mouseX;
+                ringY = mouseY;
+                isSetup = true;
+            }
+            
+            // Dot follows directly with zero lag
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+        
+        // Hide cursors when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            dot.classList.add('cursor-hidden');
+            ring.classList.add('cursor-hidden');
+        });
+        document.addEventListener('mouseenter', () => {
+            if(isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+            }
+        });
+
+        // Loop for the smooth fluid ring follower
+        const render = () => {
+            // Lerp (Linear Interpolation) formula for smooth dragging animation
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            if (isSetup) {
+                ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+            }
+            requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        // Hover states trigger
+        const interactiveSelectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.add('hovering');
+                dot.classList.add('hovering');
+            }
+        });
+        document.body.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.remove('hovering');
+                dot.classList.remove('hovering');
+            }
+        });
+        
+        // Clicks effect
+        document.body.addEventListener('mousedown', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(0.9)`;
+        });
+        document.body.addEventListener('mouseup', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(1)`;
+        });
+    }
+});
+</script>
+
+
+<!-- advancedFlair injected -->
+<script id="advanced-flair-js">
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Dynamic Number Counter for stats
+    const counters = document.querySelectorAll('.text-5xl.font-black');
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.innerText || el.textContent;
+                    const numMatch = text.match(/[0-9]+/);
+                    if (numMatch) {
+                        const targetNum = parseInt(numMatch[0], 10);
+                        const parts = text.split(numMatch[0]); // to keep prefixes/suffixes
+                        
+                        let current = 0;
+                        const duration = 2500;
+                        const startTime = performance.now();
+                        
+                        const updateCount = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // easeOutQuart
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            const currentVal = Math.floor(targetNum * ease);
+                            
+                            el.innerText = (parts[0] || '') + currentVal + (parts[1] || '');
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.innerText = text; // Ensure exact final value
+                            }
+                        };
+                        requestAnimationFrame(updateCount);
+                    }
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(c => counterObserver.observe(c));
+    }
+
+    // 2. 3D Tilt Effect on Course Cards & Large Images
+    // We only apply this safely if it's not a pure touch device
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const tiltCards = document.querySelectorAll('.hover-elevate.group, .image-zoom-container, .inner-glow');
+        tiltCards.forEach(card => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Very subtle tilt mapping (-3 to 3 degrees max to look professional)
+                const rotateX = ((y - centerY) / centerY) * -3; 
+                const rotateY = ((x - centerX) / centerX) * 3;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    }
+
+    // 3. Magnetic Magnetic Buttons (Pulls toward cursor)
+    const magneticBtns = document.querySelectorAll('.px-10.py-5, .px-6.py-2\\.5'); // Matching typical buttons
+    if (window.matchMedia('(pointer: fine)').matches && magneticBtns.length > 0) {
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Pull effect: Max 10px translate
+                const translateX = ((x - centerX) / centerX) * 10;
+                const translateY = ((y - centerY) / centerY) * 10;
+                
+                btn.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.02)`;
+                btn.style.transition = 'none'; // smooth follow
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            });
+        });
+    }
+});
+</script>
+
+
 </body>
+
 </html>

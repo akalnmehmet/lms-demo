@@ -3,12 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>My Learning — Skill School Elite</title>
-<meta name="description" content="Track and continue your enrolled courses on Skill School Elite."/>
+<title>My Learning — Baynal Group LMS</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script>
+<script id="tailwind-config">
   tailwind.config = {
     darkMode: "class",
     theme: {
@@ -16,50 +15,139 @@
         colors: {
           "navy":      "#1A1A37",
           "navy-deep": "#0f0f24",
-          "orange":    "#FF7E31",
+          "orange":    "#47689A",
+          "orange-dim":"#314E78",
           "secondary": "#5c5b7c",
-          "primary":   "#9e4200",
-          "primary-container": "#ff7e31",
+          "primary":   "#1F3456",
+          "primary-container": "#47689A",
           "surface":   "#fcf9f8",
           "surface-container-lowest": "#ffffff",
           "surface-container-low":    "#f6f3f2",
           "surface-container":        "#f0eded",
           "surface-container-high":   "#eae7e7",
+          "surface-variant":          "#e5e2e1",
           "outline-variant":          "#dfc0b2",
           "on-surface":               "#1b1c1c",
           "secondary-fixed-dim":      "#c5c3e9",
+          "error":                    "#ba1a1a",
+        },
+        fontFamily: {
+          "headline": ["Inter"],
+          "body":     ["Inter"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg":      "8px",
+          "xl":      "12px",
+          "2xl":     "16px",
+          "full":    "9999px",
         },
       },
     },
   }
 </script>
 <style>
+  /* ─── Base ─── */
   * { box-sizing: border-box; }
   body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
 
+  /* ─── Material icons ─── */
   .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
-    vertical-align: middle; display: inline-block; line-height: 1;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
   }
-  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 
-  /* Kinetic gradient */
-  .kinetic-gradient { background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%); }
-  .navy-gradient    { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
+  /* ─── Glassmorphic nav ─── */
+  .glass-nav {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 
-  /* Animations */
+  /* ─── Staggered soft-reveal animation ─── */
   .soft-reveal {
-    opacity: 0; transform: translateY(20px);
-    animation: softReveal 550ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  @keyframes softReveal { to { opacity: 1; transform: translateY(0); } }
+  @keyframes softReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
   .delay-1 { animation-delay: 0.05s; }
   .delay-2 { animation-delay: 0.12s; }
   .delay-3 { animation-delay: 0.20s; }
   .delay-4 { animation-delay: 0.28s; }
   .delay-5 { animation-delay: 0.36s; }
+  .delay-6 { animation-delay: 0.44s; }
+  .delay-7 { animation-delay: 0.52s; }
+  .delay-8 { animation-delay: 0.60s; }
 
-  /* Sidebar nav */
+  /* ─── Kinetic gradient ─── */
+  .kinetic-gradient {
+    background: linear-gradient(135deg, #1F3456 0%, #47689A 100%);
+  }
+  .navy-gradient {
+    background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
+  }
+
+  /* ─── Course card ─── */
+  .course-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 260ms ease-out, box-shadow 260ms ease-out;
+    position: relative;
+  }
+  .course-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #47689A, #314E78);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(92,91,124,0.18); }
+  .course-card:hover::after { opacity: 1; }
+
+  /* ─── Continue button ─── */
+  .continue-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; padding: 10px;
+    background: linear-gradient(135deg, #1F3456, #47689A);
+    color: #fff; font-size: 0.75rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    border-radius: 10px; text-decoration: none;
+    transition: opacity 200ms, transform 200ms;
+  }
+  .continue-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  /* ─── Tab buttons ─── */
+  .tab-btn {
+    padding: 8px 4px; font-size: 0.8rem; font-weight: 700;
+    color: #94a3b8; border-bottom: 2px solid transparent;
+    transition: color 200ms, border-color 200ms;
+    white-space: nowrap; background: none; border-top: none; border-left: none; border-right: none;
+    cursor: pointer;
+  }
+  .tab-btn:hover { color: #475569; }
+  .tab-btn.active { color: #1F3456; border-bottom-color: #47689A; }
+
+  /* ─── Progress bar ─── */
+  .progress-bar-bg { background: #e5e2e1; border-radius: 99px; height: 6px; }
+  .progress-bar-fill {
+    height: 6px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #47689A, #314E78);
+    transition: width 1s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ─── Donut SVG rings ─── */
+  .donut-ring { transition: stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+  /* ─── Sidebar nav item ─── */
   .side-link {
     display: flex; align-items: center; gap: 12px;
     padding: 11px 16px; border-radius: 8px;
@@ -69,88 +157,377 @@
     cursor: pointer; text-decoration: none;
   }
   .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
-  .side-link.active { background: #ffffff; color: #FF7E31; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+  .side-link.active { background: #ffffff; color: #47689A; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
 
-  /* Sidebar scroll */
+  /* ─── Badge card ─── */
+  .badge-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .badge-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(92,91,124,0.1); }
+
+  /* ─── Certificate card ─── */
+  .cert-card {
+    background: #fff;
+    border-radius: 12px;
+    border-left: 4px solid #47689A;
+    padding: 20px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 200ms, box-shadow 200ms;
+  }
+  .cert-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(92,91,124,0.1); }
+
+  /* ─── Stat card ─── */
+  .stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border-bottom: 2px solid transparent;
+    transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+  }
+  .stat-card:hover { border-bottom-color: #47689A; transform: translateY(-4px); box-shadow: 0 12px 28px rgba(92,91,124,0.1); }
+
+  /* ─── Live badge pulse ─── */
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #dcfce7; color: #166534;
+    font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 2px 8px; border-radius: 99px;
+  }
+  .live-dot {
+    width: 6px; height: 6px; background: #16a34a; border-radius: 50%;
+    animation: pulse 1.4s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  /* ─── Announcement item ─── */
+  .announce-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(223,192,178,0.15);
+  }
+  .announce-item:last-child { border-bottom: none; }
+
+  /* ─── Scrollbar for sidebar on small screens ─── */
   .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
-
-  /* Progress bar */
-  .progress-bar-bg  { background: #e5e2e1; border-radius: 99px; height: 6px; }
-  .progress-bar-fill {
-    height: 6px; border-radius: 99px;
-    background: linear-gradient(90deg, #FF7E31, #ff6600);
-    transition: width 1s cubic-bezier(0.16,1,0.3,1);
-  }
-
-  /* Course card */
-  .course-card {
-    background: #fff; border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    transition: transform 240ms ease-out, box-shadow 240ms ease-out;
-    position: relative;
-  }
-  .course-card::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, #FF7E31, #ff6600);
-    opacity: 0; border-radius: 0 0 12px 12px; transition: opacity 200ms;
-  }
-  .course-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -8px rgba(92,91,124,0.16); }
-  .course-card:hover::after { opacity: 1; }
-
-  /* Tab */
-  .tab-btn {
-    background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif;
-    font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
-    color: #9ca3af; padding: 8px 0; border-bottom: 2px solid transparent;
-    transition: color 200ms, border-color 200ms;
-  }
-  .tab-btn.active { color: #FF7E31; border-bottom-color: #FF7E31; }
-  .tab-btn:hover:not(.active) { color: #1A1A37; }
-
-  /* CTA button */
-  .continue-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, #9e4200 0%, #FF7E31 100%);
-    color: #fff; border: none; cursor: pointer;
-    padding: 9px 16px; border-radius: 8px;
-    font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
-    text-decoration: none;
-    transition: transform 180ms, box-shadow 180ms, opacity 150ms;
-    box-shadow: 0 6px 18px -4px rgba(158,66,0,0.30);
-    width: 100%; justify-content: center;
-  }
-  .continue-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -4px rgba(158,66,0,0.38); }
-  .continue-btn:active { transform: scale(0.97); opacity: 0.92; }
 </style>
-</head>
-<body class="bg-surface-container-low">
 
-<!-- ═══ TOP NAV BAR ═══ -->
+<style id="premium-animations">
+/* ─── Premium Scroll Animations ─── */
+.reveal-on-scroll {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+.fade-up { transform: translateY(40px); }
+.fade-up.is-visible { transform: translateY(0); }
+
+.fade-right { transform: translateX(-40px); }
+.fade-right.is-visible { transform: translateX(0); }
+
+.fade-left { transform: translateX(40px); }
+.fade-left.is-visible { transform: translateX(0); }
+
+.scale-up { transform: scale(0.92); }
+.scale-up.is-visible { transform: scale(1); }
+
+/* ─── Floating Background Elements ─── */
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+.animate-float-delayed {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: -4s;
+}
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-20px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ─── Hover Elevation ─── */
+.hover-elevate {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-elevate:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2);
+}
+</style>
+
+
+<style id="custom-cursor">
+@media (pointer: fine) {
+    body { cursor: none !important; }
+    a, button, input, textarea, select, [tabindex], label { cursor: none !important; }
+    
+    .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #47689A;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        /* Using absolute transforms for lerping in JS directly */
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    .cursor-ring {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(71, 104, 154, 0.4);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
+        will-change: width, height, transform, border;
+    }
+    .cursor-ring.hovering {
+        width: 55px;
+        height: 55px;
+        background-color: rgba(71, 104, 154, 0.1);
+        border-color: rgba(71, 104, 154, 0.9);
+    }
+    .cursor-dot.hovering {
+        opacity: 0.6;
+        width: 4px;
+        height: 4px;
+    }
+    
+    /* Disappear naturally when off screen */
+    .cursor-hidden {
+        opacity: 0 !important;
+    }
+}
+@media (pointer: coarse), (hover: none) {
+    .cursor-dot, .cursor-ring { display: none !important; }
+}
+</style>
+
+
+<style id="advanced-flair-css">
+/* ─── Glassmorphism Shine Effect ─── */
+.shine-effect {
+    position: relative;
+    overflow: hidden;
+}
+.shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 10;
+    pointer-events: none;
+}
+.shine-effect:hover::after {
+    animation: shineSweep 0.8s ease-out forwards;
+}
+@keyframes shineSweep {
+    0% { left: -150%; }
+    100% { left: 150%; }
+}
+
+/* ─── Inner Glow for Cards ─── */
+.inner-glow {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 4px 20px rgba(0,0,0,0.04);
+}
+.inner-glow:hover {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3), 0 20px 40px -8px rgba(31,52,86,0.2) !important;
+}
+
+/* ─── Image Zoom ─── */
+.image-zoom-container {
+    overflow: hidden;
+}
+.image-zoom-container img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.image-zoom-container:hover img {
+    transform: scale(1.08); /* slight smooth zoom */
+}
+</style>
+
+
+
+<style id="footer-glow-css">
+.footer-glow-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(71, 104, 154, 0.8) 50%, transparent 100%);
+    animation: flow-glow 4s linear infinite;
+}
+@keyframes flow-glow {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+}
+.pulse-badge {
+    animation: badgePulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.95); box-shadow: 0 0 15px rgba(71, 104, 154, 0.3); }
+}
+</style>
+
+</head>
+<body class="bg-surface-container-low" overflow-x-hidden w-full m-0 p-0>
+
+<!-- backgroundParticles injected -->
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script id="particles-script">
+document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('bg-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width, height, particles;
+    const particleCount = window.innerWidth < 768 ? 35 : 75; // Optimal count for smooth performance
+    
+    // Baynal Group Navy Blues: #47689A, #314E78, #1F3456
+    const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+
+    function init() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.6,
+                vy: (Math.random() - 0.5) * 0.6,
+                radius: Math.random() * 2.5 + 0.8,
+                color: colors[Math.floor(Math.random() * colors.length)]
+            });
+        }
+    }
+
+    let mouseX = -1000;
+    let mouseY = -1000;
+    
+    // Slight attractive-repulsive physics to mouse
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            
+            // Mouse Repel Physics
+            let dxMouse = mouseX - p.x;
+            let dyMouse = mouseY - p.y;
+            let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            
+            if (distMouse < 180) {
+                // gentle push outward
+                p.x -= (dxMouse / distMouse) * 1.5;
+                p.y -= (dyMouse / distMouse) * 1.5;
+            }
+
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // Bounce on edges
+            if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+            if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+
+            // Connect lines
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    // Fade out lines based on distance
+                    const opacity = Math.max(0, 1 - (dist / 130));
+                    ctx.strokeStyle = `rgba(71, 104, 154, ${opacity * 0.25})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    init();
+    draw();
+    
+    window.addEventListener('resize', () => {
+        init(); 
+    });
+});
+</script>
+
+
+<!-- ═══════════════════════════ TOP NAV BAR ═══════════════════════════ -->
 <nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
-  <div class="flex justify-between items-center h-20 px-8 w-full max-w-screen-2xl mx-auto">
-    <div class="flex items-center gap-12">
-      <a class="text-2xl font-black tracking-tighter text-slate-900" href="index.html">Skill School Elite</a>
-      <div class="hidden md:flex gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+  <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <!-- Logo + Links -->
+    <div class="flex items-center gap-6 md:gap-6 md:p-12">
+      <a href="index.html" class="flex items-center gap-3">
+  <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+</a>
+      <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="index.html">Home</a>
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
-        <a class="text-orange-600 font-bold border-b-2 border-orange-500" href="learner_dashboard.html">Dashboard</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] font-['Inter'] tracking-tight text-sm hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
         <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
       </div>
     </div>
-    <div class="flex items-center gap-6">
-      <button class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200">Support</button>
+    <!-- Right Actions -->
+    <div class="flex items-center gap-4 md:p-6">
+      <a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
       <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
-      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md" style="text-decoration:none;">Get Started</a>
+      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══ PAGE SHELL ═══ -->
+<!-- ═══════════════════════════ PAGE SHELL ═══════════════════════════ -->
 <div class="flex min-h-screen pt-20">
 
-  <!-- ═══ LEFT SIDEBAR ═══ -->
-  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
+  <!-- ═══════════════ LEFT SIDEBAR ═══════════════ -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 max-w-full flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
     <!-- User avatar -->
     <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
       <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
@@ -167,14 +544,15 @@
         Overview
       </a>
       <a class="side-link active" href="learner_my_courses.html">
-        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">school</span>
+        <span class="material-symbols-outlined text-[20px]">school</span>
         My Courses
       </a>
+            <a class="side-link" href="wishlist.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">favorite</span>Wishlist</a>
       <a class="side-link" href="learner_certificates.html">
         <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
         My Certificates
       </a>
-      <a class="side-link" href="#">
+      <a class="side-link" href="learner_achievements.html">
         <span class="material-symbols-outlined text-[20px]">military_tech</span>
         Achievements
       </a>
@@ -186,28 +564,29 @@
 
     <!-- Upgrade card -->
     <div class="mt-auto">
-      <div class="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-4">
-        <p class="text-xs font-bold text-orange-800 uppercase tracking-tighter mb-1">Pro Plan</p>
-        <p class="text-[11px] text-orange-700/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
-        <button class="w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</button>
+      <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+        <p class="text-xs font-bold text-blue-900 uppercase tracking-tighter mb-1">Pro Plan</p>
+        <p class="text-[11px] text-blue-800/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+        <a href="learner_upgrade.html" class="block text-center w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</a>
       </div>
       <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
-        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
-        <a class="side-link" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+        <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+        <a class="side-link" href="index.html"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
       </div>
     </div>
   </aside>
 
-  <!-- ═══ MAIN CONTENT ═══ -->
-  <main class="flex-1 md:ml-72 p-6 md:p-10 overflow-y-auto">
+  <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+  <main class="flex-1 md:ml-72 p-4 md:p-6 md:p-10 overflow-y-auto">
+
     <div class="max-w-6xl mx-auto space-y-8">
 
       <!-- ── PAGE HEADER ── -->
       <div class="soft-reveal delay-1 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500 mb-1">Student Portal</p>
-          <h1 class="text-3xl font-black tracking-tight text-slate-900">My Learning</h1>
-          <div class="h-1 w-10 bg-orange-500 rounded-full mt-2"></div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-1">Student Portal</p>
+          <h1 class="text-3xl font-black tracking-tight text-slate-900 reveal-on-scroll fade-up">My Learning</h1>
+          <div class="h-1 w-10 bg-blue-500 rounded-full mt-2"></div>
         </div>
         <div class="flex items-center gap-3">
           <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-4 py-2 text-sm text-slate-500 font-medium shadow-sm">
@@ -225,8 +604,8 @@
       <!-- ── STATS STRIP ── -->
       <div class="soft-reveal delay-2 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0">
-            <span class="material-symbols-outlined text-orange-500 text-[20px]">auto_stories</span>
+          <div class="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-blue-400 text-[20px]">auto_stories</span>
           </div>
           <div>
             <p class="text-xl font-black text-slate-900">12</p>
@@ -263,24 +642,24 @@
       </div>
 
       <!-- ── TABBED COURSE GRID ── -->
-      <section class="soft-reveal delay-3">
+      <section class="soft-reveal delay-3 reveal-on-scroll fade-up">
 
         <!-- Tab bar -->
-        <div class="flex items-center gap-8 border-b border-slate-200 mb-7" id="tabBar">
-          <button class="tab-btn active" onclick="switchTab(this,'inprogress')">In Progress <span class="ml-1.5 text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">4</span></button>
+        <div class="flex items-center gap-5 md:p-8 border-b border-slate-200 mb-7" id="tabBar">
+          <button class="tab-btn active" onclick="switchTab(this,'inprogress')">In Progress <span class="ml-1.5 text-[10px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full">4</span></button>
           <button class="tab-btn" onclick="switchTab(this,'completed')">Completed <span class="ml-1.5 text-[10px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">8</span></button>
           <button class="tab-btn" onclick="switchTab(this,'archived')">Archived <span class="ml-1.5 text-[10px] font-black bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">0</span></button>
         </div>
 
         <!-- IN PROGRESS tab -->
-        <div id="tab-inprogress" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+        <div id="tab-inprogress" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-4 md:p-6">
 
           <!-- Card 1: Advanced Software Architecture — 38% -->
           <div class="course-card">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4" alt="Software Architecture"/>
+              <img class="w-full h-full object-cover max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4" alt="Software Architecture"/>
               <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
-              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">38%</div>
+              <div class="absolute top-3 right-3 bg-blue-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">38%</div>
             </div>
             <div class="p-5 space-y-3">
               <div>
@@ -290,7 +669,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">38%</span>
+                  <span class="text-[11px] font-black text-blue-600">38%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:38%"></div></div>
               </div>
@@ -305,9 +684,9 @@
           <!-- Card 2: Machine Learning Bootcamp — 65% -->
           <div class="course-card">
             <div class="h-40 overflow-hidden relative">
-              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo" alt="Machine Learning"/>
+              <img class="w-full h-full object-cover max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo" alt="Machine Learning"/>
               <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Advanced</div>
-              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">65%</div>
+              <div class="absolute top-3 right-3 bg-blue-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">65%</div>
             </div>
             <div class="p-5 space-y-3">
               <div>
@@ -317,7 +696,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">65%</span>
+                  <span class="text-[11px] font-black text-blue-600">65%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:65%"></div></div>
               </div>
@@ -331,10 +710,10 @@
 
           <!-- Card 3: Full-Stack Mastery — 40% -->
           <div class="course-card">
-            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-indigo-900 to-purple-900 flex items-center justify-center shine-effect">
               <span class="material-symbols-outlined text-white/30 text-[80px]">code</span>
               <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Intermediate</div>
-              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">40%</div>
+              <div class="absolute top-3 right-3 bg-blue-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">40%</div>
             </div>
             <div class="p-5 space-y-3">
               <div>
@@ -344,7 +723,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">40%</span>
+                  <span class="text-[11px] font-black text-blue-600">40%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:40%"></div></div>
               </div>
@@ -358,10 +737,10 @@
 
           <!-- Card 4: Cloud-Native DevOps — 12% -->
           <div class="course-card">
-            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-sky-700 to-teal-600 flex items-center justify-center">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-sky-700 to-teal-600 flex items-center justify-center shine-effect">
               <span class="material-symbols-outlined text-white/30 text-[80px]">cloud</span>
               <div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Beginner</div>
-              <div class="absolute top-3 right-3 bg-orange-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">12%</div>
+              <div class="absolute top-3 right-3 bg-blue-500/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">12%</div>
             </div>
             <div class="p-5 space-y-3">
               <div>
@@ -371,7 +750,7 @@
               <div>
                 <div class="flex justify-between items-center mb-1.5">
                   <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Progress</span>
-                  <span class="text-[11px] font-black text-orange-600">12%</span>
+                  <span class="text-[11px] font-black text-blue-600">12%</span>
                 </div>
                 <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:12%"></div></div>
               </div>
@@ -386,11 +765,11 @@
         </div><!-- /in-progress grid -->
 
         <!-- COMPLETED tab (hidden by default) -->
-        <div id="tab-completed" class="hidden grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div id="tab-completed" class="hidden grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:p-6">
 
           <!-- Completed Card 1 -->
           <div class="course-card opacity-90">
-            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-emerald-700 to-teal-600 flex items-center justify-center">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-emerald-700 to-teal-600 flex items-center justify-center shine-effect">
               <span class="material-symbols-outlined text-white/30 text-[80px]">psychology</span>
               <div class="absolute inset-0 flex items-center justify-center">
                 <div class="bg-white/20 backdrop-blur-sm rounded-full p-3">
@@ -421,7 +800,7 @@
 
           <!-- Completed Card 2 -->
           <div class="course-card opacity-90">
-            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-violet-700 to-indigo-600 flex items-center justify-center">
+            <div class="h-40 overflow-hidden relative bg-gradient-to-br from-violet-700 to-indigo-600 flex items-center justify-center shine-effect">
               <span class="material-symbols-outlined text-white/30 text-[80px]">data_object</span>
               <div class="absolute inset-0 flex items-center justify-center">
                 <div class="bg-white/20 backdrop-blur-sm rounded-full p-3">
@@ -466,7 +845,7 @@
       </section>
 
       <!-- ── BROWSE MORE CTA ── -->
-      <div class="soft-reveal delay-5 bg-white rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+      <div class="soft-reveal delay-5 bg-white rounded-2xl p-5 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 md:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
         <div class="flex items-center gap-4">
           <div class="w-14 h-14 rounded-2xl kinetic-gradient flex items-center justify-center shadow-lg flex-shrink-0">
             <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1">explore</span>
@@ -476,27 +855,352 @@
             <p class="text-xs text-slate-500 mt-0.5">350+ expert-led courses across 20 specializations</p>
           </div>
         </div>
-        <a href="courses_skill_school_elite.html" class="kinetic-gradient text-white px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:translate-y-[-2px] transition-all flex-shrink-0" style="text-decoration:none;">Browse Catalog →</a>
+        <a href="courses_skill_school_elite.html" class="kinetic-gradient text-white px-4 md:px-4 md:px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:translate-y-[-2px] transition-all flex-shrink-0" style="text-decoration:none;">Browse Catalog →</a>
       </div>
 
     </div>
-  </main>
+  
+</main><!-- /main -->
+</div><!-- /flex shell -->
 
-</div>
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+
+<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 mt-auto z-10 relative">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Baynal Group LMS Logo" class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all cursor-pointer hover-elevate">
+            <p class="font-body text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="learner_help.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Support</a>
+            <a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
+            <a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+
+<!-- mobileMenuScript injected -->
 
 <script>
-  function switchTab(btn, tabId) {
-    // Reset all tabs
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject mobile menu logic dynamically without heavy HTML replace
+    const navRight = document.querySelector('nav .flex.items-center.gap-6') || document.querySelector('nav .flex.justify-between > div:last-child');
+    const navLinks = document.querySelector('nav .hidden.md\\:flex, nav .hidden.lg\\:flex') || document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+    
+    // Some pages like sign_in or get_started intentionally have no nav links, so we skip if not found
+    if (navRight && navLinks && !document.getElementById('mobileMenuContainer')) {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        btn.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.appendChild(btn);
+
+        const menuContainer = document.createElement('div');
+        menuContainer.id = 'mobileMenuContainer';
+        menuContainer.className = 'fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transform -translate-y-[150%] transition-transform duration-300 z-40 p-6 flex flex-col gap-4';
+        
+        // Clone links into mobile menu
+        Array.from(navLinks.querySelectorAll('a')).forEach(link => {
+            const clone = link.cloneNode(true);
+            clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
+            menuContainer.appendChild(clone);
+        });
+
+        // Add to body
+        document.body.appendChild(menuContainer);
+
+        let isOpen = false;
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            if (isOpen) {
+                menuContainer.classList.remove('-translate-y-[150%]');
+                menuContainer.classList.add('translate-y-0');
+                btn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+            } else {
+                menuContainer.classList.remove('translate-y-0');
+                menuContainer.classList.add('-translate-y-[150%]');
+                btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+            }
+        });
+    }
+
+    // Fix sidebar on dashboard pages for mobile
+    const sidebar = document.querySelector('aside.hidden.md\\:flex');
+    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const toggleSidebar = document.createElement('button');
+        toggleSidebar.id = 'mobileSidebarToggle';
+        toggleSidebar.innerHTML = '<span class="material-symbols-outlined">dataset</span>';
+        toggleSidebar.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(toggleSidebar, navRight.firstChild);
+
+        let sidebarOpen = false;
+        toggleSidebar.addEventListener('click', () => {
+            sidebarOpen = !sidebarOpen;
+            if (sidebarOpen) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex', 'w-full', 'z-50');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex', 'w-full', 'z-50');
+            }
+        });
+    }
+
+    // Fix Course Player sidebar
+    const curSidebar = document.querySelector('#curriculumSidebar');
+    const playerMain = document.querySelector('.lg\\:mr-80');
+    if (curSidebar && !document.getElementById('curSidebarToggle')) {
+        const curToggle = document.createElement('button');
+        curToggle.id = 'curSidebarToggle';
+        curToggle.innerHTML = '<span class="material-symbols-outlined mr-2">menu_book</span> Curriculum';
+        curToggle.className = 'lg:hidden w-full bg-slate-100 text-slate-800 font-bold p-4 text-center mt-4 rounded-xl flex items-center justify-center';
+        
+        if(playerMain) playerMain.appendChild(curToggle);
+
+        curToggle.addEventListener('click', () => {
+            curSidebar.classList.toggle('hidden');
+            if(!curSidebar.classList.contains('hidden')) {
+               curSidebar.style.position = 'static';
+               curSidebar.style.width = '100%';
+               curSidebar.style.height = 'auto';
+               curSidebar.style.borderLeft = 'none';
+               curSidebar.style.marginTop = '20px';
+               playerMain.appendChild(curSidebar);
+            }
+        });
+    }
+});
+</script>
+
+<!-- premiumAnimations injected -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        // Group entries that intersect at the exact same time
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+            // Stagger animations based on how many are appearing at once
+            setTimeout(() => {
+                entry.target.classList.add('is-visible');
+            }, index * 120); // 120ms stagger
+            observer.unobserve(entry.target);
+        });
+    }, observerOptions);
+
+    // Observe all elements gracefully
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+});
+</script>
+
+
+<!-- cursorScript injected -->
+<script id="cursor-script">
+document.addEventListener('DOMContentLoaded', () => {
+    // Only initialize custom cursor on devices with a mouse
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div');
+        ring.className = 'cursor-ring cursor-hidden';
+        
+        document.body.appendChild(dot);
+        document.body.appendChild(ring);
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let ringX = -100;
+        let ringY = -100;
+        let isSetup = false;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Unhide on first movement
+            if (!isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+                ringX = mouseX;
+                ringY = mouseY;
+                isSetup = true;
+            }
+            
+            // Dot follows directly with zero lag
+            dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+        
+        // Hide cursors when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            dot.classList.add('cursor-hidden');
+            ring.classList.add('cursor-hidden');
+        });
+        document.addEventListener('mouseenter', () => {
+            if(isSetup) {
+                dot.classList.remove('cursor-hidden');
+                ring.classList.remove('cursor-hidden');
+            }
+        });
+
+        // Loop for the smooth fluid ring follower
+        const render = () => {
+            // Lerp (Linear Interpolation) formula for smooth dragging animation
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            if (isSetup) {
+                ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
+            }
+            requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        // Hover states trigger
+        const interactiveSelectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.add('hovering');
+                dot.classList.add('hovering');
+            }
+        });
+        document.body.addEventListener('mouseout', (e) => {
+            if (e.target.closest(interactiveSelectors)) {
+                ring.classList.remove('hovering');
+                dot.classList.remove('hovering');
+            }
+        });
+        
+        // Clicks effect
+        document.body.addEventListener('mousedown', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(0.9)`;
+        });
+        document.body.addEventListener('mouseup', () => {
+            ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(1)`;
+        });
+    }
+});
+</script>
+
+
+<!-- advancedFlair injected -->
+<script id="advanced-flair-js">
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Dynamic Number Counter for stats
+    const counters = document.querySelectorAll('.text-5xl.font-black');
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.innerText || el.textContent;
+                    const numMatch = text.match(/[0-9]+/);
+                    if (numMatch) {
+                        const targetNum = parseInt(numMatch[0], 10);
+                        const parts = text.split(numMatch[0]); // to keep prefixes/suffixes
+                        
+                        let current = 0;
+                        const duration = 2500;
+                        const startTime = performance.now();
+                        
+                        const updateCount = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            // easeOutQuart
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            const currentVal = Math.floor(targetNum * ease);
+                            
+                            el.innerText = (parts[0] || '') + currentVal + (parts[1] || '');
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                el.innerText = text; // Ensure exact final value
+                            }
+                        };
+                        requestAnimationFrame(updateCount);
+                    }
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(c => counterObserver.observe(c));
+    }
+
+    // 2. 3D Tilt Effect on Course Cards & Large Images
+    // We only apply this safely if it's not a pure touch device
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const tiltCards = document.querySelectorAll('.hover-elevate.group, .image-zoom-container, .inner-glow');
+        tiltCards.forEach(card => {
+            card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Very subtle tilt mapping (-3 to 3 degrees max to look professional)
+                const rotateX = ((y - centerY) / centerY) * -3; 
+                const rotateY = ((x - centerX) / centerX) * 3;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+            });
+        });
+    }
+
+    // 3. Magnetic Magnetic Buttons (Pulls toward cursor)
+    const magneticBtns = document.querySelectorAll('.px-10.py-5, .px-6.py-2\\.5'); // Matching typical buttons
+    if (window.matchMedia('(pointer: fine)').matches && magneticBtns.length > 0) {
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Pull effect: Max 10px translate
+                const translateX = ((x - centerX) / centerX) * 10;
+                const translateY = ((y - centerY) / centerY) * 10;
+                
+                btn.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.02)`;
+                btn.style.transition = 'none'; // smooth follow
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+                btn.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            });
+        });
+    }
+});
+</script>
+
+
+
+<script>
+function switchTab(btn, tabId) {
+    // Update button states
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    // Hide all panels
-    ['inprogress','completed','archived'].forEach(id => {
-      const el = document.getElementById('tab-' + id);
-      el.classList.add('hidden');
+
+    // Show/hide tab panels
+    ['inprogress', 'completed', 'archived'].forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        if (el) el.classList.add('hidden');
     });
-    // Show selected
-    document.getElementById('tab-' + tabId).classList.remove('hidden');
-  }
+    const target = document.getElementById('tab-' + tabId);
+    if (target) target.classList.remove('hidden');
+}
 </script>
 </body>
+
 </html>
