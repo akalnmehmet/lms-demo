@@ -1,521 +1,732 @@
 ﻿<!DOCTYPE html>
 <html class="" lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>My Wishlist — Baynal Group LMS</title>
-<meta name="description" content="View and manage your saved courses on Baynal Group LMS."/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "navy": "#1A1A37", "navy-deep": "#0f0f24", "orange": "#47689A", "orange-dim": "#314E78",
-          "secondary": "#5c5b7c", "primary": "#1F3456", "primary-container": "#47689A",
-          "surface": "#fcf9f8", "on-surface": "#1b1c1c",
-        }
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>My Wishlist — Baynal Group LMS</title>
+  <meta name="description" content="View and manage your saved courses on Baynal Group LMS." />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "navy": "#1A1A37",
+            "navy-deep": "#0f0f24",
+            "orange": "#47689A",
+            "orange-dim": "#314E78",
+            "secondary": "#5c5b7c",
+            "primary": "#1F3456",
+            "primary-container": "#47689A",
+            "surface": "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "surface-container": "#f0eded",
+            "surface-container-high": "#eae7e7",
+            "surface-variant": "#e5e2e1",
+            "outline-variant": "#dfc0b2",
+            "on-surface": "#1b1c1c",
+            "secondary-fixed-dim": "#c5c3e9",
+            "error": "#ba1a1a",
+          },
+          fontFamily: {
+            "headline": ["Inter"],
+            "body": ["Inter"],
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "8px",
+            "xl": "12px",
+            "2xl": "16px",
+            "full": "9999px",
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* ─── Base ─── */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f6f3f2;
+      color: #1b1c1c;
+    }
+
+    /* ─── Material icons ─── */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    /* ─── Glassmorphic nav ─── */
+    .glass-nav {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* ─── Staggered soft-reveal animation ─── */
+    .soft-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes softReveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
-  }
-</script>
-<style>
-  * { box-sizing: border-box; }
-  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; vertical-align: middle; display: inline-block; line-height: 1; }
-  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-  .kinetic-gradient { background: linear-gradient(135deg, #1F3456 0%, #47689A 100%); }
-  .navy-gradient { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
-  .soft-reveal { opacity: 0; transform: translateY(24px); animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-  @keyframes softReveal { to { opacity: 1; transform: translateY(0); } }
-  .delay-1 { animation-delay: 0.05s; } .delay-2 { animation-delay: 0.12s; } .delay-3 { animation-delay: 0.20s; } .delay-4 { animation-delay: 0.28s; }
-  .side-link { display: flex; align-items: center; gap: 12px; padding: 11px 16px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #5c5b7c; transition: background 200ms, color 200ms, padding-left 260ms; cursor: pointer; text-decoration: none; }
-  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
-  .side-link.active { background: #ffffff; color: #47689A; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
-  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
 
-  /* Wishlist card */
-  .wl-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 16px; overflow: hidden; transition: transform 260ms, box-shadow 260ms; }
-  .wl-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -8px rgba(31,52,86,0.14); }
+    .delay-1 {
+      animation-delay: 0.05s;
+    }
 
-  /* Remove button */
-  .remove-btn { opacity: 0; transition: opacity 200ms; }
-  .wl-card:hover .remove-btn { opacity: 1; }
+    .delay-2 {
+      animation-delay: 0.12s;
+    }
 
-  /* Shine */
-  .shine-effect { position: relative; overflow: hidden; }
-  .shine-effect::after { content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); z-index: 10; pointer-events: none; }
-  .shine-effect:hover::after { animation: shineSweep 0.8s ease-out forwards; }
-  @keyframes shineSweep { 0% { left: -150%; } 100% { left: 150%; } }
+    /* ─── Kinetic gradient ─── */
+    .kinetic-gradient {
+      background: linear-gradient(135deg, #1F3456 0%, #47689A 100%);
+    }
 
-  /* Cursor */
-  @media (pointer: fine) {
-    body { cursor: none !important; }
-    a, button { cursor: none !important; }
-    .cursor-dot { width:8px;height:8px;background:#47689A;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transition:width .2s,height .2s,opacity .2s; }
-    .cursor-ring { width:40px;height:40px;border:2px solid rgba(71,104,154,.4);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;will-change:transform; }
-    .cursor-hidden { opacity:0!important; }
-    .cursor-ring.hovering { width:56px;height:56px;background:rgba(71,104,154,.08);border-color:rgba(71,104,154,.7); }
-  }
+    .navy-gradient {
+      background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%);
+    }
 
-  /* Scroll reveal */
-  .reveal-on-scroll { opacity:0;visibility:hidden;transition:all .8s cubic-bezier(.25,.46,.45,.94); }
-  .reveal-on-scroll.is-visible { opacity:1;visibility:visible; }
-  .fade-up { transform:translateY(40px); }
-  .fade-up.is-visible { transform:translateY(0); }
-  .fade-right { transform:translateX(-40px); }
-  .fade-right.is-visible { transform:translateX(0); }
+    /* ─── Sidebar nav item ─── */
+    .side-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #5c5b7c;
+      transition: background 200ms, color 200ms, padding-left 260ms;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-  /* Toast */
-  #wl-toast { position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1F3456;color:#fff;padding:12px 24px;border-radius:99px;font-size:.8rem;font-weight:700;z-index:9999;transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s;opacity:0;pointer-events:none;display:flex;align-items:center;gap:8px; }
-  #wl-toast.show { transform:translateX(-50%) translateY(0);opacity:1; }
-</style>
-<style id="dark-mode-global">
-/* === Dark Mode Global Overrides === */
-html.dark {
-    color-scheme: dark;
-}
-html.dark body {
-    background-color: #0f172a !important;
-    color: #e2e8f0 !important;
-}
+    .side-link:hover {
+      background: #f0eded;
+      color: #1A1A37;
+      padding-left: 22px;
+    }
 
-/* === NAVBAR DARK === */
-html.dark nav {
-    background-color: rgba(15,23,42,0.90) !important;
-    border-color: rgba(51,65,85,0.5) !important;
-}
-html.dark nav a:not(.bg-gradient-to-br):not([class*="from-primary"]) {
-    color: #94a3b8 !important;
-}
-html.dark nav a:hover:not(.bg-gradient-to-br):not([class*="from-primary"]) {
-    color: #f1f5f9 !important;
-}
-html.dark nav .text-blue-600,
-html.dark nav .text-blue-400 {
-    color: #60a5fa !important;
-}
+    .side-link.active {
+      background: #ffffff;
+      color: #47689A;
+      box-shadow: 0 2px 12px rgba(255, 126, 49, 0.12);
+    }
 
-/* === SURFACE TOKENS DARK === */
-html.dark .bg-surface,
-html.dark .bg-surface-container,
-html.dark .bg-surface-container-low,
-html.dark .bg-surface-container-lowest {
-    background-color: #1e293b !important;
-}
-html.dark .bg-surface-container-high,
-html.dark .bg-surface-container-highest {
-    background-color: #334155 !important;
-}
+    .sidebar-scroll {
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #e5e2e1 transparent;
+    }
 
-/* === TEXT DARK === */
-html.dark .text-on-surface,
-html.dark .text-on-background {
-    color: #f1f5f9 !important;
-}
-html.dark .text-slate-900,
-html.dark .text-slate-800 { color: #e2e8f0 !important; }
-html.dark .text-slate-700,
-html.dark .text-slate-600 { color: #94a3b8 !important; }
-html.dark .text-slate-500,
-html.dark .text-slate-400 { color: #64748b !important; }
-html.dark .text-secondary { color: #94a3b8 !important; }
-html.dark .text-outline { color: #64748b !important; }
+    /* Wishlist card */
+    .wl-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 260ms, box-shadow 260ms;
+    }
 
-/* === BORDERS DARK === */
-html.dark .border-surface-container-high,
-html.dark .border-slate-100,
-html.dark .border-slate-200 { border-color: #334155 !important; }
-html.dark .border-slate-300 { border-color: #475569 !important; }
-html.dark .border-outline-variant\/20 { border-color: rgba(100,116,139,0.25) !important; }
-html.dark .border-slate-200\/50 { border-color: rgba(51,65,85,0.5) !important; }
-html.dark .divide-slate-200 > :not([hidden]) ~ :not([hidden]) { border-color: #334155 !important; }
-html.dark tr { border-color: #334155 !important; }
+    /* Remove button */
+    .remove-btn {
+      opacity: 0;
+      transition: opacity 200ms;
+    }
 
-/* === CARDS & CONTAINERS DARK === */
-html.dark .bg-white,
-html.dark .bg-slate-50 {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-}
-html.dark .bg-slate-100 { background-color: #334155 !important; }
-html.dark .bg-slate-200 { background-color: #475569 !important; }
-html.dark .shadow-\[0_4px_20px_rgba\(0\,0\,0\,0\.04\)\] {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
-}
-html.dark .inner-glow {
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 4px 20px rgba(0,0,0,0.3) !important;
-}
-html.dark .inner-glow:hover {
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1), 0 20px 40px -8px rgba(0,0,0,0.5) !important;
-}
+    .wl-card:hover .remove-btn {
+      opacity: 1;
+    }
 
-/* === BADGE BACKGROUNDS DARK === */
-html.dark .bg-primary-fixed { background-color: rgba(31,52,86,0.5) !important; }
-html.dark .bg-secondary-fixed { background-color: rgba(92,91,124,0.3) !important; }
-html.dark .bg-tertiary-fixed { background-color: rgba(96,73,197,0.25) !important; }
-html.dark .bg-secondary-container { background-color: rgba(92,91,124,0.3) !important; }
+    /* Toast */
+    #wl-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1F3456;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-size: .8rem;
+      font-weight: 700;
+      z-index: 9999;
+      transition: transform .35s cubic-bezier(.16, 1, .3, 1), opacity .35s;
+      opacity: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-/* === SIDEBAR DARK === */
-html.dark aside {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
-}
-html.dark aside a,
-html.dark aside p,
-html.dark aside span:not(.material-symbols-outlined),
-html.dark aside h2,
-html.dark aside h3,
-html.dark aside li { color: #94a3b8 !important; }
-html.dark aside .bg-white {
-    background-color: #1e293b !important;
-}
-html.dark aside .text-slate-800,
-html.dark aside .text-on-surface { color: #e2e8f0 !important; }
+    #wl-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
 
-/* === FORMS DARK === */
-html.dark input:not([type="range"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
-html.dark textarea,
-html.dark select {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #f1f5f9 !important;
-}
-html.dark input::placeholder,
-html.dark textarea::placeholder { color: #64748b !important; }
+  <style id="premium-animations">
+    /* ─── Premium Scroll Animations ─── */
+    .reveal-on-scroll {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-/* === STICKY FILTER BAR DARK === */
-html.dark .bg-surface-container-low {
-    background-color: #1e293b !important;
-}
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
 
-/* === MOBILE MENU DARK === */
-html.dark #mobileMenuContainer {
-    background-color: rgba(15,23,42,0.97) !important;
-    border-color: rgba(51,65,85,0.5) !important;
-}
-html.dark #mobileMenuContainer a {
-    color: #e2e8f0 !important;
-    border-color: #1e293b !important;
-}
+    .fade-up {
+      transform: translateY(40px);
+    }
 
-/* === STAT CARDS ON DASHBOARD DARK === */
-html.dark [class*="rounded-xl"].bg-white,
-html.dark [class*="rounded-2xl"].bg-white,
-html.dark [class*="rounded-lg"].bg-white {
-    background-color: #1e293b !important;
-    color: #e2e8f0 !important;
-}
+    .fade-up.is-visible {
+      transform: translateY(0);
+    }
 
-/* === TOGGLE BUTTON STYLING === */
-#dark-mode-toggle {
-    position: relative;
-    width: 44px;
-    height: 24px;
-    border-radius: 999px;
-    background: #cbd5e1;
-    border: none;
-    cursor: none;
-    transition: background 0.3s ease;
-    flex-shrink: 0;
-    outline: none;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
-}
-html.dark #dark-mode-toggle {
-    background: #47689A;
-}
-#dark-mode-toggle::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-html.dark #dark-mode-toggle::after {
-    transform: translateX(20px);
-    background: #e2e8f0;
-}
-.dark-toggle-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 4px;
-}
-.dark-toggle-icon {
-    font-size: 16px;
-    line-height: 1;
-    transition: opacity 0.3s;
-}
-.dark-toggle-icon.sun { color: #f59e0b; }
-.dark-toggle-icon.moon { color: #64748b; }
-html.dark .dark-toggle-icon.sun { opacity: 0.4; }
-html.dark .dark-toggle-icon.moon { opacity: 1; color: #e2e8f0; }
+    .scale-up {
+      transform: scale(0.92);
+    }
 
-/* === COURSE PLAYER DARK === */
-html.dark .bg-gray-900 { background-color: #0f172a !important; }
-html.dark .bg-gray-800 { background-color: #1e293b !important; }
+    .scale-up.is-visible {
+      transform: scale(1);
+    }
 
-/* === PRIVACY/TERMS CONTENT DARK === */
-html.dark article,
-html.dark .prose,
-html.dark [class*="prose"] { color: #cbd5e1 !important; }
-html.dark h1, html.dark h2, html.dark h3, html.dark h4 { color: #f1f5f9 !important; }
+    /* ─── Hover Elevation ─── */
+    .hover-elevate {
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-/* === LEARNER UPGRADE / PRICING CARDS DARK === */
-html.dark .border-slate-200.rounded-xl,
-html.dark .border.rounded-xl { border-color: #334155 !important; }
+    .hover-elevate:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -8px rgba(31, 52, 86, 0.2);
+    }
+  </style>
 
-/* === CUSTOM CSS CLASS CARDS DARK === */
-html.dark .stat-card,
-html.dark .badge-card,
-html.dark .cert-card,
-html.dark .course-card,
-html.dark .announce-item {
-    background-color: #1e293b !important;
-    border-color: #334155 !important;
-    color: #e2e8f0 !important;
-}
-html.dark .stat-card *,
-html.dark .badge-card *,
-html.dark .cert-card * {
-    color: #cbd5e1;
-}
-html.dark .stat-card .text-4xl,
-html.dark .stat-card .text-5xl {
-    color: #f1f5f9 !important;
-}
-html.dark .course-card h3,
-html.dark .cert-card p.text-sm.font-bold { color: #f1f5f9 !important; }
+  <style id="custom-cursor">
+    @media (pointer: fine) {
+      body {
+        cursor: none !important;
+      }
 
-/* === SIDEBAR ACTIVE / PRO PLAN CARD DARK === */
-html.dark .side-link {
-    color: #94a3b8 !important;
-}
-html.dark .side-link.active,
-html.dark a.side-link.active {
-    background-color: #1e3a5f !important;
-    color: #e2e8f0 !important;
-}
-html.dark .side-link:hover {
-    background-color: #1e293b !important;
-    color: #f1f5f9 !important;
-}
-html.dark .bg-blue-50 {
-    background-color: #1e2d4a !important;
-}
-html.dark .text-blue-900,
-html.dark .text-blue-800 {
-    color: #93c5fd !important;
-}
-html.dark .text-blue-800\/70 { color: #93c5fd !important; }
-html.dark .border-blue-100 { border-color: #1e3a5f !important; }
+      a,
+      button,
+      input,
+      textarea,
+      select,
+      [tabindex],
+      label {
+        cursor: none !important;
+      }
 
-/* === PRIVACY / TERMS PAGE TEXT DARK === */
-html.dark p,
-html.dark li,
-html.dark span:not(.material-symbols-outlined):not(.dark-toggle-icon):not(.live-badge):not(.live-dot) {
-    color: inherit;
-}
-html.dark .bg-surface-container-lowest p,
-html.dark .bg-surface-container-lowest li,
-html.dark .bg-surface-container-lowest span:not(.material-symbols-outlined) {
-    color: #cbd5e1 !important;
-}
+      .cursor-dot {
+        width: 8px;
+        height: 8px;
+        background-color: #47689A;
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99999;
+        transition: width 0.2s, height 0.2s, opacity 0.2s;
+      }
 
-/* === PROGRESS BAR BG DARK === */
-html.dark .progress-bar-bg { background-color: #334155 !important; }
+      .cursor-ring {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(71, 104, 154, 0.4);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 99998;
+        transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.2s;
+        will-change: width, height, transform, border;
+      }
 
-/* === COURSE CARDS SHADOW DARK === */
-html.dark .shadow-\[0_4px_20px_rgba\(0\,0\,0\,0\.05\)\] {
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35) !important;
-}</style></head>
-<body class="min-h-screen overflow-x-hidden">
+      .cursor-ring.hovering {
+        width: 55px;
+        height: 55px;
+        background-color: rgba(71, 104, 154, 0.1);
+        border-color: rgba(71, 104, 154, 0.9);
+      }
 
-<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+      .cursor-dot.hovering {
+        opacity: 0.6;
+        width: 4px;
+        height: 4px;
+      }
 
-<!-- Toast -->
-<div id="wl-toast">
-  <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1" id="toast-icon">check_circle</span>
-  <span id="toast-msg">Removed from wishlist</span>
-</div>
+      .cursor-hidden {
+        opacity: 0 !important;
+      }
+    }
 
-<!-- NAV -->
-<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
-  <div class="flex justify-between items-center h-20 px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
-    <div class="flex items-center gap-6">
-      <a href="index.html" class="flex items-center gap-3">
-        <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
-      </a>
-      <div class="hidden md:flex gap-5 font-['Inter'] tracking-tight text-sm font-medium">
-        <a class="text-slate-600 hover:text-slate-900 transition-all" href="index.html">Home</a>
-        <a class="text-slate-600 hover:text-slate-900 transition-all" href="courses_skill_school_elite.html">Courses</a>
-        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A]" href="learner_dashboard.html">Dashboard</a>
-        <a class="text-slate-600 hover:text-slate-900 transition-all" href="contact_skill_school_elite.html">Contact</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-4">
-      <a href="learner_help.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-all" style="text-decoration:none;">Support</a>
-      <a href="sign_in.html" class="text-sm font-medium text-slate-600 hover:text-slate-900 transition-all" style="text-decoration:none;">Sign In</a>
-      <a href="get_started_skill_school_elite.html" class="kinetic-gradient text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] transition-all shadow-md shine-effect" style="text-decoration:none;">Get Started</a>
-    </div>
+    @media (pointer: coarse),
+    (hover: none) {
+
+      .cursor-dot,
+      .cursor-ring {
+        display: none !important;
+      }
+    }
+  </style>
+
+  <style id="advanced-flair-css">
+    /* ─── Glassmorphism Shine Effect ─── */
+    .shine-effect {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine-effect::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+      transform: skewX(-25deg);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .shine-effect:hover::after {
+      animation: shineSweep 0.8s ease-out forwards;
+    }
+
+    @keyframes shineSweep {
+      0% {
+        left: -150%;
+      }
+
+      100% {
+        left: 150%;
+      }
+    }
+
+    /* ─── Inner Glow for Cards ─── */
+    .inner-glow {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .inner-glow:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 0 20px 40px -8px rgba(31, 52, 86, 0.2) !important;
+    }
+
+    /* ─── Image Zoom ─── */
+    .image-zoom-container {
+      overflow: hidden;
+    }
+
+    .image-zoom-container img {
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .image-zoom-container:hover img {
+      transform: scale(1.08);
+    }
+  </style>
+
+  <style id="dark-mode-global">
+    /* === Dark Mode Global Overrides === */
+    html.dark {
+      color-scheme: dark;
+    }
+
+    html.dark body {
+      background-color: #0f172a !important;
+      color: #e2e8f0 !important;
+    }
+
+    html.dark nav {
+      background-color: rgba(15, 23, 42, 0.90) !important;
+      border-color: rgba(51, 65, 85, 0.5) !important;
+    }
+
+    html.dark nav a:not(.bg-gradient-to-br):not([class*="from-primary"]) {
+      color: #94a3b8 !important;
+    }
+
+    html.dark nav a:hover:not(.bg-gradient-to-br):not([class*="from-primary"]) {
+      color: #f1f5f9 !important;
+    }
+
+    html.dark .bg-surface,
+    html.dark .bg-surface-container,
+    html.dark .bg-surface-container-low,
+    html.dark .bg-surface-container-lowest {
+      background-color: #1e293b !important;
+    }
+
+    html.dark .text-on-surface,
+    html.dark .text-slate-900,
+    html.dark .text-slate-800 {
+      color: #e2e8f0 !important;
+    }
+
+    html.dark .text-slate-500,
+    html.dark .text-slate-400 {
+      color: #64748b !important;
+    }
+
+    html.dark .bg-white {
+      background-color: #1e293b !important;
+      color: #e2e8f0 !important;
+    }
+
+    html.dark aside {
+      background-color: #0f172a !important;
+      border-color: #1e293b !important;
+    }
+
+    html.dark .side-link {
+      color: #94a3b8 !important;
+    }
+
+    html.dark .side-link.active {
+      background-color: #1e3a5f !important;
+      color: #e2e8f0 !important;
+    }
+
+    html.dark .side-link:hover {
+      background-color: #1e293b !important;
+      color: #f1f5f9 !important;
+    }
+
+    html.dark .wl-card {
+      background-color: #1e293b !important;
+      border-color: #334155 !important;
+    }
+
+    html.dark .wl-card h3 {
+      color: #f1f5f9 !important;
+    }
+
+    html.dark .bg-blue-50 {
+      background-color: #1e2d4a !important;
+    }
+
+    html.dark .text-blue-900,
+    html.dark .text-blue-800 {
+      color: #93c5fd !important;
+    }
+
+    html.dark .border-blue-100 {
+      border-color: #1e3a5f !important;
+    }
+
+    /* === TOGGLE BUTTON === */
+    #dark-mode-toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      border-radius: 999px;
+      background: #cbd5e1;
+      border: none;
+      cursor: none;
+      transition: background 0.3s ease;
+      flex-shrink: 0;
+      outline: none;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    html.dark #dark-mode-toggle {
+      background: #47689A;
+    }
+
+    #dark-mode-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: white;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    html.dark #dark-mode-toggle::after {
+      transform: translateX(20px);
+      background: #e2e8f0;
+    }
+
+    .dark-toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 4px;
+    }
+
+    .dark-toggle-icon {
+      font-size: 16px;
+      line-height: 1;
+      transition: opacity 0.3s;
+    }
+
+    .dark-toggle-icon.sun {
+      color: #f59e0b;
+    }
+
+    .dark-toggle-icon.moon {
+      color: #64748b;
+    }
+
+    html.dark .dark-toggle-icon.sun {
+      opacity: 0.4;
+    }
+
+    html.dark .dark-toggle-icon.moon {
+      opacity: 1;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+
+<body class="bg-surface-container-low overflow-x-hidden w-full m-0 p-0">
+
+  <canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+
+  <div id="wl-toast">
+    <span class="material-symbols-outlined text-[18px]" style="font-variation-settings:'FILL' 1"
+      id="toast-icon">check_circle</span>
+    <span id="toast-msg">Removed from wishlist</span>
   </div>
-</nav>
 
-<!-- PAGE SHELL -->
-<div class="flex min-h-screen pt-20">
-
-  <!-- SIDEBAR -->
-  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
-    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
-      <div class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
-      <div>
-        <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
-        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+  <nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm">
+    <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+      <div class="flex items-center gap-6 md:gap-6 md:p-12">
+        <a href="index.html" class="flex items-center gap-3">
+          <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+        </a>
+        <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+          <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200"
+            href="index.html">Home</a>
+          <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200"
+            href="courses_skill_school_elite.html">Courses</a>
+          <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] font-['Inter'] tracking-tight text-sm hover:translate-y-[-2px] transition-all duration-200"
+            href="learner_dashboard.html">Dashboard</a>
+          <a class="text-slate-600 hover:text-slate-900 hover:translate-y-[-2px] transition-all duration-200"
+            href="contact_skill_school_elite.html">Contact</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 md:p-6">
+        <a href="learner_help.html"
+          class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200"
+          style="text-decoration:none;">Support</a>
+        <a href="sign_in.html"
+          class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200"
+          style="text-decoration:none;">Sign In</a>
+        <a href="get_started_skill_school_elite.html"
+          class="hidden md:inline-flex bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect"
+          style="text-decoration:none;">Get Started</a>
       </div>
     </div>
-    <nav class="flex flex-col gap-1 flex-grow">
-      <a class="side-link" href="learner_dashboard.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>Overview</a>
-      <a class="side-link" href="learner_my_courses.html"><span class="material-symbols-outlined text-[20px]">school</span>My Courses</a>
-      <a class="side-link active" href="wishlist.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">favorite</span>Wishlist</a>
-      <a class="side-link" href="learner_certificates.html"><span class="material-symbols-outlined text-[20px]">workspace_premium</span>My Certificates</a>
-      <a class="side-link" href="learner_achievements.html"><span class="material-symbols-outlined text-[20px]">military_tech</span>Achievements</a>
-      <a class="side-link" href="account_skill_school_elite.html"><span class="material-symbols-outlined text-[20px]">settings</span>Settings</a>
-    </nav>
-    <div class="mt-auto">
-      <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
-        <p class="text-xs font-bold text-blue-900 uppercase tracking-tighter mb-1">Pro Plan</p>
-        <p class="text-[11px] text-blue-800/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
-        <a href="learner_upgrade.html" class="block text-center w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade to Pro</a>
-      </div>
-      <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
-        <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span>Help</a>
-        <a class="side-link" href="index.html"><span class="material-symbols-outlined text-[18px]">logout</span>Logout</a>
-      </div>
-    </div>
-  </aside>
+  </nav>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 md:ml-72 p-4 md:p-6 lg:p-10 overflow-y-auto">
-    <div class="max-w-5xl mx-auto space-y-8 pb-16">
+  <div class="flex min-h-screen pt-20">
 
-      <!-- Header -->
-      <div class="soft-reveal delay-1 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <aside
+      class="hidden md:flex h-[calc(100vh-5rem)] w-72 max-w-full flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+      <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+        <div
+          class="w-10 h-10 rounded-full navy-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">
+          A</div>
         <div>
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#47689A] mb-1">My Account</p>
-          <h1 class="text-3xl font-black tracking-tight text-slate-900">My Wishlist</h1>
-          <div class="h-1 w-10 bg-[#47689A] rounded-full mt-2"></div>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="text-sm text-slate-500 font-medium"><span id="wl-count" class="font-black text-slate-900">0</span> saved courses</span>
-          <button onclick="clearAll()" class="text-xs font-bold text-red-400 hover:text-red-600 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-all" id="clear-btn" style="display:none;">Clear All</button>
+          <p class="text-sm font-bold text-slate-900 leading-tight">Alex Sterling</p>
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
         </div>
       </div>
 
-      <!-- Grid / Empty State -->
-      <div id="wl-grid" class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+      <nav class="flex flex-col gap-1 flex-grow">
+        <a class="side-link" href="learner_dashboard.html">
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>
+          Overview
+        </a>
+        <a class="side-link" href="learner_my_courses.html">
+          <span class="material-symbols-outlined text-[20px]">school</span>
+          My Courses
+        </a>
+        <a class="side-link active" href="wishlist.html">
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">favorite</span>
+          Wishlist
+        </a>
+        <a class="side-link" href="learner_certificates.html">
+          <span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+          My Certificates
+        </a>
+        <a class="side-link" href="learner_achievements.html">
+          <span class="material-symbols-outlined text-[20px]">military_tech</span>
+          Achievements
+        </a>
+        <a class="side-link" href="account_skill_school_elite.html">
+          <span class="material-symbols-outlined text-[20px]">settings</span>
+          Settings
+        </a>
+      </nav>
 
-      <!-- Empty state -->
-      <div id="wl-empty" class="soft-reveal delay-2 hidden flex flex-col items-center justify-center py-24 text-center gap-5">
-        <div class="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center">
-          <span class="material-symbols-outlined text-slate-300 text-[40px]">favorite</span>
+      <div class="mt-auto">
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
+          <p class="text-xs font-bold text-blue-900 uppercase tracking-tighter mb-1">Pro Plan</p>
+          <p class="text-[11px] text-blue-800/70 mb-3">Unlock all masterclasses &amp; certificates.</p>
+          <a href="learner_upgrade.html"
+            class="block text-center w-full py-2 kinetic-gradient text-white rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Upgrade
+            to Pro</a>
         </div>
-        <div>
-          <p class="text-lg font-black text-slate-700 mb-1">Your wishlist is empty</p>
-          <p class="text-sm text-slate-400 max-w-xs">Save courses you're interested in with the ♡ button on any course page.</p>
+        <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+          <a class="side-link" href="learner_help.html"><span
+              class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+          <a class="side-link" href="index.html"><span class="material-symbols-outlined text-[18px]">logout</span>
+            Logout</a>
         </div>
-        <a href="courses_skill_school_elite.html" class="kinetic-gradient text-white px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:opacity-90 transition-all shine-effect" style="text-decoration:none;">Explore Courses</a>
       </div>
+    </aside>
 
-    </div>
-  </main>
-</div>
+    <main class="flex-1 md:ml-72 p-4 md:p-6 md:p-10 overflow-y-auto">
+      <div class="max-w-5xl mx-auto space-y-8 pb-16">
 
-<!-- FOOTER -->
-<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 mt-auto z-10 relative">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-    <div class="flex items-center gap-3">
-      <img src="logo.png" alt="Baynal Group LMS Logo" class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all">
-      <p class="text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="learner_help.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Support</a>
-      <a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
-      <a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
-    </div>
+        <div class="soft-reveal delay-1 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#47689A] mb-1">My Account</p>
+            <h1 class="text-3xl font-black tracking-tight text-slate-900">My Wishlist</h1>
+            <div class="h-1 w-10 bg-[#47689A] rounded-full mt-2"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-slate-500 font-medium"><span id="wl-count"
+                class="font-black text-slate-900">0</span> saved courses</span>
+            <button onclick="clearAll()"
+              class="text-xs font-bold text-red-400 hover:text-red-600 border border-red-200 hover:border-red-400 px-3 py-1.5 rounded-lg transition-all"
+              id="clear-btn" style="display:none;">Clear All</button>
+          </div>
+        </div>
+
+        <div id="wl-grid" class="soft-reveal delay-2 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+        <div id="wl-empty"
+          class="soft-reveal delay-2 hidden flex flex-col items-center justify-center py-24 text-center gap-5">
+          <div class="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center">
+            <span class="material-symbols-outlined text-slate-300 text-[40px]">favorite</span>
+          </div>
+          <div>
+            <p class="text-lg font-black text-slate-700 mb-1">Your wishlist is empty</p>
+            <p class="text-sm text-slate-400 max-w-xs">Save courses you're interested in with the ♡ button on any course
+              page.</p>
+          </div>
+          <a href="courses_skill_school_elite.html"
+            class="kinetic-gradient text-white px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:opacity-90 transition-all shine-effect"
+            style="text-decoration:none;">Explore Courses</a>
+        </div>
+
+      </div>
+    </main>
   </div>
-</footer>
+  <footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 mt-auto z-10 relative">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="Baynal Group LMS Logo"
+          class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all cursor-pointer hover-elevate">
+        <p class="font-body text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="learner_help.html"
+          class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Support</a>
+        <a href="terms.html"
+          class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
+        <a href="privacy.html"
+          class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
+      </div>
+    </div>
+  </footer>
 
-<script>
-// ── Wishlist Engine ─────────────────────────────────────────────────
-const WL_KEY = 'baynal_wishlist';
+  <script>
+    const WL_KEY = 'baynal_wishlist';
 
-function getWishlist() {
-    try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; }
-}
-function saveWishlist(list) {
-    localStorage.setItem(WL_KEY, JSON.stringify(list));
-}
-function removeItem(id) {
-    const list = getWishlist().filter(c => c.id !== id);
-    saveWishlist(list);
-    renderGrid();
-    showToast('Removed from wishlist', 'delete');
-}
-function clearAll() {
-    saveWishlist([]);
-    renderGrid();
-}
+    function getWishlist() {
+      try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; }
+    }
+    function saveWishlist(list) {
+      localStorage.setItem(WL_KEY, JSON.stringify(list));
+    }
+    function removeItem(id) {
+      const list = getWishlist().filter(c => c.id !== id);
+      saveWishlist(list);
+      renderGrid();
+      showToast('Removed from wishlist', 'delete');
+    }
+    function clearAll() {
+      saveWishlist([]);
+      renderGrid();
+    }
 
-function showToast(msg, type) {
-    const t = document.getElementById('wl-toast');
-    const icon = document.getElementById('toast-icon');
-    document.getElementById('toast-msg').textContent = msg;
-    icon.textContent = type === 'delete' ? 'delete' : 'favorite';
-    t.classList.add('show');
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 2800);
-}
+    function showToast(msg, type) {
+      const t = document.getElementById('wl-toast');
+      const icon = document.getElementById('toast-icon');
+      document.getElementById('toast-msg').textContent = msg;
+      icon.textContent = type === 'delete' ? 'delete' : 'favorite';
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
 
-function renderGrid() {
-    const list = getWishlist();
-    const grid = document.getElementById('wl-grid');
-    const empty = document.getElementById('wl-empty');
-    const countEl = document.getElementById('wl-count');
-    const clearBtn = document.getElementById('clear-btn');
+    function renderGrid() {
+      const list = getWishlist();
+      const grid = document.getElementById('wl-grid');
+      const empty = document.getElementById('wl-empty');
+      const countEl = document.getElementById('wl-count');
+      const clearBtn = document.getElementById('clear-btn');
 
-    countEl.textContent = list.length;
-    clearBtn.style.display = list.length > 0 ? '' : 'none';
+      countEl.textContent = list.length;
+      clearBtn.style.display = list.length > 0 ? '' : 'none';
 
-    if (list.length === 0) {
+      if (list.length === 0) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
         return;
-    }
-    empty.classList.add('hidden');
+      }
+      empty.classList.add('hidden');
 
-    grid.innerHTML = list.map(course => `
-        <div class="wl-card reveal-on-scroll fade-up" id="card-${course.id}">
-            <!-- Thumbnail -->
-            <div class="relative h-40 overflow-hidden ${course.thumb ? '' : 'navy-gradient flex items-center justify-center'}">
+      grid.innerHTML = list.map(course => `
+        <div class="wl-card inner-glow hover-elevate reveal-on-scroll fade-up" id="card-${course.id}">
+            <div class="relative h-40 overflow-hidden image-zoom-container shine-effect ${course.thumb ? '' : 'navy-gradient flex items-center justify-center'}">
                 ${course.thumb
-                    ? `<img src="${course.thumb}" class="w-full h-full object-cover" alt="${course.title}" onerror="this.onerror=null;this.parentElement.classList.add('navy-gradient','flex','items-center','justify-center');this.remove();this.parentElement.innerHTML+='<span class=\\'material-symbols-outlined text-white/30 text-[60px]\\'>school</span>'">`
-                    : `<span class="material-symbols-outlined text-white/30 text-[60px]">school</span>`
-                }
-                <!-- Remove button -->
+          ? `<img src="${course.thumb}" class="w-full h-full object-cover" alt="${course.title}" onerror="this.onerror=null;this.parentElement.classList.add('navy-gradient','flex','items-center','justify-center');this.remove();this.parentElement.innerHTML+='<span class=\\'material-symbols-outlined text-white/30 text-[60px]\\'>school</span>'">`
+          : `<span class="material-symbols-outlined text-white/30 text-[60px]">school</span>`
+        }
                 <button onclick="removeItem('${course.id}')" class="remove-btn absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md hover:bg-red-50 transition-colors group" title="Remove from wishlist">
                     <span class="material-symbols-outlined text-[16px] text-slate-500 group-hover:text-red-500" style="font-variation-settings:'FILL' 1">favorite</span>
                 </button>
                 ${course.badge ? `<div class="absolute top-3 left-3 navy-gradient text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">${course.badge}</div>` : ''}
             </div>
-            <!-- Body -->
             <div class="p-5 space-y-3">
                 <div>
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${course.category || 'Course'}</p>
@@ -533,83 +744,250 @@ function renderGrid() {
         </div>
     `).join('');
 
-    // re-trigger scroll animations
-    setTimeout(() => {
+      // Re-trigger scroll animations for newly added dynamic DOM elements
+      setTimeout(() => {
         document.querySelectorAll('.reveal-on-scroll').forEach(el => el.classList.add('is-visible'));
-    }, 50);
-}
-
-// ── Particles ───────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-    renderGrid();
-
-    const canvas = document.getElementById('bg-particles');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let w, h, parts;
-        const colors = ['rgba(71,104,154,0.4)','rgba(49,78,120,0.25)','rgba(31,52,86,0.12)'];
-        function init() { w=window.innerWidth;h=window.innerHeight;canvas.width=w;canvas.height=h;parts=[];for(let i=0;i<60;i++)parts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,r:Math.random()*2.5+.8,c:colors[Math.floor(Math.random()*colors.length)]}); }
-        let mx=-1000,my=-1000;
-        document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-        function draw(){ctx.clearRect(0,0,w,h);for(let i=0;i<parts.length;i++){let p=parts[i];let dx=mx-p.x,dy=my-p.y,d=Math.sqrt(dx*dx+dy*dy);if(d<180){p.x-=(dx/d)*1.5;p.y-=(dy/d)*1.5;}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.c;ctx.fill();for(let j=i+1;j<parts.length;j++){let p2=parts[j],dx2=p.x-p2.x,dy2=p.y-p2.y,dist=Math.sqrt(dx2*dx2+dy2*dy2);if(dist<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(71,104,154,${(1-dist/120)*.2})`;ctx.lineWidth=.7;ctx.stroke();}}}requestAnimationFrame(draw);}
-        init();draw();window.addEventListener('resize',init);
+      }, 50);
     }
+    document.addEventListener('DOMContentLoaded', renderGrid);
+  </script>
 
-    // Custom cursor
-    if(window.matchMedia('(pointer: fine)').matches){
-        const dot=document.createElement('div');dot.className='cursor-dot cursor-hidden';
-        const ring=document.createElement('div');ring.className='cursor-ring cursor-hidden';
-        document.body.appendChild(dot);document.body.appendChild(ring);
-        let mx2=-100,my2=-100,rx=-100,ry=-100,setup=false;
-        document.addEventListener('mousemove',e=>{mx2=e.clientX;my2=e.clientY;if(!setup){dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');rx=mx2;ry=my2;setup=true;}dot.style.transform=`translate(calc(${mx2}px - 50%),calc(${my2}px - 50%))`;});
-        const rend=()=>{rx+=(mx2-rx)*.15;ry+=(my2-ry)*.15;if(setup)ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;requestAnimationFrame(rend);};rend();
-        document.body.addEventListener('mouseover',e=>{if(e.target.closest('a,button')){ring.classList.add('hovering');}});
-        document.body.addEventListener('mouseout',e=>{if(e.target.closest('a,button')){ring.classList.remove('hovering');}});
-    }
+  <script id="particles-script">
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('bg-particles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
 
-    // Scroll observer
-    const obs = new IntersectionObserver(entries => {
-        entries.filter(e=>e.isIntersecting).forEach((e,i)=>{ setTimeout(()=>e.target.classList.add('is-visible'),i*80); obs.unobserve(e.target); });
-    }, {threshold:0.1});
-    document.querySelectorAll('.reveal-on-scroll').forEach(el=>obs.observe(el));
-});
+      let width, height, particles;
+      const particleCount = window.innerWidth < 768 ? 35 : 75;
+      const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
 
-// Mobile sidebar toggle
-document.addEventListener('DOMContentLoaded', () => {
-    const navRight = document.querySelector('nav .flex.items-center.gap-4');
-    const sidebar = document.querySelector('aside');
-    if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
-        const t = document.createElement('button');
-        t.id = 'mobileSidebarToggle';
-        t.innerHTML = '<span class="material-symbols-outlined">menu</span>';
-        t.className = 'md:hidden text-slate-600 p-2 hover:bg-slate-100 rounded-md transition-colors';
-        navRight.insertBefore(t, navRight.firstChild);
-        let open = false;
-        t.addEventListener('click',()=>{open=!open;if(open){sidebar.classList.remove('hidden');sidebar.classList.add('flex','w-full','z-50');}else{sidebar.classList.add('hidden');sidebar.classList.remove('flex','w-full','z-50');}});
-    }
-});
-</script>
+      function init() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
 
-<!-- darkModeToggle injected -->
-<script id="dark-mode-script">
-(function() {
-    // Apply theme immediately to prevent flash
-    const saved = localStorage.getItem('bgl-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (saved === 'dark' || (!saved && prefersDark)) {
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * width, y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.6, vy: (Math.random() - 0.5) * 0.6,
+            radius: Math.random() * 2.5 + 0.8, color: colors[Math.floor(Math.random() * colors.length)]
+          });
+        }
+      }
+
+      let mouseX = -1000, mouseY = -1000;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < particles.length; i++) {
+          let p = particles[i];
+          let dxMouse = mouseX - p.x, dyMouse = mouseY - p.y;
+          let distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+          if (distMouse < 180) { p.x -= (dxMouse / distMouse) * 1.5; p.y -= (dyMouse / distMouse) * 1.5; }
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > width) { p.vx *= -1; p.x = Math.max(0, Math.min(width, p.x)); }
+          if (p.y < 0 || p.y > height) { p.vy *= -1; p.y = Math.max(0, Math.min(height, p.y)); }
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill();
+          for (let j = i + 1; j < particles.length; j++) {
+            let p2 = particles[j], dx = p.x - p2.x, dy = p.y - p2.y, dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
+              const opacity = Math.max(0, 1 - (dist / 130));
+              ctx.strokeStyle = `rgba(71, 104, 154, ${opacity * 0.25})`; ctx.lineWidth = 0.8; ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      init(); draw();
+      window.addEventListener('resize', init);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Inject mobile menu logic dynamically without heavy HTML replace
+      const navRight = document.querySelector('nav .flex.items-center.gap-6') || document.querySelector('nav .flex.justify-between > div:last-child');
+      const navLinks = document.querySelector('nav .hidden.md\\:flex, nav .hidden.lg\\:flex') || document.querySelector('.hidden.md\\:flex.items-center.gap-8');
+
+      if (navRight && navLinks && !document.getElementById('mobileMenuContainer')) {
+        const btn = document.createElement('button');
+        btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+        btn.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.appendChild(btn);
+
+        const menuContainer = document.createElement('div');
+        menuContainer.id = 'mobileMenuContainer';
+        menuContainer.className = 'fixed top-20 left-0 w-full bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transform -translate-y-[150%] transition-transform duration-300 z-40 p-6 flex flex-col gap-4';
+
+        Array.from(navLinks.querySelectorAll('a')).forEach(link => {
+          const clone = link.cloneNode(true);
+          clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
+          menuContainer.appendChild(clone);
+        });
+
+        const navActions = document.querySelector('nav .flex.items-center.gap-4.md\\:p-6') || document.querySelector('nav .flex.items-center.gap-4');
+        if (navActions) {
+          Array.from(navActions.querySelectorAll('a')).forEach(link => {
+            const clone = link.cloneNode(true);
+            const isButton = link.className.includes('bg-') || link.className.includes('from-primary');
+            if (isButton) {
+              clone.className = 'w-full text-center mt-4 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-lg text-sm font-bold uppercase tracking-wider shadow-md active:scale-95 transition-all duration-200';
+            } else {
+              clone.className = 'text-lg font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 py-2 border-b border-slate-100 dark:border-slate-800';
+            }
+            menuContainer.appendChild(clone);
+          });
+        }
+        document.body.appendChild(menuContainer);
+
+        let isOpen = false;
+        btn.addEventListener('click', () => {
+          isOpen = !isOpen;
+          if (isOpen) {
+            menuContainer.classList.remove('-translate-y-[150%]');
+            menuContainer.classList.add('translate-y-0');
+            btn.innerHTML = '<span class="material-symbols-outlined">close</span>';
+          } else {
+            menuContainer.classList.remove('translate-y-0');
+            menuContainer.classList.add('-translate-y-[150%]');
+            btn.innerHTML = '<span class="material-symbols-outlined">menu</span>';
+          }
+        });
+      }
+
+      // Fix sidebar on dashboard pages for mobile
+      const sidebar = document.querySelector('aside.hidden.md\\:flex');
+      if (sidebar && navRight && !document.getElementById('mobileSidebarToggle')) {
+        const toggleSidebar = document.createElement('button');
+        toggleSidebar.id = 'mobileSidebarToggle';
+        toggleSidebar.innerHTML = '<span class="material-symbols-outlined">dataset</span>';
+        toggleSidebar.className = 'md:hidden text-slate-600 p-2 ml-2 hover:bg-slate-100 rounded-md transition-colors';
+        navRight.insertBefore(toggleSidebar, navRight.firstChild);
+
+        let sidebarOpen = false;
+        toggleSidebar.addEventListener('click', () => {
+          sidebarOpen = !sidebarOpen;
+          if (sidebarOpen) {
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('flex', 'w-full', 'z-50');
+          } else {
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('flex', 'w-full', 'z-50');
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        const intersecting = entries.filter(e => e.isIntersecting);
+        intersecting.forEach((entry, index) => {
+          setTimeout(() => { entry.target.classList.add('is-visible'); }, index * 120);
+          observer.unobserve(entry.target);
+        });
+      }, observerOptions);
+      document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    });
+  </script>
+
+  <script id="cursor-script">
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.matchMedia('(pointer: fine)').matches) {
+        const dot = document.createElement('div'); dot.className = 'cursor-dot cursor-hidden';
+        const ring = document.createElement('div'); ring.className = 'cursor-ring cursor-hidden';
+        document.body.appendChild(dot); document.body.appendChild(ring);
+
+        let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100, isSetup = false;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX; mouseY = e.clientY;
+          if (!isSetup) { dot.classList.remove('cursor-hidden'); ring.classList.remove('cursor-hidden'); ringX = mouseX; ringY = mouseY; isSetup = true; }
+          dot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+        });
+
+        document.addEventListener('mouseleave', () => { dot.classList.add('cursor-hidden'); ring.classList.add('cursor-hidden'); });
+        document.addEventListener('mouseenter', () => { if (isSetup) { dot.classList.remove('cursor-hidden'); ring.classList.remove('cursor-hidden'); } });
+
+        const render = () => {
+          ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+          if (isSetup) { ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`; }
+          requestAnimationFrame(render);
+        };
+        requestAnimationFrame(render);
+
+        const interactiveSelectors = 'a, button, input, textarea, select, [tabindex], label';
+        document.body.addEventListener('mouseover', (e) => { if (e.target.closest(interactiveSelectors)) { ring.classList.add('hovering'); dot.classList.add('hovering'); } });
+        document.body.addEventListener('mouseout', (e) => { if (e.target.closest(interactiveSelectors)) { ring.classList.remove('hovering'); dot.classList.remove('hovering'); } });
+        document.body.addEventListener('mousedown', () => { ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(0.9)`; });
+        document.body.addEventListener('mouseup', () => { ring.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%)) scale(1)`; });
+      }
+    });
+  </script>
+
+  <script id="advanced-flair-js">
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.matchMedia('(pointer: fine)').matches) {
+        // Since wl-cards are dynamically generated, we delegate tilt event to document body or re-bind on render.
+        // For static elements like logo
+        const tiltCards = document.querySelectorAll('.hover-elevate.group, .image-zoom-container, .inner-glow');
+        tiltCards.forEach(card => {
+          card.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left, y = e.clientY - rect.top;
+            const centerX = rect.width / 2, centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -3, rotateY = ((x - centerX) / centerX) * 3;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+          });
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+          });
+        });
+
+        const magneticBtns = document.querySelectorAll('.px-10.py-5, .px-6.py-2\\.5, .kinetic-gradient.px-8');
+        magneticBtns.forEach(btn => {
+          btn.addEventListener('mousemove', e => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left, y = e.clientY - rect.top;
+            const centerX = rect.width / 2, centerY = rect.height / 2;
+            const translateX = ((x - centerX) / centerX) * 10, translateY = ((y - centerY) / centerY) * 10;
+            btn.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.02)`;
+            btn.style.transition = 'none';
+          });
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+            btn.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          });
+        });
+      }
+    });
+  </script>
+
+  <script id="dark-mode-script">
+    (function () {
+      const saved = localStorage.getItem('bgl-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
         document.documentElement.classList.add('dark');
-    } else {
+      } else {
         document.documentElement.classList.remove('dark');
-    }
-})();
+      }
+    })();
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Find the nav right container and inject the toggle
-    const navRight = document.querySelector('nav .flex.items-center.gap-4') 
-                  || document.querySelector('nav .flex.items-center.gap-6')
-                  || document.querySelector('nav .flex.justify-between > div:last-child');
-    
-    if (navRight && !document.getElementById('dark-mode-toggle')) {
+    document.addEventListener('DOMContentLoaded', () => {
+      const navRight = document.querySelector('nav .flex.items-center.gap-4')
+        || document.querySelector('nav .flex.items-center.gap-6')
+        || document.querySelector('nav .flex.justify-between > div:last-child');
+
+      if (navRight && !document.getElementById('dark-mode-toggle')) {
         const wrapper = document.createElement('div');
         wrapper.className = 'dark-toggle-wrapper';
         wrapper.innerHTML = `
@@ -617,18 +995,18 @@ document.addEventListener('DOMContentLoaded', () => {
             <button id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
             <span class="material-symbols-outlined dark-toggle-icon moon" style="font-size:16px;font-variation-settings:'FILL' 1;">dark_mode</span>
         `;
-        
-        // Insert before the first child (before support/signin links)
+
         const firstChild = navRight.firstChild;
         navRight.insertBefore(wrapper, firstChild);
-        
+
         const toggle = document.getElementById('dark-mode-toggle');
-        
         toggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('bgl-theme', isDark ? 'dark' : 'light');
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('bgl-theme', isDark ? 'dark' : 'light');
         });
-    }
-});
-</script></body>
+      }
+    });
+  </script>
+</body>
+
 </html>

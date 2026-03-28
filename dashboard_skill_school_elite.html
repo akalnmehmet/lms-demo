@@ -647,9 +647,9 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 <div class="flex items-center gap-4 md:p-6">
-<a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
-<a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
-<a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
+<a href="learner_help.html" class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
+<a href="sign_in.html" class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+<a href="get_started_skill_school_elite.html" class="hidden md:inline-flex bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
 </div>
 </div>
 </nav>
@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 <!-- Course Card 1 -->
 <div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300 reveal-on-scroll scale-up hover-elevate inner-glow">
-<div class="h-48 overflow-hidden relative">
+<div class="h-48 overflow-hidden relative image-zoom-container shine-effect">
 <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full h-auto" data-alt="Cyberpunk high tech workspace with orange lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo"/>
 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Advanced</div>
 </div>
@@ -811,7 +811,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 <!-- Course Card 2 -->
 <div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300 reveal-on-scroll scale-up hover-elevate inner-glow">
-<div class="h-48 overflow-hidden relative">
+<div class="h-48 overflow-hidden relative image-zoom-container shine-effect">
 <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full h-auto" data-alt="Minimalist design workspace with sketchbook and pens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKG_av0mECtEAFFouclqEzi1PYslLOkXdrxq5p6g6SE5iBQn0Owta2AJWLiPmK-tGAkgCu0cUn9qNeAhHUH2AKs4TOipqoagjEQgE0bYDJ6jEmzPFW0w0qAtpCqNnVQY3mjZX7OSLlpkxY3QIUyMaI2dSFwHOMxz_ErzmupoeNkoZYavzYOmt_hpERK26QpcXmSsLP86P9mkACCYCrSyHzFLDK9-i-dJ4yNt1TnY6vYdToi2sKYq9t2afqSr0SHozOAUfscpa0SgA"/>
 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Intermediate</div>
 </div>
@@ -938,6 +938,21 @@ document.addEventListener('DOMContentLoaded', () => {
             clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
             menuContainer.appendChild(clone);
         });
+
+        // Clone action links (Support, Sign In, Get Started) into mobile menu
+        const navActions = document.querySelector('nav .flex.items-center.gap-4.md\\:p-6') || document.querySelector('nav .flex.items-center.gap-4');
+        if (navActions) {
+            Array.from(navActions.querySelectorAll('a')).forEach(link => {
+                const clone = link.cloneNode(true);
+                const isButton = link.className.includes('bg-') || link.className.includes('from-primary');
+                if (isButton) {
+                    clone.className = 'w-full text-center mt-4 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-lg text-sm font-bold uppercase tracking-wider shadow-md active:scale-95 transition-all duration-200';
+                } else {
+                    clone.className = 'text-lg font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 py-2 border-b border-slate-100 dark:border-slate-800';
+                }
+                menuContainer.appendChild(clone);
+            });
+        }
 
         // Add to body
         document.body.appendChild(menuContainer);

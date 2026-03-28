@@ -753,9 +753,9 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <!-- Right Actions -->
     <div class="flex items-center gap-4 md:p-6">
-      <a href="learner_help.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
-      <a href="sign_in.html" class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
-      <a href="get_started_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
+      <a href="learner_help.html" class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-200" style="text-decoration:none;">Support</a>
+      <a href="sign_in.html" class="hidden md:inline-flex font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" style="text-decoration:none;">Sign In</a>
+      <a href="get_started_skill_school_elite.html" class="hidden md:inline-flex bg-gradient-to-br from-primary to-primary-container text-white px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-wider hover:translate-y-[-2px] active:scale-95 transition-all duration-200 shadow-md hover-elevate shine-effect" style="text-decoration:none;">Get Started</a>
     </div>
   </div>
 </nav>
@@ -993,6 +993,21 @@ document.addEventListener('DOMContentLoaded', () => {
             clone.className = 'text-lg font-bold text-slate-800 hover:text-blue-600 py-2 border-b border-slate-100';
             menuContainer.appendChild(clone);
         });
+
+        // Clone action links (Support, Sign In, Get Started) into mobile menu
+        const navActions = document.querySelector('nav .flex.items-center.gap-4.md\\:p-6') || document.querySelector('nav .flex.items-center.gap-4');
+        if (navActions) {
+            Array.from(navActions.querySelectorAll('a')).forEach(link => {
+                const clone = link.cloneNode(true);
+                const isButton = link.className.includes('bg-') || link.className.includes('from-primary');
+                if (isButton) {
+                    clone.className = 'w-full text-center mt-4 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-lg text-sm font-bold uppercase tracking-wider shadow-md active:scale-95 transition-all duration-200';
+                } else {
+                    clone.className = 'text-lg font-bold text-slate-800 dark:text-slate-200 hover:text-blue-600 py-2 border-b border-slate-100 dark:border-slate-800';
+                }
+                menuContainer.appendChild(clone);
+            });
+        }
 
         // Add to body
         document.body.appendChild(menuContainer);
