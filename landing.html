@@ -3,91 +3,91 @@
 <html class="" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Baynal Group LMS - Learner Dashboard</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              colors: {
-                "secondary": "#5c5b7c",
-                "on-surface-variant": "#584238",
-                "error": "#ba1a1a",
-                "primary": "#1F3456",
-                "on-secondary-container": "#5c5c7d",
-                "tertiary": "#6049c5",
-                "surface-container-highest": "#e5e2e1",
-                "surface-container-high": "#eae7e7",
-                "surface-container-lowest": "#ffffff",
-                "on-secondary-fixed-variant": "#444463",
-                "tertiary-fixed-dim": "#cabeff",
-                "primary-fixed": "#dbeafe",
-                "primary-container": "#47689A",
-                "on-background": "#1b1c1c",
-                "background": "#fcf9f8",
-                "on-primary-fixed-variant": "#111f38",
-                "inverse-primary": "#ffb691",
-                "secondary-fixed-dim": "#c5c3e9",
-                "on-error-container": "#93000a",
-                "surface-tint": "#1F3456",
-                "on-tertiary": "#ffffff",
-                "inverse-surface": "#303030",
-                "on-primary-container": "#e0e7ff",
-                "on-surface": "#1b1c1c",
-                "secondary-fixed": "#e2dfff",
-                "secondary-container": "#d8d6fd",
-                "outline-variant": "#dfc0b2",
-                "on-primary-fixed": "#341100",
-                "on-secondary-fixed": "#181835",
-                "on-secondary": "#ffffff",
-                "on-tertiary-container": "#3a1a9f",
-                "on-error": "#ffffff",
-                "surface-variant": "#e5e2e1",
-                "outline": "#8b7266",
-                "surface-container-low": "#f6f3f2",
-                "error-container": "#ffdad6",
-                "surface-dim": "#dcd9d9",
-                "on-primary": "#ffffff",
-                "surface-container": "#f0eded",
-                "surface": "#fcf9f8",
-                "inverse-on-surface": "#f3f0ef",
-                "primary-fixed-dim": "#ffb691",
-                "on-tertiary-fixed": "#1c0062",
-                "tertiary-container": "#a694ff",
-                "on-tertiary-fixed-variant": "#482dac",
-                "surface-bright": "#fcf9f8",
-                "tertiary-fixed": "#e6deff"
-              },
-              fontFamily: {
-                "headline": ["Inter"],
-                "body": ["Inter"],
-                "label": ["Inter"]
-              },
-              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#5c5b7c",
+              "on-surface-variant": "#584238",
+              "error": "#ba1a1a",
+              "primary": "#1F3456",
+              "on-secondary-container": "#5c5c7d",
+              "tertiary": "#6049c5",
+              "surface-container-highest": "#e5e2e1",
+              "surface-container-high": "#eae7e7",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed-variant": "#444463",
+              "tertiary-fixed-dim": "#cabeff",
+              "primary-fixed": "#dbeafe",
+              "primary-container": "#47689A",
+              "on-background": "#1b1c1c",
+              "background": "#fcf9f8",
+              "on-primary-fixed-variant": "#111f38",
+              "inverse-primary": "#ffb691",
+              "secondary-fixed-dim": "#c5c3e9",
+              "on-error-container": "#93000a",
+              "surface-tint": "#1F3456",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#303030",
+              "on-primary-container": "#e0e7ff",
+              "on-surface": "#1b1c1c",
+              "secondary-fixed": "#e2dfff",
+              "secondary-container": "#d8d6fd",
+              "outline-variant": "#dfc0b2",
+              "on-primary-fixed": "#341100",
+              "on-secondary-fixed": "#181835",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#3a1a9f",
+              "on-error": "#ffffff",
+              "surface-variant": "#e5e2e1",
+              "outline": "#8b7266",
+              "surface-container-low": "#f6f3f2",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              "on-primary": "#ffffff",
+              "surface-container": "#f0eded",
+              "surface": "#fcf9f8",
+              "inverse-on-surface": "#f3f0ef",
+              "primary-fixed-dim": "#ffb691",
+              "on-tertiary-fixed": "#1c0062",
+              "tertiary-container": "#a694ff",
+              "on-tertiary-fixed-variant": "#482dac",
+              "surface-bright": "#fcf9f8",
+              "tertiary-fixed": "#e6deff"
             },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
           },
-        }
+        },
+      }
     </script>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .editorial-shadow {
+            box-shadow: 0 40px 60px -20px rgba(92, 91, 124, 0.08);
         }
         .glass-nav {
             backdrop-filter: blur(20px);
-        }
-        .premium-shadow {
-            box-shadow: 0 40px 60px -15px rgba(92, 91, 124, 0.06);
-        }
-        .soft-reveal {
-            animation: softReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes softReveal {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            -webkit-backdrop-filter: blur(20px);
         }
     </style>
 
@@ -528,7 +528,7 @@ html.dark .progress-bar-bg { background-color: #334155 !important; }
 html.dark .shadow-\[0_4px_20px_rgba\(0\,0\,0\,0\.05\)\] {
     box-shadow: 0 4px 20px rgba(0,0,0,0.35) !important;
 }</style></head>
-<body class="bg-background font-body text-on-surface" overflow-x-hidden w-full m-0 p-0>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container" overflow-x-hidden w-full m-0 p-0>
 
 <!-- backgroundParticles injected -->
 <canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
@@ -633,17 +633,17 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none">
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 glass-nav border-b border-slate-200/50 dark:border-slate-800/50 shadow-sm dark:shadow-none">
 <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
-<div class="flex items-center gap-5 md:p-8">
+<div class="flex items-center gap-6 md:gap-6 md:p-12">
 <a href="landing.html" class="flex items-center gap-3">
   <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
 </a>
-<div class="hidden md:flex gap-4 md:p-6 items-center">
-<a class="font-['Inter'] tracking-tight text-sm font-bold border-b-2 border-blue-700 text-blue-600 dark:text-blue-400 hover:translate-y-[-2px] transition-all duration-200" href="landing.html">Home</a>
-<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
-<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
-<a class="font-['Inter'] tracking-tight text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
+<div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-700 hover:translate-y-[-2px] transition-all duration-200" href="landing.html">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="learner_dashboard.html">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="contact_skill_school_elite.html">Contact</a>
 </div>
 </div>
 <div class="flex items-center gap-4 md:p-6">
@@ -658,196 +658,190 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </nav>
-<div class="flex min-h-screen pt-20">
-<!-- SideNavBar -->
-<aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 max-w-full flex-col fixed left-0 bg-slate-50 dark:bg-slate-950 p-4 md:p-6 gap-4 md:p-6 z-40 border-r border-slate-200/50 dark:border-slate-800/50">
-<div class="flex items-center gap-3 mb-4">
-<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white font-bold">A</div>
-<div>
-<p class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Baynal Group LMS</p>
-<p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Premium Learning</p>
+<!-- Hero Section -->
+<section class="pt-32 pb-24 px-4 md:px-4 md:px-8 bg-[#1A1A37] relative overflow-hidden reveal-on-scroll fade-up">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-[-10%] right-[-5%] w-96 max-w-full h-96 bg-primary rounded-full blur-[120px] animate-float"></div>
+<div class="absolute bottom-[-10%] left-[-5%] w-96 max-w-full h-96 bg-tertiary rounded-full blur-[120px] animate-float-delayed"></div>
+</div>
+<div class="max-w-screen-2xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-6 md:p-12 items-center relative z-10">
+<div class="lg:col-span-7 space-y-8">
+<span class="inline-block bg-primary-container/20 text-primary-container px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase">The Digital Atelier</span>
+<h1 class="text-white text-5xl md:text-7xl font-black tracking-tight leading-[1.1] font-headline reveal-on-scroll fade-up">
+                    Master Your Skills <br/> with <span class="text-primary-container">Baynal Group LMS</span>
+</h1>
+<p class="text-secondary-fixed-dim text-lg md:text-xl leading-relaxed max-w-2xl font-body">
+                    A curated editorial learning experience designed for high-end mastery. Reject the industrial grid and embrace the sophisticated path to excellence.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<a href="courses_skill_school_elite.html" class="bg-gradient-to-br from-primary to-primary-container text-white px-10 py-5 rounded-lg text-sm font-bold uppercase tracking-widest hover:translate-y-[-4px] transition-all duration-300 editorial-shadow inline-block text-center hover-elevate shine-effect">Explore Courses</a>
+<a href="methodology.html" class="bg-transparent border border-outline-variant/20 text-white px-10 py-5 rounded-lg text-sm font-bold uppercase tracking-widest hover:bg-white/5 transition-all duration-300 inline-block text-center">Our Methodology</a>
 </div>
 </div>
-<nav class="flex flex-col gap-2 flex-grow">
-<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 rounded-lg shadow-sm font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="dashboard_skill_school_elite.html">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span>Overview</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="learner_my_courses.html">
-<span class="material-symbols-outlined" data-icon="school">school</span>
-<span>My Courses</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="learner_certificates.html">
-<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
-<span>My Certificates</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="#">
-<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
-<span>Achievements</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900/50 rounded-lg font-['Inter'] text-sm font-semibold uppercase tracking-widest hover:pl-2 transition-all duration-300" href="account_skill_school_elite.html">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span>Settings</span>
-</a>
-</nav>
-<div class="mt-auto flex flex-col gap-4">
-<button class="bg-on-secondary-fixed text-white p-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity">
-                    Upgrade to Pro
-                </button>
-<div class="flex flex-col gap-1">
-<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-xs font-semibold uppercase tracking-widest hover:text-blue-400 transition-colors" href="#">
-<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
-<span>Help</span>
-</a>
-<a class="flex items-center gap-3 px-4 py-2 text-slate-500 text-xs font-semibold uppercase tracking-widest hover:text-blue-400 transition-colors" href="#">
-<span class="material-symbols-outlined text-sm" data-icon="logout">logout</span>
-<span>Logout</span>
-</a>
+<div class="lg:col-span-5 relative">
+<div class="aspect-square rounded-2xl overflow-hidden shadow-2xl rotate-3 bg-surface-container-high relative image-zoom-container shine-effect">
+<img class="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700 max-w-full h-auto" data-alt="Professional student learning in a modern high-end studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKvsgls4KtCdRIPCGVhhCldZ_0igMu8lfXEE_IhA3f8ycgDtcLjLLqIc-IQglBlRWyBWl4ROyL-2fW8SaYPi5uyN7sniH7QUHAgi2sjGuyuE1ii5x64JwDi9855WU9-Rjz-Lx7tUW4xLfyzw8YT_vQa-ABYfn4SfKhqkWyz83wgTgkoYf_5lcAEwW9woHy74Ntvn3Ylzy3oE3tzEYtendst4duijejJjllTfn9haSYVZ7G9BHBDwGOhzhMQUDTCD1Spz-jQbcCvdY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1A1A37] via-transparent to-transparent opacity-60 shine-effect"></div>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-white p-4 md:p-6 rounded-xl editorial-shadow animate-bounce-slow max-w-[240px] max-w-full">
+<div class="flex items-center gap-4 mb-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="text-xs font-bold uppercase tracking-tighter text-secondary">Elite Content</span>
+</div>
+<p class="text-on-surface font-bold text-sm">Curated by world-class industry professionals.</p>
 </div>
 </div>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 md:ml-72 p-5 md:p-8 md:p-6 md:p-12 overflow-y-auto">
-<div class="max-w-6xl mx-auto space-y-12">
-<!-- Hero Section: Welcome -->
-<section class="soft-reveal relative overflow-hidden rounded-2xl bg-[#1A1A37] text-white p-5 md:p-8 md:p-6 md:p-12 premium-shadow flex flex-col md:flex-row justify-between items-center gap-5 md:p-8 reveal-on-scroll fade-up">
-<div class="relative z-10 flex-1 space-y-6">
-<div class="space-y-2">
-<span class="label-sm uppercase tracking-[0.2em] text-primary-container font-bold text-xs">Student Portal</span>
-<h1 class="text-4xl md:text-5xl font-black tracking-tighter leading-none reveal-on-scroll fade-up">Welcome Back, Alex!</h1>
-<p class="text-secondary-fixed-dim max-w-md text-lg font-light leading-relaxed">Your journey toward architectural mastery continues. You're doing better than 84% of your peers this week.</p>
-</div>
-<div class="flex flex-col sm:flex-row gap-4 items-center">
-<button class="bg-gradient-to-r from-primary to-primary-container text-white px-4 md:px-4 md:px-8 py-4 rounded-lg font-bold uppercase tracking-widest text-sm hover:translate-y-[-4px] transition-all shadow-xl hover-elevate shine-effect">
-                                Resume Next Lesson
-                            </button>
-<div class="flex items-center gap-3 text-secondary-fixed-dim">
-<span class="material-symbols-outlined">schedule</span>
-<span class="text-sm font-medium">Next Live: Tomorrow, 10 AM</span>
-</div>
-</div>
-</div>
-<div class="relative z-10 w-full md:w-64 max-w-full flex flex-col items-center gap-4">
-<div class="relative w-40 h-40">
-<!-- SVG Progress Arc -->
-<svg class="w-full h-full transform -rotate-90">
-<circle class="text-slate-800" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
-<circle class="text-primary-container" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="158.4" stroke-width="8"></circle>
-</svg>
-<div class="absolute inset-0 flex flex-col items-center justify-center">
-<span class="text-3xl font-black">64%</span>
-<span class="text-[10px] uppercase tracking-widest font-bold opacity-60">Complete</span>
-</div>
-</div>
-<p class="text-center text-sm font-medium text-slate-400">Overall Progress</p>
-</div>
-<!-- Decorative Background Element -->
-<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
-<div class="absolute inset-0 bg-gradient-to-l from-primary-container to-transparent shine-effect"></div>
 </div>
 </section>
-<!-- KPI Stats Grid -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-5 md:p-8 reveal-on-scroll fade-up">
-<div class="bg-surface-container-lowest p-5 md:p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group inner-glow">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="auto_stories">auto_stories</span>
-<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">+2 this month</span>
+<!-- Stats Counter Section -->
+<section class="bg-transparent py-20 px-4 md:px-4 md:px-8 relative z-20 reveal-on-scroll fade-up">
+<div class="max-w-screen-2xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-5 md:p-8 md:gap-16">
+<div class="text-center group">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">10K+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Active Students</div>
 </div>
-<h3 class="text-3xl font-black text-on-surface">12</h3>
-<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Enrolled Courses</p>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">500+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Elite Courses</div>
 </div>
-<div class="bg-surface-container-lowest p-5 md:p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group inner-glow">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="verified">verified</span>
-<span class="text-xs font-bold text-primary bg-primary-fixed px-2 py-1 rounded">Level 4 Elite</span>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">100+</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Master Mentors</div>
 </div>
-<h3 class="text-3xl font-black text-on-surface">08</h3>
-<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Completed</p>
+<div class="text-center group border-l border-outline-variant/20">
+<div class="text-5xl font-black text-slate-900 tracking-tighter group-hover:text-primary transition-colors duration-300">95%</div>
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mt-2">Completion Rate</div>
 </div>
-<div class="bg-surface-container-lowest p-5 md:p-8 rounded-xl premium-shadow border-b-2 border-transparent hover:border-primary-container transition-all group inner-glow">
-<div class="flex justify-between items-start mb-4">
-<span class="material-symbols-outlined text-secondary text-3xl group-hover:text-primary transition-colors" data-icon="notification_important">notification_important</span>
-<span class="text-xs font-bold text-error bg-error-container px-2 py-1 rounded">Action Needed</span>
-</div>
-<h3 class="text-3xl font-black text-on-surface">04</h3>
-<p class="text-sm font-bold uppercase tracking-widest text-secondary mt-1">Upcoming Deadlines</p>
 </div>
 </section>
-<!-- Active Courses Section -->
-<section class="space-y-8 reveal-on-scroll fade-up">
-<div class="flex justify-between items-end">
-<div class="space-y-1">
-<h2 class="text-2xl font-black tracking-tight text-on-surface">Active Courses</h2>
-<div class="h-1 w-12 bg-primary-container rounded-full"></div>
+<!-- Featured Courses Section (Intentional Asymmetry) -->
+<section class="bg-transparent-container-low py-24 px-4 md:px-4 md:px-8 overflow-hidden reveal-on-scroll fade-up">
+<div class="max-w-screen-2xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4 md:p-6">
+<div class="max-w-2xl">
+<span class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4 block">Curated Selection</span>
+<h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tight font-headline">Featured Courses</h2>
 </div>
-<a class="text-sm font-bold text-primary uppercase tracking-widest hover:underline underline-offset-8 transition-all" href="#">View All</a>
+<a class="text-sm font-bold uppercase tracking-widest text-primary border-b-2 border-primary hover:opacity-70 transition-all" href="courses_skill_school_elite.html">View All Masterclasses</a>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 <!-- Course Card 1 -->
-<div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300 reveal-on-scroll scale-up hover-elevate inner-glow">
-<div class="h-48 overflow-hidden relative image-zoom-container shine-effect">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full h-auto" data-alt="Cyberpunk high tech workspace with orange lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAPjBKKt060ufdlG9c7zonON2dLuH7SXxRJlV9wleWdZIBSMS5Xf0gr0-Q-cOEgq8w1DL6N7XrqC1OcfYREZ_WYUx9t1Z-vp3lR_aAMhXFEQwlQP4SmZ4mrLQe6L5MG_CyorXme1pNn4QOScEE5cQpLZtaOJblfckA-khmdqSuwBlhMdbJRy4xZbMxXqXmfU4eegbExGgGPY2IKgZlF2qYQkFx216LXGYZszDpmm1trzKTUkwJ6FV7PRBAmubOrz4-BEJzUFMChKo"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Advanced</div>
+<a href="course_fullstack.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6jpaV_iCty_zhE8mYpFdecIyW3yqc8FLWGONvxjWrHzHge49oj4Bsqlir9iRB9f7wpueT1B3MZjtERwLMXBG-OULsN-gcZZaF3toEJLgn0lsgmTMIlDU2GmRoGxVsBAn1mcVRNEONBWUkKVq46P_NjJDTz7fwS0tQYeRGd97QuphTcwdA2TgedXtR-5vqKox2Rp_n1VRDeq6PM-Bodb372JSMD-HfVx5nPfSnu2afLoAHPH8y5THwFrfYp2_KThkkTiyreplyYe4" alt="Full-Stack Mastery"/>
 </div>
-<div class="p-5 md:p-8 space-y-6 flex-1 flex flex-col">
-<div class="space-y-2">
-<h4 class="text-xl font-bold text-on-surface leading-tight">Mastering Neural Networks &amp; Deep Learning</h4>
-<p class="text-sm text-secondary line-clamp-2">Explore the architecture of modern AI and build your first transformer model from scratch.</p>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$199</span>
 </div>
-<div class="mt-auto space-y-4">
-<div class="space-y-2">
-<div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
-<span class="text-secondary">Progress</span>
-<span class="text-primary">78%</span>
-</div>
-<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-primary-container w-[78%]"></div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Full-Stack Mastery: Architecture & Logic</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Level up from coder to architect. Master the patterns that define world-class applications.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">24 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
 </div>
 </div>
-<div class="flex justify-between items-center pt-2 border-t border-surface-container-high">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-sm text-secondary" data-icon="play_circle">play_circle</span>
-<span class="text-xs font-semibold text-secondary">Module 4 of 12</span>
-</div>
-<button class="text-primary font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Continue</button>
-</div>
-</div>
-</div>
-</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
 <!-- Course Card 2 -->
-<div class="group bg-surface-container-lowest rounded-xl overflow-hidden premium-shadow flex flex-col h-full hover:translate-y-[-8px] transition-all duration-300 reveal-on-scroll scale-up hover-elevate inner-glow">
-<div class="h-48 overflow-hidden relative image-zoom-container shine-effect">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 max-w-full h-auto" data-alt="Minimalist design workspace with sketchbook and pens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKG_av0mECtEAFFouclqEzi1PYslLOkXdrxq5p6g6SE5iBQn0Owta2AJWLiPmK-tGAkgCu0cUn9qNeAhHUH2AKs4TOipqoagjEQgE0bYDJ6jEmzPFW0w0qAtpCqNnVQY3mjZX7OSLlpkxY3QIUyMaI2dSFwHOMxz_ErzmupoeNkoZYavzYOmt_hpERK26QpcXmSsLP86P9mkACCYCrSyHzFLDK9-i-dJ4yNt1TnY6vYdToi2sKYq9t2afqSr0SHozOAUfscpa0SgA"/>
-<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest text-primary">Intermediate</div>
+<a href="course_ux.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChQ6vth737NZ8FnBpLxa4hFg4TZ5IwJVjLJED5grty7j34W33n8JS8ONotrobBpFUzlHY_ZbIX4GbEuaolTJ3w2Yyq-6qDok8ICgUK7QZYtakdmwF-q23dN056XQXfMO1XB6wzpTuYnK32FEDl84s9AgJUDBnK55ZsDw9wdjU8w8r2M4MP5nJC-7hMqQdlISAmHcNapN-kHgHpUbmcN3h10tY8YleoQBVUp1Z0pzvUFNNYCSbJGEytEjkSCnTVXDbUVxjudAGYCTc" alt="UX Fundamentals"/>
 </div>
-<div class="p-5 md:p-8 space-y-6 flex-1 flex flex-col">
-<div class="space-y-2">
-<h4 class="text-xl font-bold text-on-surface leading-tight">The Art of Editorial UI/UX Design</h4>
-<p class="text-sm text-secondary line-clamp-2">Transform functional layouts into premium digital experiences using advanced typography and space.</p>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-tertiary bg-tertiary-fixed px-2 py-1 rounded">Design</span>
+<span class="text-primary-container font-black text-lg">$149</span>
 </div>
-<div class="mt-auto space-y-4">
-<div class="space-y-2">
-<div class="flex justify-between items-center text-xs font-bold uppercase tracking-widest">
-<span class="text-secondary">Progress</span>
-<span class="text-primary">42%</span>
-</div>
-<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
-<div class="h-full bg-primary-container w-[42%]"></div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">The Digital Atelier: UX Fundamentals</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Learn the emotional psychology behind high-converting interfaces and premium experiences.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">18 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
 </div>
 </div>
-<div class="flex justify-between items-center pt-2 border-t border-surface-container-high">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-sm text-secondary" data-icon="play_circle">play_circle</span>
-<span class="text-xs font-semibold text-secondary">Module 6 of 15</span>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<!-- Course Card 3 -->
+<a href="course_business.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuKrbHERTKfv8wK0aBO4b2PD2ZPjl7y3SH_Fk-3LXCq5ZZ8rS1SenZojxB0hybIvvQkRNJKQcFbRafDtiRfZvCAVdVDqXziKRNEmJtZwcykpqDsDGYbPgIU6QmvMDHm5CzTyG4OCipIvzlT3Nemh_rxoWfL_gMjgZWa6-TigIDe8Tyvdkk0AtDBsPkdCXOBzRPdQ_8pcvoMosMSP6nRwZA4CDmz08VomTJkFQWJJRCzA6ItxUvyfKMKfPp3qsYm7a-1f2kUHiOot8" alt="Venture Growth"/>
 </div>
-<button class="text-primary font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Continue</button>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-secondary bg-secondary-fixed px-2 py-1 rounded">Business</span>
+<span class="text-primary-container font-black text-lg">$299</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Strategic Scale: Venture Growth</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Transition from founder to CEO. Understanding the economics of rapid market expansion.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">32 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
 </div>
 </div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<!-- Course Card 4 -->
+<a href="course_marketing.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8o5SrR6K8k01KE_dIRV5xHtCa-5iOdGXYujVtazh0zznDjioRkQb_MAw3vT5xNpqehpJkIaT8QP8-DR5gFwpbSf_uVXiEUDX95qqYpvgYuOQpAZ1fsWwKotFe4WLiH9MKO5SksBzShbdGMO1nyP1HFFgkhF8IYFQb9UnuiO4xm23cSKVeKUEfYeOex2MGuy7Q8x7VS-ligKrzniu-6OuWOBgFWfonkHoUkVhs1nQhl7P2GvcPmAlInUG-px_ncdkWFGToCx3-XiE" alt="Growth Hacking"/>
+</div>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-on-secondary-container bg-secondary-container px-2 py-1 rounded">Marketing</span>
+<span class="text-primary-container font-black text-lg">$129</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Growth Hacking: The Viral Engine</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Data-driven strategies for exponential user acquisition without massive budgets.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">12 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
 </div>
 </div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<!-- Course Card 5 -->
+<a href="course_react.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkfIY-vbdTQrGE9rnuW-0cbraWtgdAYapF9U392DWE-CUvTkGmKx8gNaLQ2d-U844hzrjYCRd9HvLytXdENnki_njf5w-ao0RxFcOlD135jVIoim2ZFKqfE5qmCWWtJfvVpvPe93TOV1rxu3h-rDYjWuBLPjYp1r95fqXSOUScFcJbLEvGbqS-EFkBzEfHXJHCyYfGg7jaYjjsXjYd_3H-p_OqSDL78-QhrlGqmuiikVJ_vKBl_zWaIpD1KvSVF6q3-9ay2LhFeK8" alt="React TypeScript"/>
 </div>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$199</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Advanced React &amp; TypeScript</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Building type-safe, scalable web applications for enterprise-grade performance.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">28 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<!-- Course Card 6 -->
+<a href="course_backend.html" class="group bg-surface-container-lowest rounded-lg flex flex-col h-full shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(92,91,124,0.08)] transition-all duration-300 relative overflow-hidden reveal-on-scroll scale-up hover-elevate inner-glow" style="text-decoration:none;">
+<div class="aspect-video w-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 max-w-full h-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsaEIo7ES974nng_HYBgt17qLfDxwoqF67zzDppDsiV4MLw6awQyLymGk64i4mD6wu8Scli644hHhEIh0bKGGnnF5ayMZ3wGg7c33KzqUm-xGYorD6lCOiNxJvUaWoYNSzVH4va6peTNsKDpoVKja_e0HlLLkBFNk4PnhIQgFbUEzI8fAYlSMh6WYbBUMB8iDpTtioNEnhyLXpHJcVu-X8Y-NbrL2AuOGV042zosETSlmL4j7rAYnR-3Wksq89PwjGPw5bY9LEkHo" alt="Backend Systems"/>
+</div>
+<div class="p-4 md:p-6 flex flex-col flex-grow">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold tracking-[0.1em] uppercase text-primary bg-primary-fixed px-2 py-1 rounded">Development</span>
+<span class="text-primary-container font-black text-lg">$249</span>
+</div>
+<h3 class="text-xl font-bold tracking-tight text-on-surface mb-3 group-hover:text-primary transition-colors">Backend Systems &amp; Distributed Databases</h3>
+<p class="text-sm text-secondary line-clamp-2 mb-6 leading-relaxed">Understanding high-availability architectures and global data consistency.</p>
+<div class="mt-auto pt-6 border-t border-surface-container-high flex justify-between items-center">
+<span class="text-[10px] font-bold tracking-widest uppercase text-outline">36 Lessons</span>
+<span class="text-primary font-bold text-xs tracking-widest uppercase flex items-center gap-1">View Details <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+</div>
+
 </section>
-</div>
 <!-- Footer -->
 
 
@@ -916,8 +910,6 @@ document.addEventListener('DOMContentLoaded', () => {
 </footer>
 
 
-</main>
-</div>
 <!-- mobileMenuScript injected -->
 
 <script>

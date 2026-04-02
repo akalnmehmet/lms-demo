@@ -642,5 +642,205 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
+
+<!-- PROGRESS PANEL INJECTED -->
+<div id="progress-sidebar-overlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[99] hidden opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+
+<div id="progress-sidebar" class="fixed top-0 right-0 h-full w-[360px] max-w-[90vw] bg-white dark:bg-slate-900 shadow-[0_0_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(0,0,0,0.4)] z-[100] transform translate-x-full transition-transform duration-400 cubic-bezier(0.16, 1, 0.3, 1) border-l border-slate-200 dark:border-slate-800 overflow-y-auto flex flex-col font-body">
+   
+   <!-- Header -->
+   <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
+      <h3 class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Learning Progress</h3>
+      <button onclick="window.closeProgressSidebar()" class="text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors bg-slate-100 dark:bg-slate-800 w-8 h-8 rounded-full flex items-center justify-center">
+         <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+   </div>
+
+   <div class="p-5 flex-1 space-y-8">
+       <!-- Points Box -->
+       <div class="bg-blue-50 dark:bg-blue-900/30 rounded-xl p-4 flex items-center justify-between border border-blue-100 dark:border-blue-800/50">
+           <div class="flex items-end gap-2">
+               <span class="text-3xl font-black text-blue-700 dark:text-blue-400 leading-none">55</span>
+               <span class="text-sm font-bold text-blue-600/70 dark:text-blue-300">Points</span>
+               <span class="material-symbols-outlined text-[14px] text-blue-400 cursor-help" title="Earn points by completing courses.">info</span>
+           </div>
+           <span class="material-symbols-outlined text-blue-200 dark:text-blue-800/50 text-[40px] leading-none absolute right-4">military_tech</span>
+       </div>
+
+       <!-- Badges Section -->
+       <div class="space-y-3">
+           <h4 class="text-[15px] font-black text-slate-900 dark:text-white">Earned Badges</h4>
+           <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 text-center border border-slate-100 dark:border-slate-700 flex flex-col items-center gap-3">
+               <div class="text-3xl">😊</div>
+               <p class="text-[12px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
+                   You haven't earned any badges yet.<br/>
+                   Share the badges you earn on LinkedIn.
+               </p>
+           </div>
+           <div class="text-center">
+               <a href="learner_achievements.html" class="text-[13px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 transition-colors">View All</a>
+           </div>
+       </div>
+
+       <!-- Metrics Section -->
+       <div class="space-y-4">
+           <div class="flex items-center gap-2">
+               <span class="material-symbols-outlined text-slate-700 dark:text-slate-200" style="font-variation-settings: 'FILL' 1;">bar_chart</span>
+               <h4 class="text-[15px] font-black text-slate-900 dark:text-white tracking-tight">Metrics</h4>
+           </div>
+           
+           <div class="flex gap-2">
+               <select class="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 text-[12px] font-semibold tracking-wide text-slate-700 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+                   <option>All</option>
+                   <option>Mandatory</option>
+                   <option>Optional</option>
+               </select>
+               <select class="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 text-[12px] font-semibold tracking-wide text-slate-700 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+                   <option>This Year</option>
+                   <option>Last Year</option>
+               </select>
+           </div>
+
+           <!-- Gauge Chart -->
+           <div class="relative py-4 w-full flex justify-center">
+               <svg viewBox="-10 0 120 65" class="w-[90%] overflow-visible drop-shadow-sm">
+                   <!-- Base Track (Light gray) -->
+                   <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round" class="dark:stroke-slate-700" />
+                   
+                   <!-- Not Started (Red) 77.8% -->
+                   <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e11d48" stroke-width="8" stroke-linecap="round" stroke-dasharray="97.7 125.66" />
+                   
+                   <!-- In Progress (Amber) 22.2% -->
+                   <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linecap="round" stroke-dasharray="27.96 125.66" stroke-dashoffset="-97.7" />
+                   
+                   <!-- Center Texts -->
+                   <text x="50" y="38" text-anchor="middle" fill="currentColor" font-weight="900" font-size="22" class="text-[#1F3456] dark:text-white">0</text>
+                   <text x="50" y="48" text-anchor="middle" fill="currentColor" font-weight="700" font-size="4.5" class="text-slate-500 dark:text-slate-400">Completed courses</text>
+                   
+                   <!-- Percentage Labels (Now safely outside the arc) -->
+                   <text x="12" y="25" text-anchor="end" fill="#e11d48" font-size="5" font-weight="900">77.8%</text>
+                   <text x="96" y="38" text-anchor="start" fill="#f59e0b" font-size="5" font-weight="900">22.2%</text>
+               </svg>
+           </div>
+
+           <!-- Legend -->
+           <div class="flex justify-center gap-6 mt-2">
+               <div class="flex items-center gap-2">
+                   <div class="w-3 h-3 rounded-full bg-[#e11d48]"></div>
+                   <span class="text-[12px] font-bold text-slate-600 dark:text-slate-400">Not Started</span>
+               </div>
+               <div class="flex items-center gap-2">
+                   <div class="w-3 h-3 rounded-full bg-[#f59e0b]"></div>
+                   <span class="text-[12px] font-bold text-slate-600 dark:text-slate-400">In Progress</span>
+               </div>
+           </div>
+       </div>
+
+       <!-- Data Cards -->
+       <div class="space-y-3 pt-2">
+           <div class="bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 p-4 rounded-xl flex items-center gap-4 group hover:bg-white dark:hover:bg-slate-800 shadow-sm hover:shadow-md transition-all">
+               <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform">
+                   <span class="material-symbols-outlined text-[20px]">schedule</span>
+               </div>
+               <div>
+                   <div class="flex items-baseline gap-1">
+                       <span class="text-xl font-black text-slate-900 dark:text-white tracking-tight">0.7</span>
+                       <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wide">mins</span>
+                   </div>
+                   <p class="text-[11px] font-semibold text-slate-500/80">Time Spent Learning</p>
+               </div>
+           </div>
+           
+           <div class="bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 p-4 rounded-xl flex items-center gap-4 group hover:bg-white dark:hover:bg-slate-800 shadow-sm hover:shadow-md transition-all">
+               <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 flex-shrink-0 group-hover:scale-110 transition-transform">
+                   <span class="material-symbols-outlined text-[20px]">description</span>
+               </div>
+               <div>
+                   <div class="flex items-baseline gap-1">
+                       <span class="text-xl font-black text-slate-900 dark:text-white tracking-tight">0</span>
+                   </div>
+                   <p class="text-[11px] font-semibold text-slate-500/80">Completed Content</p>
+               </div>
+           </div>
+       </div>
+
+       <!-- Liderlik Tablosu Accordion -->
+       <div class="border-t border-slate-100 dark:border-slate-800 pt-5 pb-5">
+           <button class="w-full flex justify-between items-center group">
+               <h4 class="text-[15px] font-black text-slate-900 dark:text-white group-hover:text-[#47689A] transition-colors">Leaderboard</h4>
+               <span class="material-symbols-outlined text-slate-400 group-hover:text-slate-600 transition-colors">expand_more</span>
+           </button>
+       </div>
+   </div>
+</div>
+
+<script id="progress-panel-js">
+window.openProgressSidebar = function() {
+    const sidebar = document.getElementById('progress-sidebar');
+    const overlay = document.getElementById('progress-sidebar-overlay');
+    if (!sidebar || !overlay) return;
+    
+    overlay.classList.remove('hidden');
+    overlay.classList.remove('pointer-events-none');
+    void overlay.offsetWidth; // trigger reflow
+    overlay.classList.remove('opacity-0');
+    overlay.classList.add('opacity-100');
+    
+    sidebar.classList.remove('translate-x-full');
+    sidebar.classList.add('translate-x-0');
+};
+
+window.closeProgressSidebar = function() {
+    const sidebar = document.getElementById('progress-sidebar');
+    const overlay = document.getElementById('progress-sidebar-overlay');
+    if (!sidebar || !overlay) return;
+    
+    overlay.classList.remove('opacity-100');
+    overlay.classList.add('opacity-0');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.add('pointer-events-none');
+    }, 300);
+    
+    sidebar.classList.remove('translate-x-0');
+    sidebar.classList.add('translate-x-full');
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('progress-sidebar-overlay');
+    if(overlay) overlay.addEventListener('click', window.closeProgressSidebar);
+});
+</script>
+<!-- END PROGRESS PANEL -->
+
+
+
+<!-- ROLE BASED UI SCRIPT INJECTED -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('userRole') === 'admin') {
+        // Hide specific buttons in nav for admins
+        const adminLinksToHide = ['contact', 'support', 'progress'];
+        document.querySelectorAll('nav a, header a').forEach(a => {
+            const text = a.textContent.toLowerCase().trim();
+            const hasMatch = adminLinksToHide.some(t => text.includes(t));
+            if (hasMatch) {
+                a.style.display = 'none';
+            }
+        });
+        
+        // Redirect any dashboard link to admin_dashboard.html
+        document.querySelectorAll('a').forEach(a => {
+            const href = a.getAttribute('href');
+            if (href && (href.includes('dashboard_skill_school_elite.html') || href.includes('learner_dashboard.html'))) {
+                a.href = 'admin_dashboard.html';
+            }
+        });
+    }
+});
+</script>
+<!-- END ROLE BASED UI SCRIPT -->
+
 </body>
 </html>

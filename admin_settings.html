@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baynal Group LMS — Admin Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "navy":      "#1A1A37",
+          "navy-deep": "#0f0f24",
+          "orange":    "#47689A",
+          "orange-dim":"#314E78",
+          "secondary": "#5c5b7c",
+          "primary":   "#1F3456",
+          "primary-container": "#47689A",
+          "surface":   "#fcf9f8",
+          "surface-container-lowest": "#ffffff",
+          "surface-container-low":    "#f6f3f2",
+          "surface-container":        "#f0eded",
+          "surface-container-high":   "#eae7e7",
+          "surface-variant":          "#e5e2e1",
+          "outline-variant":          "#dfc0b2",
+          "on-surface":               "#1b1c1c",
+          "secondary-fixed-dim":      "#c5c3e9",
+          "error":                    "#ba1a1a",
+        },
+        fontFamily: {
+          "headline": ["Inter"],
+          "body":     ["Inter"],
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg":      "8px",
+          "xl":      "12px",
+          "2xl":     "16px",
+          "full":    "9999px",
+        },
+      },
+    },
+  }
+</script>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #f6f3f2; color: #1b1c1c; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    display: inline-block;
+    line-height: 1;
+  }
+  .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .kinetic-gradient { background: linear-gradient(135deg, #1F3456 0%, #47689A 100%); }
+  .navy-gradient { background: linear-gradient(135deg, #0f0f24 0%, #1A1A37 50%, #252548 100%); }
+  .side-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-radius: 8px;
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: #5c5b7c;
+    transition: background 200ms, color 200ms, padding-left 260ms;
+    cursor: pointer; text-decoration: none;
+  }
+  .side-link:hover { background: #f0eded; color: #1A1A37; padding-left: 22px; }
+  .side-link.active { background: #ffffff; color: #47689A; box-shadow: 0 2px 12px rgba(255,126,49,0.12); }
+  .sidebar-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #e5e2e1 transparent; }
+
+  /* Settings section separator */
+  .settings-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e5e2e1;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    overflow: hidden;
+  }
+  .settings-section-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0eded;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #f6f3f2;
+    gap: 16px;
+    transition: background 200ms;
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row:hover { background: #fafafa; }
+
+  /* Toggle switch (for settings rows only) */
+  .toggle-switch {
+    position: relative; width: 44px; height: 24px; border-radius: 999px;
+    background: #cbd5e1; border: none; cursor: pointer;
+    transition: background 0.3s; flex-shrink: 0; outline: none;
+  }
+  .toggle-switch.on { background: #47689A; }
+  .toggle-switch::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%; background: white;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle-switch.on::after { transform: translateX(20px); }
+
+  /* Dark mode toggle (injected into nav by script) */
+  #dark-mode-toggle {
+    position: relative; width: 44px; height: 24px; border-radius: 999px;
+    background: #cbd5e1; border: none;
+    transition: background 0.3s; flex-shrink: 0; outline: none;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+  }
+  html.dark #dark-mode-toggle { background: #47689A; }
+  #dark-mode-toggle::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%; background: white;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  html.dark #dark-mode-toggle::after { transform: translateX(20px); background: #e2e8f0; }
+  .dark-toggle-wrapper { display: flex; align-items: center; gap: 6px; padding: 0 4px; }
+  .dark-toggle-icon { font-size: 16px; line-height: 1; transition: opacity 0.3s; }
+  .dark-toggle-icon.sun { color: #f59e0b; }
+  .dark-toggle-icon.moon { color: #64748b; }
+  html.dark .dark-toggle-icon.sun { opacity: 0.4; }
+  html.dark .dark-toggle-icon.moon { opacity: 1; color: #e2e8f0; }
+
+  /* Cursor */
+  .cursor-dot {
+    width: 8px; height: 8px; background: #47689A;
+    border-radius: 50%; position: fixed; pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    top: -100px; left: -100px;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px; border: 2px solid rgba(71,104,154,0.5);
+    border-radius: 50%; position: fixed; pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s, opacity 0.3s;
+    top: -100px; left: -100px;
+  }
+  .cursor-hidden { opacity: 0 !important; }
+  .cursor-dot.hovering { width: 12px; height: 12px; background: #314E78; }
+  .cursor-ring.hovering { width: 44px; height: 44px; border-color: rgba(71,104,154,0.3); }
+  body, * { cursor: none !important; }
+
+  /* Dark mode */
+  html.dark body { background: #0f172a; color: #e2e8f0; }
+  html.dark .settings-section { background: #1e293b; border-color: #334155; }
+  html.dark .settings-section-header { border-color: #334155; }
+  html.dark .settings-row { border-color: #1e293b; }
+  html.dark .settings-row:hover { background: #1a2744; }
+  html.dark .side-link { color: #94a3b8; }
+  html.dark .side-link:hover { background: #1e293b; color: #f1f5f9; }
+  html.dark .side-link.active { background: #1e3a5f; color: #e2e8f0; }
+  html.dark aside { background-color: #0f172a !important; border-color: #1e293b !important; }
+  html.dark nav { background: rgba(15,23,42,0.85) !important; border-color: rgba(51,65,85,0.5) !important; }
+  html.dark input:not([type="range"]):not([type="checkbox"]):not([type="submit"]):not([type="button"]),
+  html.dark select {
+    background-color: #1e293b !important; border-color: #334155 !important; color: #f1f5f9 !important;
+  }
+</style>
+</head>
+<body class="bg-surface-container-low min-h-screen">
+
+<!-- Particles -->
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('bg-particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width, height, particles;
+  const particleCount = window.innerWidth < 768 ? 35 : 75;
+  const colors = ['rgba(71, 104, 154, 0.45)', 'rgba(49, 78, 120, 0.3)', 'rgba(31, 52, 86, 0.15)'];
+  function init() {
+    width = window.innerWidth; height = window.innerHeight;
+    canvas.width = width; canvas.height = height;
+    particles = [];
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({ x: Math.random()*width, y: Math.random()*height, vx:(Math.random()-0.5)*0.6, vy:(Math.random()-0.5)*0.6, radius:Math.random()*2.5+0.8, color:colors[Math.floor(Math.random()*colors.length)] });
+    }
+  }
+  let mouseX = -1000, mouseY = -1000;
+  document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+  function draw() {
+    ctx.clearRect(0,0,width,height);
+    for (let i=0;i<particles.length;i++) {
+      let p=particles[i];
+      let dxM=mouseX-p.x, dyM=mouseY-p.y, distM=Math.sqrt(dxM*dxM+dyM*dyM);
+      if(distM<180){p.x-=(dxM/distM)*1.5; p.y-=(dyM/distM)*1.5;}
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>width){p.vx*=-1;} if(p.y<0||p.y>height){p.vy*=-1;}
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.radius,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill();
+      for(let j=i+1;j<particles.length;j++){
+        let p2=particles[j], dx=p.x-p2.x, dy=p.y-p2.y, dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<130){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(71,104,154,${(1-dist/130)*0.25})`;ctx.lineWidth=0.8;ctx.stroke();}
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  init(); draw();
+  window.addEventListener('resize', init);
+});
+</script>
+
+<!-- ═══════════════════════════ TOP NAV BAR ═══════════════════════════ -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm dark:bg-slate-900/85 dark:border-slate-800/50">
+  <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-6 md:gap-6 md:p-12">
+      <a href="landing.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+      </a>
+      <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="landing.html">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] hover:translate-y-[-2px] transition-all duration-200" href="admin_dashboard.html">Dashboard</a>
+      </div>
+    </div>
+    <!-- Right Actions (dark mode toggle injected here by script) -->
+    <div class="flex items-center gap-4 md:p-6">
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE SHELL -->
+<div class="flex min-h-screen pt-20">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+    <!-- Admin Avatar -->
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full kinetic-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 leading-tight">Admin</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">System Administrator</p>
+      </div>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="admin_dashboard.html">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>
+        Overview
+      </a>
+      <a class="side-link active" href="admin_settings.html">
+        <span class="material-symbols-outlined text-[20px]">settings</span>
+        Settings
+      </a>
+    </nav>
+
+    <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+      <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span> Help</a>
+      <a class="side-link" href="landing.html"><span class="material-symbols-outlined text-[18px]">logout</span> Logout</a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 w-full lg:max-w-[calc(100%-288px)] ml-auto min-h-screen p-6 md:p-10 pt-[100px]">
+    <div class="max-w-[860px] mx-auto space-y-8 pb-24">
+
+      <!-- Page Header -->
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-100">
+          <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+          Admin Panel
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Site Settings</h1>
+        <p class="text-slate-500 text-sm mt-1">Manage platform configuration, branding, and system preferences.</p>
+      </div>
+
+      <!-- 1. Site Information -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+            <span class="material-symbols-outlined text-[20px]">language</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-black text-slate-900 dark:text-white">Site Information</h2>
+            <p class="text-[11px] text-slate-500 font-medium">Basic platform identity and branding details</p>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Platform Name</p>
+            <p class="text-xs text-slate-500 mt-0.5">The name shown in browser tabs and emails</p>
+          </div>
+          <input type="text" value="Baynal Group LMS" class="border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 w-52"/>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Platform Logo</p>
+            <p class="text-xs text-slate-500 mt-0.5">PNG or SVG, recommended 200×60px</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Logo" class="h-8 object-contain rounded border border-slate-200 px-2 bg-white">
+            <button class="text-xs font-bold text-blue-600 hover:text-blue-800 border border-blue-200 hover:border-blue-400 rounded-lg px-3 py-1.5 transition-all">Change</button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Contact Email</p>
+            <p class="text-xs text-slate-500 mt-0.5">Used for system notifications and replies</p>
+          </div>
+          <input type="email" value="admin@company.com" class="border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 w-52"/>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Default Language</p>
+            <p class="text-xs text-slate-500 mt-0.5">Platform-wide default language</p>
+          </div>
+          <select class="border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 w-40">
+            <option selected>English</option>
+            <option>Turkish</option>
+            <option>German</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 2. User Management -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+            <span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-black text-slate-900 dark:text-white">User Management</h2>
+            <p class="text-[11px] text-slate-500 font-medium">Registration, access control, and authentication settings</p>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Open Registration</p>
+            <p class="text-xs text-slate-500 mt-0.5">Allow anyone to create a student account</p>
+          </div>
+          <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Email Verification Required</p>
+            <p class="text-xs text-slate-500 mt-0.5">New users must verify their email before accessing content</p>
+          </div>
+          <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Admin Password</p>
+            <p class="text-xs text-slate-500 mt-0.5">Change the administrator login password</p>
+          </div>
+          <button class="text-xs font-bold text-blue-600 hover:text-blue-800 border border-blue-200 hover:border-blue-400 rounded-lg px-3 py-1.5 transition-all">Change Password</button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Max Login Attempts</p>
+            <p class="text-xs text-slate-500 mt-0.5">Lock account after this many failed attempts</p>
+          </div>
+          <select class="border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 w-28">
+            <option>3</option>
+            <option selected>5</option>
+            <option>10</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3. Course Settings -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+            <span class="material-symbols-outlined text-[20px]">library_books</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-black text-slate-900 dark:text-white">Course Settings</h2>
+            <p class="text-[11px] text-slate-500 font-medium">Enrollment, certificate, and content delivery options</p>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Auto-issue Certificates</p>
+            <p class="text-xs text-slate-500 mt-0.5">Automatically send certificates when a course is 100% complete</p>
+          </div>
+          <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Enforce Sequential Lessons</p>
+            <p class="text-xs text-slate-500 mt-0.5">Learners must complete lessons in order</p>
+          </div>
+          <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Default Passing Score</p>
+            <p class="text-xs text-slate-500 mt-0.5">Minimum quiz score to mark a lesson as passed</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="number" value="70" min="1" max="100" class="border border-slate-200 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 w-20 text-right"/>
+            <span class="text-sm font-bold text-slate-500">%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Notifications -->
+      <div class="settings-section">
+        <div class="settings-section-header">
+          <div class="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+            <span class="material-symbols-outlined text-[20px]">notifications</span>
+          </div>
+          <div>
+            <h2 class="text-sm font-black text-slate-900 dark:text-white">Notifications</h2>
+            <p class="text-[11px] text-slate-500 font-medium">System-wide email and push notification triggers</p>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">New Registration Alert</p>
+            <p class="text-xs text-slate-500 mt-0.5">Email admin when a new student registers</p>
+          </div>
+          <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Course Completion Alert</p>
+            <p class="text-xs text-slate-500 mt-0.5">Email admin when a student finishes a course</p>
+          </div>
+          <button class="toggle-switch" onclick="this.classList.toggle('on')"></button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <p class="text-sm font-bold text-slate-800 dark:text-slate-200">Weekly Analytics Report</p>
+            <p class="text-xs text-slate-500 mt-0.5">Send a weekly summary report every Monday</p>
+          </div>
+          <button class="toggle-switch on" onclick="this.classList.toggle('on')"></button>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="flex justify-end pt-2">
+        <button onclick="this.innerText='✓ Saved!'; this.classList.add('opacity-80'); setTimeout(()=>{this.innerText='Save Changes'; this.classList.remove('opacity-80')}, 2000);"
+          class="kinetic-gradient text-white font-bold text-sm px-8 py-3 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">save</span>
+          Save Changes
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Footer -->
+<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 z-10 relative">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <img src="logo.png" alt="Baynal Group LMS Logo" class="h-6 w-auto object-contain opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all">
+            <p class="font-body text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a>
+            <a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Dark Mode (localStorage synced, same as all other pages) -->
+<script>
+(function() {
+    const saved = localStorage.getItem('bgl-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navRight = document.querySelector('nav .flex.items-center.gap-4')
+                  || document.querySelector('nav .flex.items-center.gap-6')
+                  || document.querySelector('nav .flex.justify-between > div:last-child');
+
+    if (navRight && !document.getElementById('dark-mode-toggle')) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'dark-toggle-wrapper';
+        wrapper.innerHTML = `
+            <span class="material-symbols-outlined dark-toggle-icon sun" style="font-size:16px;font-variation-settings:'FILL' 1;">light_mode</span>
+            <button id="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+            <span class="material-symbols-outlined dark-toggle-icon moon" style="font-size:16px;font-variation-settings:'FILL' 1;">dark_mode</span>
+        `;
+        navRight.insertBefore(wrapper, navRight.firstChild);
+
+        const toggle = document.getElementById('dark-mode-toggle');
+        toggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('bgl-theme', isDark ? 'dark' : 'light');
+        });
+    }
+});
+</script>
+
+<!-- Custom Cursor -->
+<script>
+(function() {
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot cursor-hidden';
+  const ring = document.createElement('div');
+  ring.className = 'cursor-ring cursor-hidden';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+  });
+
+  let mouseX = -999, mouseY = -999;
+  let ringX = -999, ringY = -999;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.classList.remove('cursor-hidden');
+    ring.classList.remove('cursor-hidden');
+    dot.style.left = mouseX + 'px';
+    dot.style.top  = mouseY + 'px';
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    dot.classList.add('cursor-hidden');
+    ring.classList.add('cursor-hidden');
+  });
+  document.addEventListener('mouseenter', () => {
+    dot.classList.remove('cursor-hidden');
+    ring.classList.remove('cursor-hidden');
+  });
+
+  (function render() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX + 'px';
+    ring.style.top  = ringY + 'px';
+    requestAnimationFrame(render);
+  })();
+
+  const sel = 'a, button, input, textarea, select, [tabindex], label';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(sel)) { ring.classList.add('hovering'); dot.classList.add('hovering'); }
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(sel)) { ring.classList.remove('hovering'); dot.classList.remove('hovering'); }
+  });
+})();
+</script>
+</body>
+</html>

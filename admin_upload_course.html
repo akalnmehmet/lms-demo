@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baynal Group LMS — Upload Course</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#1F3456","primary-container":"#47689A"},fontFamily:{body:["Inter"],headline:["Inter"]}}}}</script>
+<style>
+*{box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#f6f3f2;color:#1b1c1c;}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;display:inline-block;line-height:1;}
+.glass-nav{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.kinetic-gradient{background:linear-gradient(135deg,#1F3456 0%,#47689A 100%);}
+.side-link{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#5c5b7c;transition:background 200ms,color 200ms,padding-left 260ms;text-decoration:none;}
+.side-link:hover{background:#f0eded;color:#1A1A37;padding-left:22px;}
+.side-link.active{background:#fff;color:#47689A;box-shadow:0 2px 12px rgba(255,126,49,.12);}
+.sidebar-scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:#e5e2e1 transparent;}
+
+/* Dark Mode Toggle */
+#dark-mode-toggle{position:relative;width:44px;height:24px;border-radius:999px;background:#cbd5e1;border:none;transition:background .3s;flex-shrink:0;outline:none;box-shadow:inset 0 1px 3px rgba(0,0,0,.15);}
+html.dark #dark-mode-toggle{background:#47689A;}
+#dark-mode-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px rgba(0,0,0,.2);}
+html.dark #dark-mode-toggle::after{transform:translateX(20px);background:#e2e8f0;}
+.dark-toggle-wrapper{display:flex;align-items:center;gap:6px;padding:0 4px;}
+.dark-toggle-icon{font-size:16px;line-height:1;transition:opacity .3s;}
+.dark-toggle-icon.sun{color:#f59e0b;}
+.dark-toggle-icon.moon{color:#64748b;}
+html.dark .dark-toggle-icon.sun{opacity:.4;}
+html.dark .dark-toggle-icon.moon{opacity:1;color:#e2e8f0;}
+
+/* Drop zone */
+.drop-zone{border:2px dashed #cbd5e1;border-radius:12px;padding:28px 20px;text-align:center;transition:all .2s;cursor:pointer;}
+.drop-zone:hover,.drop-zone.dragover{border-color:#47689A;background:rgba(71,104,154,.04);}
+
+/* Module card */
+.module-card{background:#fff;border-radius:16px;border:1px solid #e5e2e1;box-shadow:0 2px 12px rgba(0,0,0,.04);overflow:hidden;transition:box-shadow .2s;}
+.module-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.07);}
+.module-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#fff;cursor:pointer;border-bottom:1px solid transparent;transition:border-color .2s;}
+.module-header.open{border-color:#f0eded;}
+.module-body{padding:16px 20px 20px;}
+
+/* Content item */
+.content-item{display:flex;align-items:flex-start;gap:12px;background:#f6f3f2;border-radius:10px;padding:12px 14px;margin-bottom:8px;position:relative;border:1px solid transparent;transition:border-color .2s,box-shadow .2s;}
+.content-item:hover{border-color:#e5e2e1;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.content-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.content-icon.video{background:#dbeafe;color:#2563eb;}
+.content-icon.doc{background:#d1fae5;color:#059669;}
+.content-icon.quiz{background:#ede9fe;color:#7c3aed;}
+
+/* Quiz question */
+.quiz-question{background:#fff;border:1px solid #e5e2e1;border-radius:10px;padding:14px 16px;margin-bottom:8px;}
+.quiz-option{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f6f3f2;}
+.quiz-option:last-child{border-bottom:none;}
+
+/* Input base */
+input[type=text],input[type=url],input[type=number],textarea,select{width:100%;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:.875rem;font-weight:500;color:#1e293b;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;}
+input:focus,textarea:focus,select:focus{border-color:#47689A;box-shadow:0 0 0 3px rgba(71,104,154,.1);}
+textarea{resize:vertical;}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px;padding-right:36px;}
+
+/* Cursor */
+.cursor-dot{width:8px;height:8px;background:#47689A;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transition:opacity .3s;top:-100px;left:-100px;}
+.cursor-ring{width:32px;height:32px;border:2px solid rgba(71,104,154,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transition:width .3s,height .3s,border-color .3s,opacity .3s;top:-100px;left:-100px;}
+.cursor-hidden{opacity:0!important;}
+.cursor-dot.hovering{width:12px;height:12px;background:#314E78;}
+.cursor-ring.hovering{width:44px;height:44px;border-color:rgba(71,104,154,.3);}
+body,*{cursor:none!important;}
+
+/* Dark mode overrides */
+html.dark body{background:#0f172a;color:#e2e8f0;}
+html.dark aside{background:#0f172a!important;border-color:#1e293b!important;}
+html.dark nav{background:rgba(15,23,42,.85)!important;border-color:rgba(51,65,85,.5)!important;}
+html.dark .side-link{color:#94a3b8;}
+html.dark .side-link:hover{background:#1e293b;color:#f1f5f9;}
+html.dark .side-link.active{background:#1e3a5f;color:#e2e8f0;}
+html.dark .module-card{background:#1e293b;border-color:#334155;}
+html.dark .module-header{background:#1e293b;}
+html.dark .module-header.open{border-color:#334155;}
+html.dark .content-item{background:#0f172a;border-color:#334155;}
+html.dark .quiz-question{background:#0f172a;border-color:#334155;}
+html.dark .quiz-option{border-color:#1e293b;}
+html.dark input,html.dark textarea,html.dark select{background:#1e293b;border-color:#334155;color:#f1f5f9;}
+html.dark .drop-zone{border-color:#334155;}
+html.dark .drop-zone:hover{border-color:#47689A;background:rgba(71,104,154,.08);}
+html.dark .bg-white{background:#1e293b!important;}
+html.dark .bg-\[\#f6f3f2\]{background:#0f172a!important;}
+</style>
+</head>
+<body class="min-h-screen">
+
+<canvas id="bg-canvas" class="fixed inset-0 w-full h-full z-[-1] pointer-events-none opacity-50"></canvas>
+<script>
+(function(){
+  const c=document.getElementById('bg-canvas'),ctx=c.getContext('2d');
+  let w,h,pts;const cols=['rgba(71,104,154,.4)','rgba(49,78,120,.25)','rgba(31,52,86,.12)'];
+  function init(){w=c.width=innerWidth;h=c.height=innerHeight;pts=Array.from({length:70},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2.2+.7,col:cols[0|Math.random()*3]}));}
+  let mx=-9e3,my=-9e3;addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function draw(){ctx.clearRect(0,0,w,h);pts.forEach((p,i)=>{const dx=mx-p.x,dy=my-p.y,d=Math.hypot(dx,dy);if(d<160){p.x-=dx/d*1.2;p.y-=dy/d*1.2;}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);ctx.fillStyle=p.col;ctx.fill();pts.slice(i+1).forEach(q=>{const d2=Math.hypot(p.x-q.x,p.y-q.y);if(d2<120){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(71,104,154,${(1-d2/120)*.22})`;ctx.lineWidth=.7;ctx.stroke();}});});requestAnimationFrame(draw);})();
+  init();addEventListener('resize',init);
+})();
+</script>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm dark:bg-slate-900/85 dark:border-slate-800/50">
+  <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-6 md:gap-6 md:p-12">
+      <a href="landing.html" class="flex items-center gap-3"><img src="logo.png" alt="Baynal LMS" class="h-8 md:h-10 w-auto object-contain"></a>
+      <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="landing.html">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] hover:translate-y-[-2px] transition-all duration-200" href="admin_dashboard.html">Dashboard</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 md:p-6"></div>
+  </div>
+</nav>
+
+<div class="flex min-h-screen pt-20">
+  <!-- Sidebar -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full kinetic-gradient flex items-center justify-center text-white font-black text-sm">A</div>
+      <div><p class="text-sm font-bold text-slate-900 dark:text-white">Admin</p><p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">System Administrator</p></div>
+    </div>
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="admin_dashboard.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>Overview</a>
+      <a class="side-link active" href="admin_upload_course.html"><span class="material-symbols-outlined text-[20px]">video_call</span>Upload Course</a>
+      <a class="side-link" href="admin_add_student.html"><span class="material-symbols-outlined text-[20px]">person_add</span>Add Student</a>
+      <a class="side-link" href="admin_settings.html"><span class="material-symbols-outlined text-[20px]">settings</span>Settings</a>
+    </nav>
+    <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+      <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span>Help</a>
+      <a class="side-link" href="landing.html"><span class="material-symbols-outlined text-[18px]">logout</span>Logout</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 lg:max-w-[calc(100%-288px)] ml-auto p-6 md:p-10 pt-[100px] pb-32">
+    <div class="max-w-[900px] mx-auto space-y-8">
+
+      <!-- Page header -->
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-4 border border-blue-100">
+          <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>Course Builder
+        </div>
+        <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Create New Course</h1>
+        <p class="text-slate-500 text-sm mt-1">Build your course step by step — add modules, videos, documents and quizzes.</p>
+      </div>
+
+      <!-- ══ STEP 1: Basic Info ══ -->
+      <div class="module-card">
+        <div class="module-header open" onclick="toggleSection('basic')">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl kinetic-gradient text-white flex items-center justify-center text-xs font-black">1</div>
+            <div><p class="text-sm font-black text-slate-900 dark:text-white">Basic Information</p><p class="text-[11px] text-slate-500">Title, description, category</p></div>
+          </div>
+          <span class="material-symbols-outlined text-slate-400 transition-transform" id="basic-icon">expand_less</span>
+        </div>
+        <div id="basic-body" class="module-body space-y-4">
+          <div>
+            <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Course Title *</label>
+            <input type="text" id="course-title" placeholder="e.g. Advanced Full-Stack Development"/>
+          </div>
+          <div>
+            <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Short Description *</label>
+            <textarea rows="3" id="course-desc" placeholder="What will learners achieve in this course?"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Category</label>
+              <select><option>Technology</option><option>Business</option><option>Design</option><option>Marketing</option><option>Leadership</option></select>
+            </div>
+            <div>
+              <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Level</label>
+              <select><option>Beginner</option><option>Intermediate</option><option>Advanced</option><option>All Levels</option></select>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Instructor</label>
+              <input type="text" placeholder="e.g. Sarah Jenkins"/>
+            </div>
+            <div>
+              <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Duration (hours)</label>
+              <input type="number" placeholder="e.g. 12" min="1"/>
+            </div>
+          </div>
+          <!-- Thumbnail -->
+          <div>
+            <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Course Thumbnail</label>
+            <div class="drop-zone" onclick="document.getElementById('thumb-inp').click()">
+              <span class="material-symbols-outlined text-[36px] text-slate-300 block mb-2">add_photo_alternate</span>
+              <p class="text-sm font-bold text-slate-500">Click or drag & drop image</p>
+              <p class="text-xs text-slate-400 mt-1">JPG, PNG — max 5MB</p>
+              <input id="thumb-inp" type="file" accept="image/*" class="hidden" onchange="previewThumb(this)"/>
+            </div>
+            <img id="thumb-preview" class="hidden mt-3 rounded-xl w-full max-h-44 object-cover border border-slate-200"/>
+          </div>
+          <!-- Options -->
+          <div class="flex flex-col gap-2 pt-1">
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors">
+              <div><p class="text-sm font-bold text-slate-800 dark:text-slate-200">Publish Immediately</p><p class="text-[11px] text-slate-500">Visible to all enrolled students on save</p></div>
+              <input type="checkbox" checked class="w-4 h-4 accent-[#47689A]"/>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors">
+              <div><p class="text-sm font-bold text-slate-800 dark:text-slate-200">Issue Certificate on Completion</p><p class="text-[11px] text-slate-500">Auto-send when 100% complete</p></div>
+              <input type="checkbox" checked class="w-4 h-4 accent-[#47689A]"/>
+            </label>
+            <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors">
+              <div><p class="text-sm font-bold text-slate-800 dark:text-slate-200">Mandatory Course</p><p class="text-[11px] text-slate-500">Required for all enrolled students</p></div>
+              <input type="checkbox" class="w-4 h-4 accent-[#47689A]"/>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2: Course Modules ══ -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl kinetic-gradient text-white flex items-center justify-center text-xs font-black">2</div>
+            <div><p class="text-sm font-black text-slate-900 dark:text-white">Course Modules</p><p class="text-[11px] text-slate-500">Build your curriculum — add modules and content</p></div>
+          </div>
+          <button onclick="addModule()" class="flex items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs px-4 py-2.5 rounded-xl transition-colors border border-blue-100">
+            <span class="material-symbols-outlined text-[16px]">add</span>Add Module
+          </button>
+        </div>
+
+        <!-- Modules container -->
+        <div id="modules-container" class="space-y-4"></div>
+
+        <div id="no-modules" class="text-center py-12 border-2 border-dashed border-slate-200 rounded-2xl">
+          <span class="material-symbols-outlined text-[48px] text-slate-200 block mb-3">library_books</span>
+          <p class="text-sm font-bold text-slate-400">No modules yet</p>
+          <p class="text-xs text-slate-400 mt-1">Click "Add Module" to build your first module</p>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3: Publish ══ -->
+      <div class="flex justify-end gap-3 pt-4">
+        <a href="admin_dashboard.html" class="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all">Cancel</a>
+        <button onclick="saveCourse()" class="kinetic-gradient text-white font-bold text-sm px-8 py-3 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">cloud_upload</span>Publish Course
+        </button>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ══ QUIZ MODAL ══ -->
+<div id="quiz-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden">
+  <div class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm" onclick="closeQuizModal()"></div>
+  <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-5">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-black text-slate-900 dark:text-white">Quiz Editor</h2>
+      <button onclick="closeQuizModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+    <div>
+      <label class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Quiz Title</label>
+      <input type="text" id="quiz-title-input" placeholder="e.g. Module 1 Knowledge Check"/>
+    </div>
+    <div class="flex items-center justify-between">
+      <p class="text-xs font-black text-slate-600 dark:text-slate-300 uppercase tracking-widest">Questions</p>
+      <button onclick="addQuestion()" class="flex items-center gap-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs px-3 py-2 rounded-lg transition-colors border border-purple-100">
+        <span class="material-symbols-outlined text-[14px]">add</span>Add Question
+      </button>
+    </div>
+    <div id="questions-list" class="space-y-3"></div>
+    <div class="flex justify-end gap-3 pt-2 border-t border-slate-100 dark:border-slate-700">
+      <button onclick="closeQuizModal()" class="px-5 py-2.5 text-sm font-bold text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">Cancel</button>
+      <button onclick="saveQuiz()" class="kinetic-gradient text-white font-bold text-sm px-6 py-2.5 rounded-xl flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[16px]">save</span>Save Quiz
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-8 right-8 z-[300] hidden">
+  <div class="bg-emerald-500 text-white px-5 py-3 rounded-xl shadow-xl font-bold text-sm flex items-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">check_circle</span>
+    <span id="toast-msg">Saved!</span>
+  </div>
+</div>
+
+<script>
+// ──────────────────────────────────────────
+// UTILITIES
+// ──────────────────────────────────────────
+let moduleCounter = 0;
+let currentQuizTarget = null; // { moduleId, itemId }
+let quizData = {}; // keyed by "moduleId-itemId"
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.remove('hidden');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.add('hidden'), 3000);
+}
+
+function toggleSection(id) {
+  const body = document.getElementById(id + '-body');
+  const icon = document.getElementById(id + '-icon');
+  const header = body.previousElementSibling;
+  const hidden = body.classList.toggle('hidden');
+  icon.textContent = hidden ? 'expand_more' : 'expand_less';
+  header.classList.toggle('open', !hidden);
+}
+
+function previewThumb(input) {
+  const f = input.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = e => { const p = document.getElementById('thumb-preview'); p.src = e.target.result; p.classList.remove('hidden'); };
+  r.readAsDataURL(f);
+}
+
+// ──────────────────────────────────────────
+// MODULE BUILDING
+// ──────────────────────────────────────────
+function addModule() {
+  moduleCounter++;
+  const id = moduleCounter;
+  document.getElementById('no-modules').classList.add('hidden');
+
+  const div = document.createElement('div');
+  div.className = 'module-card';
+  div.id = `module-${id}`;
+  div.innerHTML = `
+    <div class="module-header open" onclick="toggleModuleBody(${id})">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center text-xs font-black">${id}</div>
+        <input type="text" value="Module ${id}" onclick="event.stopPropagation()"
+          class="border-none bg-transparent font-black text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-0 w-48"
+          style="padding:0;border-radius:0;box-shadow:none;"/>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-slate-400 transition-transform" id="mod-icon-${id}">expand_less</span>
+        <button onclick="event.stopPropagation(); removeModule(${id})" class="text-slate-300 hover:text-rose-500 transition-colors ml-1">
+          <span class="material-symbols-outlined text-[18px]">delete</span>
+        </button>
+      </div>
+    </div>
+    <div id="mod-body-${id}" class="module-body space-y-3">
+      <!-- Content items -->
+      <div id="mod-items-${id}" class="space-y-2"></div>
+      <!-- Add content buttons -->
+      <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-700">
+        <button onclick="addContent(${id},'video')" class="flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs px-3 py-2 rounded-lg transition-colors border border-blue-100">
+          <span class="material-symbols-outlined text-[15px]">play_circle</span>Add Video
+        </button>
+        <button onclick="addContent(${id},'doc')" class="flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs px-3 py-2 rounded-lg transition-colors border border-emerald-100">
+          <span class="material-symbols-outlined text-[15px]">description</span>Add Document
+        </button>
+        <button onclick="addContent(${id},'quiz')" class="flex items-center gap-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs px-3 py-2 rounded-lg transition-colors border border-purple-100">
+          <span class="material-symbols-outlined text-[15px]">quiz</span>Add Quiz
+        </button>
+      </div>
+    </div>`;
+  document.getElementById('modules-container').appendChild(div);
+}
+
+function removeModule(id) {
+  if (!confirm('Remove this module and all its content?')) return;
+  document.getElementById(`module-${id}`).remove();
+  if (!document.getElementById('modules-container').children.length) {
+    document.getElementById('no-modules').classList.remove('hidden');
+  }
+}
+
+function toggleModuleBody(id) {
+  const body = document.getElementById(`mod-body-${id}`);
+  const icon = document.getElementById(`mod-icon-${id}`);
+  const header = body.previousElementSibling;
+  const hidden = body.classList.toggle('hidden');
+  icon.textContent = hidden ? 'expand_more' : 'expand_less';
+  header.classList.toggle('open', !hidden);
+}
+
+// ──────────────────────────────────────────
+// CONTENT ITEMS
+// ──────────────────────────────────────────
+let itemCounter = 0;
+
+function addContent(moduleId, type) {
+  itemCounter++;
+  const iid = itemCounter;
+  const container = document.getElementById(`mod-items-${moduleId}`);
+
+  const div = document.createElement('div');
+  div.className = 'content-item';
+  div.id = `item-${moduleId}-${iid}`;
+
+  if (type === 'video') {
+    div.innerHTML = `
+      <div class="content-icon video"><span class="material-symbols-outlined text-[16px]">play_circle</span></div>
+      <div class="flex-1 space-y-2">
+        <input type="text" placeholder="Video title e.g. Introduction to React" class="!py-2 !text-[13px]"/>
+        <div class="flex gap-2 items-center">
+          <input type="url" placeholder="Video URL (YouTube / Vimeo / Direct)" class="!py-2 !text-[13px] flex-1"/>
+          <span class="text-slate-400 text-xs font-bold">or</span>
+          <label class="flex items-center gap-1 text-xs font-bold text-blue-600 border border-blue-200 rounded-lg px-2.5 py-2 hover:bg-blue-50 transition-colors whitespace-nowrap">
+            <span class="material-symbols-outlined text-[14px]">upload_file</span>Upload
+            <input type="file" accept="video/*" class="hidden"/>
+          </label>
+        </div>
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-1.5 text-[11px] font-bold text-slate-500"><input type="number" placeholder="0" class="!w-14 !py-1 !text-xs"/> min duration</label>
+          <label class="flex items-center gap-1.5 text-[11px] font-bold text-slate-500"><input type="checkbox" class="accent-[#47689A]"/> Preview (free)</label>
+        </div>
+      </div>
+      <button onclick="removeItem('${moduleId}','${iid}')" class="text-slate-300 hover:text-rose-500 transition-colors self-start mt-1">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>`;
+  } else if (type === 'doc') {
+    div.innerHTML = `
+      <div class="content-icon doc"><span class="material-symbols-outlined text-[16px]">description</span></div>
+      <div class="flex-1 space-y-2">
+        <input type="text" placeholder="Document title e.g. Week 1 Reading" class="!py-2 !text-[13px]"/>
+        <div class="drop-zone !p-4" onclick="this.querySelector('input[type=file]').click()">
+          <span class="material-symbols-outlined text-[24px] text-slate-300 block mb-1">upload_file</span>
+          <p class="text-xs font-bold text-slate-500">Click to upload PDF, DOCX, PPTX</p>
+          <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" class="hidden" onchange="showDocName(this)"/>
+        </div>
+        <p class="doc-name text-[11px] text-emerald-600 font-bold hidden"></p>
+      </div>
+      <button onclick="removeItem('${moduleId}','${iid}')" class="text-slate-300 hover:text-rose-500 transition-colors self-start mt-1">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>`;
+  } else if (type === 'quiz') {
+    div.innerHTML = `
+      <div class="content-icon quiz"><span class="material-symbols-outlined text-[16px]">quiz</span></div>
+      <div class="flex-1">
+        <p class="text-sm font-black text-slate-800 dark:text-slate-200" id="quiz-label-${moduleId}-${iid}">Untitled Quiz</p>
+        <p class="text-[11px] text-slate-500 mt-0.5" id="quiz-meta-${moduleId}-${iid}">0 questions</p>
+      </div>
+      <div class="flex items-center gap-2 self-start mt-1">
+        <button onclick="openQuizModal(${moduleId},${iid})" class="flex items-center gap-1 text-xs font-bold text-purple-600 border border-purple-200 rounded-lg px-2.5 py-1.5 hover:bg-purple-50 transition-colors">
+          <span class="material-symbols-outlined text-[14px]">edit</span>Edit Quiz
+        </button>
+        <button onclick="removeItem('${moduleId}','${iid}')" class="text-slate-300 hover:text-rose-500 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>`;
+  }
+
+  container.appendChild(div);
+}
+
+function removeItem(moduleId, iid) {
+  document.getElementById(`item-${moduleId}-${iid}`)?.remove();
+}
+
+function showDocName(input) {
+  const f = input.files[0]; if (!f) return;
+  const p = input.closest('.flex-1').querySelector('.doc-name');
+  if (p) { p.textContent = '✓ ' + f.name; p.classList.remove('hidden'); }
+}
+
+// ──────────────────────────────────────────
+// QUIZ MODAL
+// ──────────────────────────────────────────
+let questionCounter = 0;
+
+function openQuizModal(moduleId, itemId) {
+  currentQuizTarget = { moduleId, itemId };
+  const key = `${moduleId}-${itemId}`;
+  const existing = quizData[key];
+
+  document.getElementById('quiz-title-input').value = existing?.title || '';
+  const qList = document.getElementById('questions-list');
+  qList.innerHTML = '';
+  questionCounter = 0;
+
+  if (existing?.questions?.length) {
+    existing.questions.forEach(q => addQuestion(q));
+  }
+  document.getElementById('quiz-modal').classList.remove('hidden');
+}
+
+function closeQuizModal() {
+  document.getElementById('quiz-modal').classList.add('hidden');
+  currentQuizTarget = null;
+}
+
+function addQuestion(data) {
+  questionCounter++;
+  const qi = questionCounter;
+  const container = document.getElementById('questions-list');
+  const div = document.createElement('div');
+  div.className = 'quiz-question';
+  div.id = `q-${qi}`;
+  div.innerHTML = `
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <div class="flex items-center gap-2 flex-1">
+        <span class="text-xs font-black text-purple-600 bg-purple-50 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">${qi}</span>
+        <input type="text" value="${data?.question || ''}" placeholder="Enter your question here…" class="!py-2 !text-[13px]"/>
+      </div>
+      <button onclick="document.getElementById('q-${qi}').remove()" class="text-slate-300 hover:text-rose-500 transition-colors flex-shrink-0 mt-1">
+        <span class="material-symbols-outlined text-[18px]">close</span>
+      </button>
+    </div>
+    <div class="space-y-2 mb-3" id="options-${qi}">
+      ${(data?.options || ['','','']).map((opt,oi) => `
+        <div class="quiz-option gap-2">
+          <input type="radio" name="correct-${qi}" value="${oi}" ${data?.correct===oi?'checked':''} class="accent-[#47689A] flex-shrink-0 mt-0.5" title="Mark as correct answer"/>
+          <input type="text" value="${opt}" placeholder="Option ${String.fromCharCode(65+oi)}…" class="!py-1.5 !text-[13px] flex-1"/>
+        </div>`).join('')}
+    </div>
+    <button onclick="addOption(${qi})" class="flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-purple-600 transition-colors">
+      <span class="material-symbols-outlined text-[14px]">add</span>Add option
+    </button>
+    <div class="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center gap-3">
+      <label class="text-[11px] font-bold text-slate-500 flex items-center gap-1.5">Points: <input type="number" value="${data?.points||1}" min="1" class="!w-14 !py-1 !text-xs"/></label>
+      <label class="text-[11px] font-bold text-slate-500 flex items-center gap-1.5">
+        <input type="checkbox" ${data?.required!==false?'checked':''} class="accent-[#47689A]"/> Required
+      </label>
+    </div>`;
+  container.appendChild(div);
+}
+
+function addOption(qi) {
+  const cont = document.getElementById(`options-${qi}`);
+  const idx = cont.children.length;
+  const div = document.createElement('div');
+  div.className = 'quiz-option gap-2';
+  div.innerHTML = `
+    <input type="radio" name="correct-${qi}" value="${idx}" class="accent-[#47689A] flex-shrink-0 mt-0.5"/>
+    <input type="text" placeholder="Option ${String.fromCharCode(65+idx)}…" class="!py-1.5 !text-[13px] flex-1"/>
+    <button onclick="this.parentElement.remove()" class="text-slate-300 hover:text-rose-500 transition-colors flex-shrink-0">
+      <span class="material-symbols-outlined text-[14px]">close</span>
+    </button>`;
+  cont.appendChild(div);
+}
+
+function saveQuiz() {
+  if (!currentQuizTarget) return;
+  const { moduleId, itemId } = currentQuizTarget;
+  const key = `${moduleId}-${itemId}`;
+  const title = document.getElementById('quiz-title-input').value.trim() || 'Untitled Quiz';
+
+  const questions = [];
+  document.querySelectorAll('#questions-list .quiz-question').forEach((qEl, i) => {
+    const qText = qEl.querySelector('input[type=text]').value.trim();
+    const opts = Array.from(qEl.querySelectorAll(`#options-${i+1} input[type=text]`)).map(o => o.value.trim());
+    const correctRadio = qEl.querySelector(`input[type=radio][name="correct-${i+1}"]:checked`);
+    const correct = correctRadio ? parseInt(correctRadio.value) : 0;
+    const pts = parseInt(qEl.querySelector('input[type=number]')?.value) || 1;
+    questions.push({ question: qText, options: opts, correct, points: pts });
+  });
+
+  quizData[key] = { title, questions };
+
+  // Update label in module
+  const lbl = document.getElementById(`quiz-label-${moduleId}-${itemId}`);
+  const meta = document.getElementById(`quiz-meta-${moduleId}-${itemId}`);
+  if (lbl) lbl.textContent = title;
+  if (meta) meta.textContent = `${questions.length} question${questions.length !== 1 ? 's' : ''}`;
+
+  closeQuizModal();
+  showToast('Quiz saved!');
+}
+
+// ──────────────────────────────────────────
+// PUBLISH
+// ──────────────────────────────────────────
+function saveCourse() {
+  const title = document.getElementById('course-title').value.trim();
+  if (!title) { alert('Please enter a course title.'); return; }
+  showToast('Course published successfully!');
+  setTimeout(() => window.location.href = 'admin_dashboard.html', 2000);
+}
+</script>
+
+<!-- Dark mode + nav toggle -->
+<script>
+(function(){const s=localStorage.getItem('bgl-theme');const p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&p))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();
+document.addEventListener('DOMContentLoaded',()=>{
+  const nr=document.querySelector('nav .flex.items-center.gap-4');
+  if(nr&&!document.getElementById('dark-mode-toggle')){
+    const w=document.createElement('div');w.className='dark-toggle-wrapper';
+    w.innerHTML=`<span class="material-symbols-outlined dark-toggle-icon sun" style="font-size:16px;font-variation-settings:'FILL' 1;">light_mode</span><button id="dark-mode-toggle" aria-label="Toggle dark mode"></button><span class="material-symbols-outlined dark-toggle-icon moon" style="font-size:16px;font-variation-settings:'FILL' 1;">dark_mode</span>`;
+    nr.insertBefore(w,nr.firstChild);
+    document.getElementById('dark-mode-toggle').addEventListener('click',()=>{const d=document.documentElement.classList.toggle('dark');localStorage.setItem('bgl-theme',d?'dark':'light');});
+  }
+});
+</script>
+
+<!-- Custom cursor -->
+<script>
+(function(){
+  const dot=document.createElement('div');dot.className='cursor-dot cursor-hidden';
+  const ring=document.createElement('div');ring.className='cursor-ring cursor-hidden';
+  document.addEventListener('DOMContentLoaded',()=>{document.body.appendChild(dot);document.body.appendChild(ring);});
+  let mx=-999,my=-999,rx=-999,ry=-999;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');dot.style.left=mx+'px';dot.style.top=my+'px';},{passive:true});
+  document.addEventListener('mouseleave',()=>{dot.classList.add('cursor-hidden');ring.classList.add('cursor-hidden');});
+  document.addEventListener('mouseenter',()=>{dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');});
+  (function r(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(r);})();
+  const sel='a,button,input,textarea,select,[tabindex],label';
+  document.addEventListener('mouseover',e=>{if(e.target.closest(sel)){ring.classList.add('hovering');dot.classList.add('hovering');}});
+  document.addEventListener('mouseout',e=>{if(e.target.closest(sel)){ring.classList.remove('hovering');dot.classList.remove('hovering');}});
+})();
+</script>
+</body>
+</html>

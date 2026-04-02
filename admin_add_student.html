@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Baynal Group LMS — Add Student</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#1F3456","primary-container":"#47689A","surface-container-low":"#f6f3f2"},fontFamily:{body:["Inter"],headline:["Inter"]}}}}</script>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f6f3f2;color:#1b1c1c;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;display:inline-block;line-height:1;}
+  .glass-nav{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+  .kinetic-gradient{background:linear-gradient(135deg,#1F3456 0%,#47689A 100%);}
+  .side-link{display:flex;align-items:center;gap:12px;padding:11px 16px;border-radius:8px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#5c5b7c;transition:background 200ms,color 200ms,padding-left 260ms;cursor:pointer;text-decoration:none;}
+  .side-link:hover{background:#f0eded;color:#1A1A37;padding-left:22px;}
+  .side-link.active{background:#ffffff;color:#47689A;box-shadow:0 2px 12px rgba(255,126,49,0.12);}
+  .sidebar-scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:#e5e2e1 transparent;}
+  #dark-mode-toggle{position:relative;width:44px;height:24px;border-radius:999px;background:#cbd5e1;border:none;transition:background 0.3s;flex-shrink:0;outline:none;box-shadow:inset 0 1px 3px rgba(0,0,0,0.15);}
+  html.dark #dark-mode-toggle{background:#47689A;}
+  #dark-mode-toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:white;transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 4px rgba(0,0,0,0.2);}
+  html.dark #dark-mode-toggle::after{transform:translateX(20px);background:#e2e8f0;}
+  .dark-toggle-wrapper{display:flex;align-items:center;gap:6px;padding:0 4px;}
+  .dark-toggle-icon{font-size:16px;line-height:1;transition:opacity 0.3s;}
+  .dark-toggle-icon.sun{color:#f59e0b;}
+  .dark-toggle-icon.moon{color:#64748b;}
+  html.dark .dark-toggle-icon.sun{opacity:0.4;}
+  html.dark .dark-toggle-icon.moon{opacity:1;color:#e2e8f0;}
+  /* Student list table */
+  .student-row{display:grid;grid-template-columns:2fr 2fr 1fr 1fr auto;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid #f6f3f2;font-size:13px;transition:background 0.15s;}
+  .student-row:hover{background:#fafafa;}
+  .student-row:last-child{border-bottom:none;}
+  /* Cursor */
+  .cursor-dot{width:8px;height:8px;background:#47689A;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:opacity 0.3s;top:-100px;left:-100px;}
+  .cursor-ring{width:32px;height:32px;border:2px solid rgba(71,104,154,0.5);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,border-color 0.3s,opacity 0.3s;top:-100px;left:-100px;}
+  .cursor-hidden{opacity:0!important;}
+  .cursor-dot.hovering{width:12px;height:12px;background:#314E78;}
+  .cursor-ring.hovering{width:44px;height:44px;border-color:rgba(71,104,154,0.3);}
+  body,*{cursor:none!important;}
+  html.dark body{background:#0f172a;color:#e2e8f0;}
+  html.dark aside{background-color:#0f172a!important;border-color:#1e293b!important;}
+  html.dark nav{background:rgba(15,23,42,0.85)!important;border-color:rgba(51,65,85,0.5)!important;}
+  html.dark .side-link{color:#94a3b8;}
+  html.dark .side-link:hover{background:#1e293b;color:#f1f5f9;}
+  html.dark .side-link.active{background:#1e3a5f;color:#e2e8f0;}
+  html.dark .bg-white{background-color:#1e293b!important;}
+  html.dark input,html.dark textarea,html.dark select{background-color:#1e293b!important;border-color:#334155!important;color:#f1f5f9!important;}
+  html.dark .student-row{border-color:#1e293b;}
+  html.dark .student-row:hover{background:#1a2744;}
+</style>
+</head>
+<body class="bg-surface-container-low min-h-screen">
+
+<canvas id="bg-particles" class="fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none opacity-60"></canvas>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const canvas=document.getElementById('bg-particles');if(!canvas)return;
+  const ctx=canvas.getContext('2d');let width,height,particles;
+  const count=window.innerWidth<768?35:75;
+  const colors=['rgba(71,104,154,0.45)','rgba(49,78,120,0.3)','rgba(31,52,86,0.15)'];
+  function init(){width=window.innerWidth;height=window.innerHeight;canvas.width=width;canvas.height=height;particles=[];for(let i=0;i<count;i++)particles.push({x:Math.random()*width,y:Math.random()*height,vx:(Math.random()-0.5)*0.6,vy:(Math.random()-0.5)*0.6,radius:Math.random()*2.5+0.8,color:colors[Math.floor(Math.random()*colors.length)]});}
+  let mX=-1000,mY=-1000;document.addEventListener('mousemove',e=>{mX=e.clientX;mY=e.clientY;});
+  function draw(){ctx.clearRect(0,0,width,height);for(let i=0;i<particles.length;i++){let p=particles[i];let dx=mX-p.x,dy=mY-p.y,d=Math.sqrt(dx*dx+dy*dy);if(d<180){p.x-=(dx/d)*1.5;p.y-=(dy/d)*1.5;}p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>width)p.vx*=-1;if(p.y<0||p.y>height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();for(let j=i+1;j<particles.length;j++){let p2=particles[j],dx2=p.x-p2.x,dy2=p.y-p2.y,dist=Math.sqrt(dx2*dx2+dy2*dy2);if(dist<130){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle=`rgba(71,104,154,${(1-dist/130)*0.25})`;ctx.lineWidth=0.8;ctx.stroke();}}}requestAnimationFrame(draw);}
+  init();draw();window.addEventListener('resize',init);
+});
+</script>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-white/85 glass-nav border-b border-slate-200/50 shadow-sm dark:bg-slate-900/85 dark:border-slate-800/50">
+  <div class="flex justify-between items-center h-20 px-4 md:px-4 md:px-8 w-full max-w-screen-2xl mx-auto">
+    <div class="flex items-center gap-6 md:gap-6 md:p-12">
+      <a href="landing.html" class="flex items-center gap-3">
+        <img src="logo.png" alt="Baynal Group LMS Logo" class="h-8 md:h-10 w-auto object-contain">
+      </a>
+      <div class="hidden md:flex gap-5 md:p-8 font-['Inter'] tracking-tight text-sm font-medium">
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="landing.html">Home</a>
+        <a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:translate-y-[-2px] transition-all duration-200" href="courses_skill_school_elite.html">Courses</a>
+        <a class="text-[#47689A] font-bold border-b-2 border-[#47689A] hover:translate-y-[-2px] transition-all duration-200" href="admin_dashboard.html">Dashboard</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 md:p-6"></div>
+  </div>
+</nav>
+
+<div class="flex min-h-screen pt-20">
+  <!-- Sidebar -->
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+    <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+      <div class="w-10 h-10 rounded-full kinetic-gradient flex items-center justify-center text-white font-black text-sm flex-shrink-0">A</div>
+      <div>
+        <p class="text-sm font-bold text-slate-900 dark:text-white leading-tight">Admin</p>
+        <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">System Administrator</p>
+      </div>
+    </div>
+    <nav class="flex flex-col gap-1 flex-grow">
+      <a class="side-link" href="admin_dashboard.html"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">dashboard</span>Overview</a>
+      <a class="side-link" href="admin_upload_course.html"><span class="material-symbols-outlined text-[20px]">video_call</span>Upload Course</a>
+      <a class="side-link active" href="admin_add_student.html"><span class="material-symbols-outlined text-[20px]">person_add</span>Add Student</a>
+      <a class="side-link" href="admin_settings.html"><span class="material-symbols-outlined text-[20px]">settings</span>Settings</a>
+    </nav>
+    <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
+      <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span>Help</a>
+      <a class="side-link" href="landing.html"><span class="material-symbols-outlined text-[18px]">logout</span>Logout</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 w-full lg:max-w-[calc(100%-288px)] ml-auto min-h-screen p-6 md:p-10 pt-[100px]">
+    <div class="max-w-[900px] mx-auto space-y-8 pb-24">
+
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-50 text-amber-600 text-xs font-bold uppercase tracking-wider mb-4 border border-amber-100">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>Admin Panel
+          </div>
+          <h1 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Student Management</h1>
+          <p class="text-slate-500 text-sm mt-1">Register new students or manage existing enrollments.</p>
+        </div>
+        <button id="add-btn" onclick="toggleForm()" class="kinetic-gradient text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2 flex-shrink-0">
+          <span class="material-symbols-outlined text-[18px]">person_add</span>Add New Student
+        </button>
+      </div>
+
+      <!-- Add Student Form (collapsible) -->
+      <div id="add-form" class="hidden bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600"><span class="material-symbols-outlined text-[20px]">person_add</span></div>
+          <div><h2 class="text-sm font-black text-slate-900 dark:text-white">New Student Registration</h2><p class="text-[11px] text-slate-500">Fill in the details below to create an account</p></div>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">First Name *</label>
+              <input id="s-fname" type="text" placeholder="e.g. Alex" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"/>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Last Name *</label>
+              <input id="s-lname" type="text" placeholder="e.g. Sterling" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Email Address *</label>
+              <input id="s-email" type="email" placeholder="alex@company.com" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"/>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Department</label>
+              <input id="s-dept" type="text" placeholder="e.g. Engineering" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Plan</label>
+              <select id="s-plan" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400">
+                <option>Standard</option>
+                <option>Pro</option>
+                <option>Enterprise</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 block">Enroll in Course</label>
+              <select id="s-course" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400">
+                <option>— Select a course —</option>
+                <option>Advanced Full-Stack Development</option>
+                <option>Machine Learning Bootcamp</option>
+                <option>UI/UX Design Mastery</option>
+                <option>Digital Marketing Strategy</option>
+                <option>Leadership & Management</option>
+                <option>Ethical Hacking Fundamentals</option>
+              </select>
+            </div>
+          </div>
+          <div class="flex justify-end gap-3 pt-2">
+            <button onclick="toggleForm()" class="px-6 py-3 rounded-xl text-sm font-bold text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all">Cancel</button>
+            <button onclick="addStudent()" class="kinetic-gradient text-white font-bold text-sm px-8 py-3 rounded-xl shadow-md hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">check</span>Register Student
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toast -->
+      <div id="toast" class="hidden fixed bottom-8 right-8 z-50 bg-emerald-500 text-white px-5 py-3 rounded-xl shadow-xl font-bold text-sm flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        <span id="toast-msg">Student registered successfully!</span>
+      </div>
+
+      <!-- Search & Filter -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-1">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+          <input id="search-input" oninput="filterStudents()" type="text" placeholder="Search students by name or email…" class="w-full border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm font-medium text-slate-800 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"/>
+        </div>
+        <select onchange="filterStudents()" id="filter-plan" class="border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 focus:outline-none focus:border-blue-400 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200">
+          <option value="">All Plans</option>
+          <option>Standard</option>
+          <option>Pro</option>
+          <option>Enterprise</option>
+        </select>
+      </div>
+
+      <!-- Student Table -->
+      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+        <!-- Table Header -->
+        <div class="student-row bg-slate-50 dark:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700 !py-3">
+          <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Student</span>
+          <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Email</span>
+          <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Plan</span>
+          <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Status</span>
+          <span class="text-[11px] font-black text-slate-400 uppercase tracking-widest">Actions</span>
+        </div>
+        <div id="student-list">
+          <!-- rows rendered by JS -->
+        </div>
+        <div id="empty-state" class="hidden py-16 text-center">
+          <span class="material-symbols-outlined text-[48px] text-slate-200 block mb-3">manage_search</span>
+          <p class="text-sm font-bold text-slate-400">No students found</p>
+        </div>
+      </div>
+
+      <!-- Pagination info -->
+      <div class="flex justify-between items-center text-xs font-semibold text-slate-400">
+        <span id="student-count">Showing 6 of 6 students</span>
+        <span class="text-[#47689A] font-bold">Page 1 of 1</span>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<footer class="md:ml-72 bg-transparent border-t border-slate-200/60 py-8 px-4 md:px-8 z-10 relative">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3"><img src="logo.png" alt="Logo" class="h-6 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all"><p class="text-xs text-slate-500 font-medium">© 2026 Baynal Group.</p></div>
+    <div class="flex items-center gap-6"><a href="terms.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Terms</a><a href="privacy.html" class="text-xs font-semibold text-slate-500 hover:text-[#47689A] transition-colors">Privacy</a></div>
+  </div>
+</footer>
+
+<script>
+// ── Student data ──
+let students = [
+  {name:'Alex Sterling',email:'alex@company.com',dept:'Engineering',plan:'Pro',status:'Active'},
+  {name:'Sarah Jenkins',email:'sarah@company.com',dept:'Design',plan:'Enterprise',status:'Active'},
+  {name:'Julian Vane',email:'julian@company.com',dept:'Marketing',plan:'Standard',status:'Active'},
+  {name:'Silas Grey',email:'silas@company.com',dept:'Security',plan:'Pro',status:'Inactive'},
+  {name:'Emma Watson',email:'emma@company.com',dept:'HR',plan:'Standard',status:'Active'},
+  {name:'Tom Rivera',email:'tom@company.com',dept:'Finance',plan:'Enterprise',status:'Active'},
+];
+
+function renderStudents(list) {
+  const container = document.getElementById('student-list');
+  const empty = document.getElementById('empty-state');
+  document.getElementById('student-count').textContent = `Showing ${list.length} of ${students.length} students`;
+  if (list.length === 0) { container.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+  container.innerHTML = list.map((s, i) => `
+    <div class="student-row">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full kinetic-gradient flex items-center justify-center text-white text-xs font-black flex-shrink-0">${s.name.charAt(0)}</div>
+        <div>
+          <p class="font-bold text-slate-800 dark:text-slate-100 text-sm">${s.name}</p>
+          <p class="text-[11px] text-slate-400">${s.dept}</p>
+        </div>
+      </div>
+      <span class="text-slate-600 dark:text-slate-300 text-[13px]">${s.email}</span>
+      <span class="inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ${s.plan === 'Pro' ? 'bg-blue-50 text-blue-600' : s.plan === 'Enterprise' ? 'bg-purple-50 text-purple-600' : 'bg-slate-100 text-slate-600'}">${s.plan}</span>
+      <span class="inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ${s.status === 'Active' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-500'}">${s.status}</span>
+      <div class="flex items-center gap-2">
+        <button onclick="toggleStatus(${i})" class="text-slate-400 hover:text-amber-500 transition-colors" title="Toggle status">
+          <span class="material-symbols-outlined text-[18px]">toggle_on</span>
+        </button>
+        <button onclick="removeStudent(${i})" class="text-slate-400 hover:text-rose-500 transition-colors" title="Remove">
+          <span class="material-symbols-outlined text-[18px]">delete</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterStudents() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const plan = document.getElementById('filter-plan').value;
+  const filtered = students.filter(s =>
+    (s.name.toLowerCase().includes(q) || s.email.toLowerCase().includes(q)) &&
+    (!plan || s.plan === plan)
+  );
+  renderStudents(filtered);
+}
+
+function toggleForm() {
+  document.getElementById('add-form').classList.toggle('hidden');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.remove('hidden');
+  setTimeout(() => t.classList.add('hidden'), 3000);
+}
+
+function addStudent() {
+  const fn = document.getElementById('s-fname').value.trim();
+  const ln = document.getElementById('s-lname').value.trim();
+  const em = document.getElementById('s-email').value.trim();
+  if (!fn || !ln || !em) { alert('Please fill in required fields.'); return; }
+  students.unshift({
+    name: fn + ' ' + ln,
+    email: em,
+    dept: document.getElementById('s-dept').value.trim() || '—',
+    plan: document.getElementById('s-plan').value,
+    status: 'Active'
+  });
+  renderStudents(students);
+  toggleForm();
+  ['s-fname','s-lname','s-email','s-dept'].forEach(id => document.getElementById(id).value = '');
+  showToast('Student registered successfully!');
+}
+
+function removeStudent(i) {
+  if (!confirm('Remove this student?')) return;
+  students.splice(i, 1);
+  filterStudents();
+  showToast('Student removed.');
+}
+
+function toggleStatus(i) {
+  students[i].status = students[i].status === 'Active' ? 'Inactive' : 'Active';
+  filterStudents();
+}
+
+document.addEventListener('DOMContentLoaded', () => renderStudents(students));
+</script>
+
+<script>
+(function(){const s=localStorage.getItem('bgl-theme');const p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(!s&&p))document.documentElement.classList.add('dark');else document.documentElement.classList.remove('dark');})();
+document.addEventListener('DOMContentLoaded',()=>{
+  const navRight=document.querySelector('nav .flex.items-center.gap-4');
+  if(navRight&&!document.getElementById('dark-mode-toggle')){
+    const w=document.createElement('div');w.className='dark-toggle-wrapper';
+    w.innerHTML=`<span class="material-symbols-outlined dark-toggle-icon sun" style="font-size:16px;font-variation-settings:'FILL' 1;">light_mode</span><button id="dark-mode-toggle" aria-label="Toggle dark mode"></button><span class="material-symbols-outlined dark-toggle-icon moon" style="font-size:16px;font-variation-settings:'FILL' 1;">dark_mode</span>`;
+    navRight.insertBefore(w,navRight.firstChild);
+    document.getElementById('dark-mode-toggle').addEventListener('click',()=>{const d=document.documentElement.classList.toggle('dark');localStorage.setItem('bgl-theme',d?'dark':'light');});
+  }
+});
+</script>
+<script>
+(function(){
+  const dot=document.createElement('div');dot.className='cursor-dot cursor-hidden';
+  const ring=document.createElement('div');ring.className='cursor-ring cursor-hidden';
+  document.addEventListener('DOMContentLoaded',()=>{document.body.appendChild(dot);document.body.appendChild(ring);});
+  let mX=-999,mY=-999,rX=-999,rY=-999;
+  document.addEventListener('mousemove',e=>{mX=e.clientX;mY=e.clientY;dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');dot.style.left=mX+'px';dot.style.top=mY+'px';},{passive:true});
+  document.addEventListener('mouseleave',()=>{dot.classList.add('cursor-hidden');ring.classList.add('cursor-hidden');});
+  document.addEventListener('mouseenter',()=>{dot.classList.remove('cursor-hidden');ring.classList.remove('cursor-hidden');});
+  (function render(){rX+=(mX-rX)*0.12;rY+=(mY-rY)*0.12;ring.style.left=rX+'px';ring.style.top=rY+'px';requestAnimationFrame(render);})();
+  const sel='a,button,input,textarea,select,[tabindex],label';
+  document.addEventListener('mouseover',e=>{if(e.target.closest(sel)){ring.classList.add('hovering');dot.classList.add('hovering');}});
+  document.addEventListener('mouseout',e=>{if(e.target.closest(sel)){ring.classList.remove('hovering');dot.classList.remove('hovering');}});
+})();
+</script>
+</body>
+</html>
