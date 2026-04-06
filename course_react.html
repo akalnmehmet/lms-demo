@@ -287,8 +287,8 @@ html.dark .bg-secondary-container { background-color: rgba(92,91,124,0.3) !impor
 
 /* === SIDEBAR DARK === */
 html.dark aside {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
+    background-color: transparent !important;
+    border-color: rgba(255,255,255,0.05) !important;
 }
 html.dark aside a,
 html.dark aside p,
@@ -427,11 +427,12 @@ html.dark .side-link {
 }
 html.dark .side-link.active,
 html.dark a.side-link.active {
-    background-color: #1e3a5f !important;
-    color: #e2e8f0 !important;
+    background-color: #1e293b !important;
+    color: #93c5fd !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3) !important;
 }
 html.dark .side-link:hover {
-    background-color: #1e293b !important;
+    background-color: #334155 !important;
     color: #f1f5f9 !important;
 }
 html.dark .bg-blue-50 {
@@ -684,8 +685,8 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="p-4 md:p-6 space-y-5">
           <div><div class="flex items-baseline gap-3"><span class="text-3xl font-black text-slate-900">$199</span><span class="text-slate-400 line-through text-sm">$499</span><span class="text-[10px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">60% OFF</span></div><p class="text-[11px] text-slate-500 mt-1"><span class="material-symbols-outlined text-[13px] text-blue-400">timer</span> <strong class="text-blue-600">5 days</strong> left at this price!</p></div>
-          <a href="course_player.html?course=react" class="cta-btn kinetic-gradient text-white w-full py-4 rounded-xl text-sm font-black uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 block text-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">rocket_launch</span>Start Course Now</a>
-          <button class="w-full py-3 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:border-orange-300 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[18px]">favorite_border</span>Add to Wishlist</button>
+          <a href="admin_upload_course.html" class="cta-btn kinetic-gradient text-white w-full py-4 rounded-xl text-sm font-black uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 block text-center"><span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1">edit_square</span>Edit Course</a>
+          <a href="admin_courses.html" class="w-full py-3 border-2 border-slate-200 rounded-xl text-sm font-bold text-slate-700 hover:border-orange-300 hover:text-blue-600 transition-colors flex items-center justify-center gap-2" style="text-decoration:none;"><span class="material-symbols-outlined text-[18px]">query_stats</span>Course Statistics</a>
           <p class="text-[10px] text-center text-slate-400">30-Day Money-Back Guarantee · No questions asked</p>
           <div class="pt-4 border-t border-slate-50"><p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">This course includes</p><div><div class="feature-row"><span class="material-symbols-outlined text-blue-400 text-[18px]">ondemand_video</span><span>44 hours of on-demand HD video</span></div><div class="feature-row"><span class="material-symbols-outlined text-blue-400 text-[18px]">code</span><span>Full GitHub repo with starter &amp; final code</span></div><div class="feature-row"><span class="material-symbols-outlined text-blue-400 text-[18px]">all_inclusive</span><span>Lifetime access &amp; free updates</span></div><div class="feature-row"><span class="material-symbols-outlined text-blue-400 text-[18px]">workspace_premium</span><span>Certificate of Completion</span></div><div class="feature-row"><span class="material-symbols-outlined text-blue-400 text-[18px]">verified</span><span>LinkedIn-verifiable credential</span></div></div></div>
         </div>

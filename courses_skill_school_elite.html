@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
@@ -353,8 +353,8 @@ html.dark .bg-secondary-container { background-color: rgba(92,91,124,0.3) !impor
 
 /* === SIDEBAR DARK === */
 html.dark aside {
-    background-color: #0f172a !important;
-    border-color: #1e293b !important;
+    background-color: transparent !important;
+    border-color: rgba(255,255,255,0.05) !important;
 }
 html.dark aside a,
 html.dark aside p,
@@ -493,11 +493,12 @@ html.dark .side-link {
 }
 html.dark .side-link.active,
 html.dark a.side-link.active {
-    background-color: #1e3a5f !important;
-    color: #e2e8f0 !important;
+    background-color: #1e293b !important;
+    color: #93c5fd !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3) !important;
 }
 html.dark .side-link:hover {
-    background-color: #1e293b !important;
+    background-color: #334155 !important;
     color: #f1f5f9 !important;
 }
 html.dark .bg-blue-50 {
@@ -811,19 +812,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="absolute bottom-0 left-0 w-full h-[2px] bg-primary-container opacity-0 group-hover:opacity-100 transition-opacity"></div>
 </a>
 </section>
-<!-- CTA Section -->
-<section class="mt-24 bg-on-surface text-surface py-20 px-12 rounded-2xl relative overflow-hidden soft-reveal reveal-on-scroll fade-up">
-<div class="relative z-10 max-w-3xl">
-<h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-6">Ready to lead the industry?</h2>
-<p class="text-lg text-surface-container-highest/70 mb-10 leading-relaxed">Join 50,000+ elite students mastering the crafts of the future. Unlimited access to all courses starting at $49/mo.</p>
-<div class="flex flex-wrap gap-4">
-<a href="get_started_skill_school_elite.html" class="kinetic-gradient text-white px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm shadow-xl hover:scale-105 active:scale-95 transition-all inline-block text-center">Start Your Journey</a>
-<a href="pricing.html" class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-10 py-4 rounded-lg font-black tracking-widest uppercase text-sm hover:bg-white/20 transition-all inline-block text-center">View Pricing</a>
-</div>
-</div>
-<!-- Decorative Element -->
-<div class="absolute top-[-50%] right-[-10%] w-[600px] max-w-full h-[600px] bg-primary-container opacity-20 blur-[120px] rounded-full animate-float-delayed"></div>
-</section>
+
 </main>
 <!-- Footer -->
 

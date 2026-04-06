@@ -71,11 +71,14 @@ body,*{cursor:none!important;}
 
 /* Dark mode overrides */
 html.dark body{background:#0f172a;color:#e2e8f0;}
-html.dark aside{background:#0f172a!important;border-color:#1e293b!important;}
+html.dark aside {
+    background-color: transparent !important;
+    border-color: rgba(255,255,255,0.05) !important;
+}
 html.dark nav{background:rgba(15,23,42,.85)!important;border-color:rgba(51,65,85,.5)!important;}
 html.dark .side-link{color:#94a3b8;}
 html.dark .side-link:hover{background:#1e293b;color:#f1f5f9;}
-html.dark .side-link.active{background:#1e3a5f;color:#e2e8f0;}
+html.dark .side-link.active { background-color: #1e293b !important; color: #93c5fd !important; box-shadow: 0 2px 12px rgba(0,0,0,0.3) !important; }
 html.dark .module-card{background:#1e293b;border-color:#334155;}
 html.dark .module-header{background:#1e293b;}
 html.dark .module-header.open{border-color:#334155;}
@@ -120,7 +123,7 @@ html.dark .bg-\[\#f6f3f2\]{background:#0f172a!important;}
 
 <div class="flex min-h-screen pt-20">
   <!-- Sidebar -->
-  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-4 md:p-6 gap-5 z-40 sidebar-scroll">
+  <aside class="hidden md:flex h-[calc(100vh-5rem)] w-72 flex-col fixed left-0 top-20 bg-white border-r border-slate-200/50 p-6 gap-5 z-40 sidebar-scroll">
     <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
       <div class="w-10 h-10 rounded-full kinetic-gradient flex items-center justify-center text-white font-black text-sm">A</div>
       <div><p class="text-sm font-bold text-slate-900 dark:text-white">Admin</p><p class="text-[10px] font-semibold uppercase tracking-widest text-slate-500">System Administrator</p></div>
@@ -132,7 +135,6 @@ html.dark .bg-\[\#f6f3f2\]{background:#0f172a!important;}
       <a class="side-link" href="admin_settings.html"><span class="material-symbols-outlined text-[20px]">settings</span>Settings</a>
     </nav>
     <div class="flex flex-col gap-1 border-t border-slate-100 pt-3">
-      <a class="side-link" href="learner_help.html"><span class="material-symbols-outlined text-[18px]">help_outline</span>Help</a>
       <a class="side-link" href="landing.html"><span class="material-symbols-outlined text-[18px]">logout</span>Logout</a>
     </div>
   </aside>

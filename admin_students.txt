@@ -1,0 +1,2 @@
+Öğrenci Girişi: demo@student.com ve şifre student123
+Yönetici Girişi: admin@company.com ve şifre admin123
